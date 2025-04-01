@@ -21,6 +21,11 @@
     --contraste-dark: #1E4B4D;
     --cor-clara-dark: #7BCACC;
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 .body {
     display: flex;
@@ -40,7 +45,7 @@
 .Desconto {
     display: flex;
     padding: 10px;
-    height: 30px;
+    height: 35px;
     justify-content: center;
     align-items: flex-start;
     gap: 10px;
@@ -50,11 +55,10 @@
 
 .Desconto p {
     color: var(--branco);
-    font-size: 24px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    transform: translateY(-20px);
 }
 
 .BuscaHeader {
@@ -74,27 +78,27 @@
 }
 
 .Pesquisa {
+    transform: translateX(-100px);
     display: flex;
-    width: 900px;
+    width: 600px;
     height: 12px;
-    padding: 12px 12px;
+    padding: 16px 12px;
     align-items: center;
     gap: 790px;
     flex-shrink: 0;
     border: 1px solid var(--cinza);
+    
 }
 
 .Pesquisa p {
     color: var(--cinza);
     font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
+    font-weight: 400;   
+    white-space: nowrap; /* Adiciona esta linha */
 }
-
 .Iconpesquisa{
     color: var(--cinza);
-    transform: translateX(18px);
+    transform: translateX(-308px);
 }
 
 .Iconsbusac {
@@ -178,6 +182,7 @@
     vertical-align: middle; /* Alinha o ícone verticalmente com o texto */
 }
 
+/* Adicione ou atualize estas regras no seu arquivo CSS */
 
 /* Contêiner do carrossel */
 .carousel-container {
@@ -192,17 +197,74 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Botões de navegação - agora posicionados acima */
+/* Wrapper para controlar o overflow */
+.carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Estilização do carrossel */
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+
+/* Cartões de produto */
+.product-card {
+    flex: 0 0 calc(100% / 4); /* Divide em 4 colunas iguais */
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 2px 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.product-image {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+/* Estilo específico para o título do carrossel */
+.carousel-container .section-title,
+h2.section-title,
+.section-title.carousel-heading {
+    color: var(--cor-primaria);
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+/* Botões de navegação */
 .carousel-controls {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px; /* Adiciona espaçamento entre os botões e o carrossel */
+    margin-bottom: 10px;
 }
 
 .carousel-controls button {
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--cor-primaria);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -210,27 +272,16 @@
     border-radius: 50%;
     font-size: 18px;
     transition: 0.3s;
+    z-index: 10;
 }
 
 .carousel-controls button:hover {
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--primaria-contraste);
 }
 
-/* Estilização do carrossel */
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-/* Cartões de produto */
-.product-card {
-    min-width: 25%;
-    box-sizing: border-box;
-    padding: 10px;
-    text-align: center;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+.carousel-controls button:disabled {
+    background: var(--cinza);
+    cursor: not-allowed;
 }
 
 /* Paginação */
@@ -243,33 +294,37 @@
     height: 12px;
     width: 12px;
     margin: 0 5px;
-    background-color: #bbb;
+    background-color: var(--cinza);
     border-radius: 50%;
     display: inline-block;
     transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 .pagination .dot.active {
-    background-color: #333;
+    background-color: var(--cor-primaria);
 }
+
 
 .container-footer {
     display: flex;
     padding: 20px;
-    background-color: var(--fundo-texto-light);
+    background-color: var(--cinza);
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: flex-start; /* Alinha os itens no topo */
+    flex-wrap: wrap; /* Permite que os itens se movam para a próxima linha se não houver espaço */
 }
 
 .informacoes {
-    flex: 1;
+    transform: translateX(500px);
+    flex: 1; /* Permite que esta seção ocupe espaço proporcionalmente */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
 .informacoes h4 {
-    color: var(--cor-primaria);
+    color: var(--preto);
     font-size: 24px;
     margin-bottom: 10px;
 }
@@ -280,7 +335,7 @@
 }
 
 .informacoes a {
-    color: var(--cinza);
+    color: var(--preto);
     font-size: 16px;
     margin: 5px 0;
     text-decoration: none;
@@ -288,11 +343,13 @@
 }
 
 .informacoes a:hover {
-    color: var(--cor-primaria);
+    color: var(--branco);
 }
 
+
 .atendimento {
-    flex: 1;
+    transform: translateX(75px);
+    flex: 1; /* Permite que esta seção ocupe espaço proporcionalmente */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -306,7 +363,7 @@
 
 .whats h3 {
     margin-right: 10px;
-    color: var(--cor-primaria);
+    color: var(--preto);
 }
 
 .email {
@@ -314,13 +371,13 @@
 }
 
 .email a {
-    color: var(--cor-primaria);
+    color: var(--preto);
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .email a:hover {
-    color: var(--cinza);
+    color: var(--branco);
 }
 
 .social-icons {
@@ -329,19 +386,20 @@
 }
 
 .social-icons a {
-    color: var(--cor-primaria);
+    color: var(--preto);
     font-size: 24px;
     transition: color 0.3s;
 }
 
 .social-icons a:hover {
-    color: var(--cinza);
+    color: var(--branco);
 }
 
+
 .formas-pagamento {
-    flex: 1;
+    flex-basis: 100%; /* Faz com que esta seção ocupe toda a largura disponível */
     text-align: center;
-    color: var(--cinza);
+    color: var(--branco);
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 20px; /* Espaçamento acima da seção de formas de pagamento */
 }
