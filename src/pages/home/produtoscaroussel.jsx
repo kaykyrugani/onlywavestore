@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import { faChevronLeft, faChevronRight, faTag, faStar as fasStar } from "@fortawesome/free-solid-svg-icons"; 
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
-import "./style.css";
 
 const ProductCarousel = ({ products, title }) => {
     const [currentIndex, setCurrentIndex] = useState(0);

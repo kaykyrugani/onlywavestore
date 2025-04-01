@@ -77,6 +77,8 @@
     aspect-ratio: 92/57;
 }
 
+/* Remover ou comentar os estilos existentes para .Pesquisa e .Iconpesquisa */
+/*
 .Pesquisa {
     transform: translateX(-100px);
     display: flex;
@@ -87,36 +89,141 @@
     gap: 790px;
     flex-shrink: 0;
     border: 1px solid var(--cinza);
-    
 }
 
 .Pesquisa p {
     color: var(--cinza);
     font-size: 12px;
     font-weight: 400;   
-    white-space: nowrap; /* Adiciona esta linha */
+    white-space: nowrap;
 }
+
 .Iconpesquisa{
     color: var(--cinza);
     transform: translateX(-308px);
 }
+*/
 
 .Iconsbusac {
     margin-left: auto; /* Move os ícones para a direita */
     display: flex; /* Certifique-se de que os ícones sejam flexíveis */
     gap: 10px; /* Espaçamento entre os ícones */
-    transform: translateX(-500px);
+    transform: translateX(-482px);
     color: var(--cor-primaria);
     
 }
 
+/* Adicione estes estilos ao final do seu arquivo style.css */
+
+/* Estilos para o container do item de navegação */
+.nav-item-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Estilo para o item de navegação ativo */
+.active-nav-item {
+    color: var(--primaria-contraste) !important;
+    font-weight: 500;
+}
+
+/* Dropdown menu principal */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza em relação ao item do menu */
+    width: 400px;
+    height: 400px;
+    background-color: var(--branco);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Seta (raibinho) conectando o item ao dropdown */
+.dropdown-arrow {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--branco);
+}
+
+/* Conteúdo do dropdown */
+.dropdown-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/* Link "Ver todos os produtos" */
+.see-all-link {
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+.see-all-link a {
+    color: var(--cinza) !important;
+    font-size: 12px !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.see-all-link a:hover {
+    text-decoration: underline;
+}
+
+/* Container para os itens do dropdown */
+.dropdown-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-left: 24px;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: auto;
+    width: 100%;
+}
+
+/* Item individual do dropdown */
+.dropdown-item {
+    text-align: left;
+    padding: 12px 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dropdown-item a {
+    color: var(--preto) !important;
+    font-size: 18px !important;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+/* Ajustes para o Navbar existente */
 .Navbar {
+    position: relative;
     display: flex;
     padding: 10px 224px;
-    align-items: flex-start;
+    align-items: center;
     gap: 32px;
     align-self: stretch;
     background: var(--fundo-texto-light);
+    z-index: 1000; /* Valor menor que as sugestões de pesquisa */
 }
 
 .Navbar a {
@@ -125,7 +232,40 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    transform: translateX(100px);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+/* Botões do modal de confirmação */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.modal-buttons button:first-child {
+    background-color: var(--cor-primaria);
+    color: white;
+}
+
+.modal-buttons button:last-child {
+    background-color: var(--cinza);
+    color: white;
+}
+
+.modal-buttons button:hover {
+    opacity: 0.9;
 }
 
 .Hero {
@@ -581,4 +721,484 @@ h2.section-title,
     color: var(--branco);
     font-size: 14px;
     margin-top: 20px; /* Espaçamento acima da seção de formas de pagamento */
+}
+
+/* Adicione estes estilos ao final do seu arquivo style.css */
+
+/* Estilos para o ícone do carrinho no header */
+.cart-icon-wrapper {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.cart-icon-wrapper:hover {
+    transform: scale(1.5);
+}
+
+/* Estilo atualizado para o contador do carrinho */
+.cart-count {
+    position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: var(--cor-primaria);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  transform: translate(5.5px, -3.5px);
+}
+
+/* Overlay do carrinho */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--preto);
+  z-index: 999;
+}
+
+/* Container do carrinho */
+.cart-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 700px;
+  height: 100vh;
+  background-color: var(--branco);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Cabeçalho do carrinho */
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-header h2 {
+  color: var(--cor-primaria);
+  font-size: 24px;
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--cinza);
+}
+
+/* Carrinho vazio */
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+.empty-cart-icon {
+  font-size: 80px;
+  color: var(--cinza);
+  margin-bottom: 20px;
+}
+
+.empty-cart h3 {
+  margin-bottom: 10px;
+  color: var(--cinza);
+}
+
+.empty-cart p {
+  margin-bottom: 30px;
+  color: var(--cinza);
+}
+
+.back-to-shop-btn {
+  padding: 12px 24px;
+  background-color: var(--cinza);
+  color: var(--branco);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.back-to-shop-btn:hover {
+  opacity: 0.9;
+}
+
+/* Itens do carrinho */
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.cart-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  margin-right: 15px;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+}
+
+.item-price {
+  font-weight: bold;
+  color: var(--cor-primaria);
+  margin-bottom: 10px;
+}
+
+/* Controle de quantidade */
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.quantity-control button:hover {
+  background-color: #f5f5f5;
+}
+
+.quantity-control span {
+  font-weight: bold;
+  color: var(--preto);
+}
+
+/* Rodapé do carrinho */
+.cart-footer {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  background-color: #f9f9f9;
+}
+
+.cart-footer h4 {
+  margin-bottom: 10px;
+  color: var(--cinza);
+}
+
+.subtotal {
+  font-weight: bold;
+  color: var(--cor-primaria) !important;
+  margin-bottom: 20px !important;
+}
+
+.cart-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.checkout-btn, .clear-cart-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  flex: 1;
+  transition: opacity 0.3s;
+}
+
+.checkout-btn {
+  background-color: var(--cor-primaria);
+  color: var(--branco);
+}
+
+.clear-cart-btn {
+  background-color: var(--cinza);
+  color: var(--branco);
+}
+
+.checkout-btn:hover, .clear-cart-btn:hover {
+  opacity: 0.9;
+}
+
+/* Modal de confirmação */
+.clear-cart-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--branco);
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.clear-cart-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1001;
+}
+
+.clear-cart-modal h3 {
+  margin-bottom: 20px;
+  color: var(--cinza);
+}
+
+/* Tooltip arrow styling */
+.tooltip-arrow {
+  position: absolute;
+  bottom: -10px; /* Position it below the navbar item */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid var(--branco);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 101; /* Ensure it's above other elements but below the dropdown */
+}
+
+/* Show the tooltip arrow when menu is active */
+.nav-item-container.active .tooltip-arrow {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Adjust the dropdown menu positioning to align with the arrow */
+.dropdown-menu {
+  margin-top: 10px; /* Add space for the arrow */
+}
+
+/* Remove the existing dropdown arrow since we're adding a new one */
+.dropdown-arrow {
+  display: none;
+}
+
+.dropdown-menu, .nav-item-container, .tooltip-arrow {
+  z-index: 200; /* Maior que o Navbar, mas menor que as sugestões */
+}
+
+/* ===== ESTILOS DA BARRA DE PESQUISA ===== */
+/* Importado de SearchBar.css e ajustado para resolver conflitos */
+
+.search-container {
+  position: relative;
+  width: 600px;
+  z-index: 1500; /* Valor aumentado para ficar acima do navbar */
+  transform: translateX(-100px);
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  height: 44px;
+  padding: 16px 40px 16px 12px;
+  border: 1px solid var(--cinza);
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--preto);
+  transition: border-color 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: var(--cinza);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  color: var(--cinza);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.clear-search-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--cinza);
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.clear-search-button:hover {
+  color: var(--cor-primaria);
+}
+
+/* Ajuste crítico para as sugestões de pesquisa */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 600px;
+  max-height: 500px;
+  background-color: white;
+  border: 1px solid var(--cinza);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 2000; /* Valor maior que o navbar e outros elementos */
+  margin-top: 4px;
+  overflow-y: auto;
+}
+
+/* Garantir que as sugestões fiquem acima de tudo */
+.search-suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 2000; /* Consistente com o container pai */
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+  position: relative; /* Adiciona posicionamento relativo */
+  z-index: 2000; /* Consistente com os containers pais */
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background-color: #f5f5f5;
+}
+
+.suggestion-name {
+  font-weight: 500;
+  color: var(--preto);
+}
+
+.suggestion-category {
+  font-size: 12px;
+  color: var(--cinza);
+  margin-left: 8px;
+}
+
+.suggestion-type {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: var(--fundo-texto-light);
+  color: white;
+}
+
+.suggestion-item.categoria .suggestion-type {
+  background-color: var(--azul-analogo);
+}
+
+.suggestion-item.marca .suggestion-type {
+  background-color: var(--verde-analogo);
+}
+
+/* Ajuste para o Navbar para garantir que não sobreponha as sugestões */
+.Navbar {
+  position: relative;
+  display: flex;
+  padding: 10px 224px;
+  align-items: center;
+  gap: 32px;
+  align-self: stretch;
+  background: var(--fundo-texto-light);
+  z-index: 1000; /* Valor menor que as sugestões de pesquisa */
+}
+
+/* Ajuste para o Header para garantir posicionamento correto */
+.Header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  z-index: 900; /* Valor menor que o Navbar */
+}
+
+/* Ajuste para o BuscaHeader para garantir que a barra de pesquisa fique acima */
+.BuscaHeader {
+  position: relative;
+  transform: translateX(165px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 224px;
+  z-index: 1200; /* Valor entre o Navbar e as sugestões */
 }
