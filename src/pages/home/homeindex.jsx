@@ -13,12 +13,23 @@ function Home() {
         <div className="home">
             <Header />
             <Hero />
-            <h2>Calçados</h2>
-            <ProductCarousel products={tenis} />
-            <h2>Camisetas</h2>
-            <ProductCarousel products={camisetas} />
-            <h2>Acessórios</h2>
-            <ProductCarousel products={acessorios} />
+            
+            {/* Carrossel de Calçados com título específico */}
+            <ProductCarousel 
+                products={tenis} 
+                title="Calçados" 
+            />
+            
+            <ProductCarousel 
+                products={camisetas} 
+                title="Camisetas" 
+            />
+            
+            <ProductCarousel 
+                products={acessorios} 
+                title="Acessórios" 
+            />
+            
             <Footer />
         </div>
     );
