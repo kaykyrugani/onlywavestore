@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Adicionado useNavigate
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faShoppingCart, faTimes, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import Modal from 'react-modal';
 import { tenis, camisetas, acessorios } from './produtoscards';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import './style.css';
 
 // Configuração necessária para acessibilidade do React Modal
 Modal.setAppElement('#root');
@@ -45,6 +47,7 @@ export const menuItems = [
 ];
 
 function Header() {
+    const navigate = useNavigate(); // Adicionado hook useNavigate
     // Estado para controlar a abertura/fechamento do carrinho
     const [isCartOpen, setIsCartOpen] = useState(false);
     // Estado para armazenar os itens do carrinho
@@ -90,9 +93,28 @@ function Header() {
         };
     }, []);
 
-    const handleNavClick = (e, section) => {
+    // Função atualizada para lidar com cliques nos itens do menu principal
+    const handleNavClick = (e, menuId) => {
         e.preventDefault();
-        // Defina a lógica para a navegação aqui
+        
+        // Mapeamento de IDs de menu para rotas
+        const menuToRoute = {
+            'sneakers': 'tenis',
+            'roupas': 'camisetas',
+            'conjuntos': 'conjuntos',
+            'acessorios': 'acessorios',
+            'marcas': 'marcas'
+        };
+        
+        // Navegar para a página correspondente
+        if (menuToRoute[menuId]) {
+            navigate(`/produtos/${menuToRoute[menuId]}`);
+        } else {
+            console.error(`Rota não definida para o menu: ${menuId}`);
+        }
+        
+        // Fechar o menu após a navegação
+        setActiveMenu(null);
     };
 
     // Função para abrir o carrinho
@@ -145,13 +167,16 @@ function Header() {
             </div>
             <div className='BuscaHeader'>
                 <div className='Logo'>
-                    <img src="" alt="" />
+                    <Link to="/">
+                        <img src="" alt="" />
+                    </Link>
                 </div>
                 {/* Substituir a div Pesquisa pelo componente SearchBar */}
                 <SearchBar />
                 <div className='Iconsbusac'>
-                    <FontAwesomeIcon icon={faUser} />
-                    {/* Adicionando evento de clique ao ícone do carrinho */}
+                    <Link to="/conta">
+                        <FontAwesomeIcon icon={faUser} className="user-icon" />
+                    </Link>
                     <div className="cart-icon-wrapper">
                         <FontAwesomeIcon 
                             icon={faShoppingCart} 
@@ -170,13 +195,20 @@ function Header() {
                         onMouseEnter={() => handleMenuHover(item.id)}
                         onMouseLeave={handleMenuLeave}
                     >
-                        <a 
-                            href={`#${item.id}`} 
+                        {/* Substituir a tag <a> por um componente que usa onClick */}
+                        <div 
+                            className={`nav-item ${activeMenu === item.id ? "active-nav-item" : ""}`}
                             onClick={(e) => handleNavClick(e, item.id)}
-                            className={activeMenu === item.id ? "active-nav-item" : ""}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    handleNavClick(e, item.id);
+                                }
+                            }}
                         >
                             {item.label}
-                        </a>
+                        </div>
                         
                         <div className="tooltip-arrow"></div>
                         
@@ -196,9 +228,10 @@ function Header() {
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: 0.3 }}
                                         >
-                                            <a href={`#ver-todos-${item.id}`}>
+                                            <Link to={`/produtos/${item.id === 'sneakers' ? 'tenis' : 
+                                                      item.id === 'roupas' ? 'camisetas' : item.id}`}>
                                                 Ver todos os produtos
-                                            </a>
+                                            </Link>
                                         </motion.div>
                                         <div className="dropdown-items">
                                             {item.items.map((subItem, index) => (
@@ -217,9 +250,10 @@ function Header() {
                                                         transition: { duration: 0.7 }
                                                     }}
                                                 >
-                                                    <a href={`#${item.id}-${subItem.id}`}>
+                                                    <Link to={`/produtos/${item.id === 'sneakers' ? 'tenis' : 
+                                                              item.id === 'roupas' ? 'camisetas' : item.id}?produto=${subItem.id}`}>
                                                         {subItem.name}
-                                                    </a>
+                                                    </Link>
                                                 </motion.div>
                                             ))}
                                         </div>

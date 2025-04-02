@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"; 
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import { faChevronLeft, faChevronRight, faTag, faStar as fasStar } from "@fortawesome/free-solid-svg-icons"; 
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 
-const ProductCarousel = ({ products, title }) => {
+const ProductCarousel = ({ products, title, categorySlug }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const itemsPerPage = 4;
     const totalPages = Math.ceil(products.length / itemsPerPage);
@@ -77,7 +78,8 @@ const ProductCarousel = ({ products, title }) => {
                 <h2 className="section-title carousel-heading">
                     {title || "Produtos"}
                 </h2>
-                <a href="#" className="ver-mais-link">Ver mais</a>
+                {/* Link para a página de categoria */}
+                <Link to={`/produtos/${categorySlug}`} className="ver-mais-link">Ver mais</Link>
             </div>
             
             <div className="carousel-controls">

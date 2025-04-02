@@ -305,10 +305,24 @@ html, body {
   /* Espaçamento entre os ícones */
   transform: translateX(-482px);
   color: var(--cor-primaria);
-
 }
 
-/* Adicione estes estilos ao final do seu arquivo style.css */
+.user-icon {
+  color: var(--cor-primaria);
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.user-icon:hover {
+  transform: scale(1.5);
+}
+
+
+.nav-item{
+  color: var(--branco);
+  cursor: pointer;
+}
 
 /* Estilos para o container do item de navegação */
 .nav-item-container {
