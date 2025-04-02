@@ -1,7 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
-import { faTiktok, faInstagram } from "@fortawesome/free-brands-svg-icons"; // Importando do pacote correto
+import { faTiktok, faInstagram, } from "@fortawesome/free-brands-svg-icons"; // Importando do pacote correto
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons"; // Corrigido para importar do pacote correto
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 function Footer() {
     return (
@@ -26,6 +27,7 @@ function Footer() {
                         <h3>35 997361138</h3>
                     </div>
                     <div className='email'>
+                        <FontAwesomeIcon icon={faEnvelope} className="email-icon" />
                         <a href="mailto:onlywavestore@gmail.com">onlywavestore@gmail.com</a>
                     </div>
                     <div className='social-icons'>

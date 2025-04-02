@@ -1,3 +1,22 @@
+ /*
+ * ARQUIVO DESATIVADO - NÃO ESTÁ MAIS EM USO
+ * 
+ * Este arquivo CSS foi desativado e seu conteúdo foi movido para src/pages/home/style.css
+ * para resolver problemas de sobreposição e z-index entre componentes.
+ * 
+ * MOTIVO DA DESATIVAÇÃO:
+ * A seção de pesquisa e navbar estavam sobrepondo o carrinho de compras.
+ * 
+ * 1. Os z-index definidos em arquivos diferentes não seguiam uma hierarquia consistente
+ * 2. A ordem de carregamento dos estilos poderia fazer com que regras fossem sobrescritas
+ * 3. Elementos em diferentes contextos de empilhamento não interagiam como esperado
+ 
+
+ * 
+ * Veja abaixo os estilos originais que foram movidos para src/pages/home/style.css:
+ */
+
+ /*
 .cart-overlay {
   position: fixed;
   top: 0;
@@ -130,7 +149,7 @@
   opacity: 0.9;
 }
 
-/* Estilos para o modal de confirmação */
+ Estilos para o modal de confirmação 
 .clear-cart-modal {
   position: absolute;
   top: 50%;
@@ -188,3 +207,5 @@
 .modal-buttons button:hover {
   opacity: 0.9;
 }
+
+*/
