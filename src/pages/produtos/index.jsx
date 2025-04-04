@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Header from '../home/header';
-import Footer from '../home/footer';
-import ProductGrid from './ProductGrid';
+import Layout from '../../components/Layout/Layout';
+import SEO from '../../components/SEO/SEO';
+import Container from '../../components/Container/Container';
+import ProductGrid from '../../components/ProductGrid/ProductGrid';
 import SortDropdown from './SortDropdown';
 import { tenis, camisetas, acessorios } from '../home/produtoscards';
-import './styleproduto.css';
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import styles from './styleproduto.module.css';
 
 // Mapeamento de categorias para dados e nomes de exibição
 const categoryMap = {
@@ -48,11 +51,7 @@ const ProductsPage = () => {
 
   // Verificar se a categoria existe e carregar os produtos correspondentes
   useEffect(() => {
-    console.log('useEffect executando, categoria:', categoria);
-    console.log('Categorias disponíveis:', Object.keys(categoryMap));
-    
     if (categoria && categoryMap[categoria]) {
-      console.log('Produtos encontrados:', categoryMap[categoria].data.length);
       setProducts(categoryMap[categoria].data);
       setCurrentPage(1); // Reset para a primeira página ao mudar de categoria
       
@@ -67,10 +66,8 @@ const ProductsPage = () => {
           setCurrentPage(pageNumber);
         }
       }
-    } else {
-      console.log('Categoria não encontrada ou inválida');
     }
-  }, [categoria, produtoId]);
+  }, [categoria, produtoId, productsPerPage]);
 
   // Opções de ordenação
   const sortOptions = [
@@ -102,7 +99,6 @@ const ProductsPage = () => {
       case 'rating-desc':
         return productsCopy.sort((a, b) => b.avaliacoes - a.avaliacoes);
       case 'newest':
-        // Assumindo que produtos mais recentes têm IDs maiores
         return productsCopy.sort((a, b) => b.id - a.id);
       case 'bestseller':
         // Aqui você precisaria de um campo adicional para "mais vendidos"
@@ -126,64 +122,82 @@ const ProductsPage = () => {
   // Função para mudar de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  // Obter o nome de exibição da categoria para SEO
+  const categoryDisplayName = categoryMap[categoria]?.displayName || 'Produtos';
+  
   // Verificar se a categoria existe
   if (categoria && !categoryMap[categoria]) {
     return (
-      <div className="products-page">
-        <Header />
+      <Layout
+        seo={
+          <SEO 
+            title="Categoria não encontrada"
+            description="A categoria que você está procurando não existe."
+            canonicalUrl={`https://onlywavestore.com/produtos/${categoria}`}
+          />
+        }
+      >
         <motion.div
           initial="initial"
           animate="in"
           exit="out"
           variants={pageVariants}
-          className="page-content"
+          className={styles.pageContent}
         >
-          <div className="category-not-found">
-            <h2>Categoria não encontrada</h2>
-            <p>A categoria que você está procurando não existe.</p>
-          </div>
+          <Container>
+            <div className={styles.categoryNotFound}>
+              <h2>Categoria não encontrada</h2>
+              <p>A categoria que você está procurando não existe.</p>
+            </div>
+          </Container>
         </motion.div>
-        <Footer />
-      </div>
+      </Layout>
     );
   }
 
   return (
-    <div className="products-page">
-      <Header />
-      
+    <Layout
+      seo={
+        <SEO 
+          title={categoryDisplayName}
+          description={`Confira nossa coleção de ${categoryDisplayName.toLowerCase()} com os melhores preços e frete grátis para todo o Brasil.`}
+          keywords={`${categoryDisplayName.toLowerCase()}, moda, OnlyWave, comprar ${categoryDisplayName.toLowerCase()}`}
+          canonicalUrl={`https://onlywavestore.com/produtos/${categoria}`}
+        />
+      }
+    >
       <motion.div
         initial="initial"
         animate="in"
         exit="out"
         variants={pageVariants}
-        className="page-content"
+        className={styles.pageContent}
       >
-        <div className="products-container">
-          <div className="products-header">
-            <h1>{categoryMap[categoria]?.displayName || 'Produtos'}</h1>
-            
-            <div className="sort-container">
-              <h4>Ordenar por:</h4>
-              <SortDropdown 
-                options={sortOptions} 
-                selectedOption={sortOption} 
-                onSelect={setSortOption} 
-              />
+        <Container>
+          <div className={styles.productsContainer}>
+            <div className={styles.productsHeader}>
+              <h1>{categoryDisplayName}</h1>
+              
+              <div className={styles.sortContainer}>
+                <h4>Ordenar por:</h4>
+                <SortDropdown 
+                  options={sortOptions} 
+                  selectedOption={sortOption} 
+                  onSelect={setSortOption} 
+                />
+              </div>
             </div>
+            
+            <ProductGrid 
+              products={currentProducts} 
+              currentPage={currentPage} 
+              totalPages={totalPages} 
+              onPageChange={paginate} 
+            />
           </div>
-          
-          <ProductGrid 
-            products={currentProducts} 
-            currentPage={currentPage} 
-            totalPages={totalPages} 
-            onPageChange={paginate} 
-          />
-        </div>
+        </Container>
       </motion.div>
-      
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 

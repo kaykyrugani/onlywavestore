@@ -1,0 +1,21 @@
+.infoCard {
+  color: var(--cinza);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.infoHighlight {
+  color: var(--cor-primaria);
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 26px;
+}
+
+.infoIcon {
+  color: var(--cor-primaria);
+  margin-right: 8px;
+  font-size: 20px;
+  vertical-align: middle;
+}

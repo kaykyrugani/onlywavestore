@@ -1,0 +1,10 @@
+.image {
+  transition: opacity 0.3s ease;
+  max-width: 100%;
+  height: auto;
+}
+
+.loading {
+  opacity: 0.5;
+  filter: blur(5px);
+}

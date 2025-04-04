@@ -1,0 +1,139 @@
+/* Estilos compartilhados entre componentes */
+
+/* Botões */
+.primaryButton {
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primaryButton:hover {
+  background-color: var(--primaria-contraste);
+}
+
+.secondaryButton {
+  background-color: var(--cinza);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.secondaryButton:hover {
+  opacity: 0.9;
+}
+
+/* Containers */
+.pageContainer {
+  width: 100%;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contentContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* Textos */
+.sectionTitle {
+  color: var(--cor-primaria);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.textPrimary {
+  color: var(--cor-primaria);
+}
+
+.textSecondary {
+  color: var(--cinza);
+}
+
+/* Flexbox utilitários */
+.flexRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.justifyBetween {
+  justify-content: space-between;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+/* Espaçamentos */
+.mt1 { margin-top: 0.25rem; }
+.mt2 { margin-top: 0.5rem; }
+.mt3 { margin-top: 1rem; }
+.mt4 { margin-top: 1.5rem; }
+.mt5 { margin-top: 3rem; }
+
+.mb1 { margin-bottom: 0.25rem; }
+.mb2 { margin-bottom: 0.5rem; }
+.mb3 { margin-bottom: 1rem; }
+.mb4 { margin-bottom: 1.5rem; }
+.mb5 { margin-bottom: 3rem; }
+
+.mx1 { margin-left: 0.25rem; margin-right: 0.25rem; }
+.mx2 { margin-left: 0.5rem; margin-right: 0.5rem; }
+.mx3 { margin-left: 1rem; margin-right: 1rem; }
+.mx4 { margin-left: 1.5rem; margin-right: 1.5rem; }
+.mx5 { margin-left: 3rem; margin-right: 3rem; }
+
+.my1 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
+.my2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+.my3 { margin-top: 1rem; margin-bottom: 1rem; }
+.my4 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+.my5 { margin-top: 3rem; margin-bottom: 3rem; }
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .contentContainer {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    padding: 0 10px;
+  }
+  
+  .flexRowMobile {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .hideOnMobile {
+    display: none;
+  }
+}

@@ -1,0 +1,59 @@
+.sortDropdown {
+  position: relative;
+  z-index: 10;
+}
+
+.sortDropdownButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--preto, #000000);
+  transition: all 0.3s ease;
+}
+
+.sortDropdownButton:hover {
+  border-color: var(--cor-primaria, #4EBABA);
+}
+
+.dropdownIcon {
+  transition: transform 0.3s ease;
+}
+
+.dropdownIcon.open {
+  transform: rotate(180deg);
+}
+
+.sortDropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+  z-index: 11;
+}
+
+.sortOption {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sortOption:hover {
+  background-color: #f5f5f5;
+}
+
+.sortOption.active {
+  background-color: #f0f7f4;
+  color: var(--cor-primaria, #4EBABA);
+  font-weight: 500;
+}

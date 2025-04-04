@@ -1,0 +1,55 @@
+/* Estilos para o Hero */
+.hero {
+    display: flex;
+    height: 700px;
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+  
+  .imgs {
+    display: flex;
+    padding: 10px;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+  }
+  
+  .infos {
+    display: flex;
+    padding: 24px 361px;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+  }
+  
+  .infoText {
+    display: inline-block;
+    margin-left: 26px;
+  }
+  
+  .infos p {
+    color: var(--cinza);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .infos p span {
+    color: var(--cor-primaria);
+    font-weight: bold;
+  }
+  
+  .infoIcon {
+    color: var(--cor-primaria);
+    margin-right: 8px;
+    font-size: 20px;
+    vertical-align: middle;
+  }
+  

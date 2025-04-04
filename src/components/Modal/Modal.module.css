@@ -1,0 +1,84 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal {
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    padding: 0;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    outline: none;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .title {
+    margin: 0;
+    font-size: 20px;
+    color: var(--cor-primaria);
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--cinza);
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .closeButton:hover {
+    color: var(--cor-primaria);
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  /* Animações para ReactModal */
+  .ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+  
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+  
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+  }
+  
+  .ReactModal__Content {
+    transform: scale(0.8);
+    transition: transform 300ms ease-in-out;
+  }
+  
+  .ReactModal__Content--after-open {
+    transform: scale(1);
+  }
+  
+  .ReactModal__Content--before-close {
+    transform: scale(0.8);
+  }
+  

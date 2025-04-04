@@ -1,11 +1,46 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faTimes } from '@fortawesome/free-solid-svg-icons';
-import '../../pages/home/style.css';
 import { tenis, camisetas, acessorios } from '../../pages/home/produtoscards';
-import { menuItems } from '../../pages/home/header';
+
+// Definir menuItems localmente em vez de importar
+const menuItems = [
+  {
+    id: 'sneakers',
+    label: 'Sneakers',
+    items: tenis.map(item => ({ id: item.id, name: item.nome })),
+  },
+  {
+    id: 'roupas',
+    label: 'Roupas',
+    items: camisetas.map(item => ({ id: item.id, name: item.nome })),
+  },
+  {
+    id: 'conjuntos',
+    label: 'Conjuntos',
+    items: [], // Sem itens por enquanto
+  },
+  {
+    id: 'acessorios',
+    label: 'Acessorios',
+    items: acessorios.map(item => ({ id: item.id, name: item.nome })),
+  },
+  {
+    id: 'marcas',
+    label: 'Marcas',
+    items: [
+      { id: 'nike', name: 'Nike' },
+      { id: 'adidas', name: 'Adidas' },
+      { id: 'puma', name: 'Puma' },
+      { id: 'reebok', name: 'Reebok' },
+      { id: 'newbalance', name: 'New Balance' },
+    ],
+  },
+];
 
 const SearchBar = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -117,8 +152,29 @@ const SearchBar = () => {
 
   // Função para lidar com a seleção de uma sugestão
   const handleSuggestionClick = (suggestion) => {
-    // Aqui você pode implementar a navegação para a página do produto/categoria/marca
-    console.log(`Navegando para: ${suggestion.type} - ${suggestion.name}`);
+    // Implementar navegação baseada no tipo de sugestão
+    if (suggestion.type === 'produto') {
+      // Determinar a categoria do produto
+      let categoria = 'tenis';
+      if (suggestion.category === 'Camiseta') categoria = 'camisetas';
+      if (suggestion.category === 'Acessório') categoria = 'acessorios';
+      
+      navigate(`/produtos/${categoria}?produto=${suggestion.id}`);
+    } else if (suggestion.type === 'categoria') {
+      // Mapear o ID da categoria para a rota correta
+      const categoryMap = {
+        'cat-sneakers': 'tenis',
+        'cat-roupas': 'camisetas',
+        'cat-acessorios': 'acessorios',
+        'cat-conjuntos': 'conjuntos',
+        'cat-marcas': 'marcas'
+      };
+      
+      navigate(`/produtos/${categoryMap[suggestion.id] || suggestion.id.replace('cat-', '')}`);
+    } else if (suggestion.type === 'marca') {
+      const brandId = suggestion.id.replace('brand-', '');
+      navigate(`/produtos/marcas?marca=${brandId}`);
+    }
     
     // Limpa a pesquisa após a seleção
     clearSearch();
