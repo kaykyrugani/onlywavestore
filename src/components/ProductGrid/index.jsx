@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faTag, faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import styles from './Produtogrid.module.css';
 
 const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
   // Função para formatar preço com separador de milhares
@@ -9,7 +10,7 @@ const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
     return price.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL',
-      minimumFractionDigits: 2
+      minimumFractionDigits: 2,
     });
   };
 
@@ -23,71 +24,71 @@ const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
-    
+
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
         stars.push(
-          <FontAwesomeIcon 
-            key={i} 
-            icon={fasStar} 
-            className="star-filled" 
-          />
+          <FontAwesomeIcon key={i} icon={fasStar} className={styles.starFilled} />
         );
       } else {
         stars.push(
-          <FontAwesomeIcon 
-            key={i} 
-            icon={farStar} 
-            className="star-empty" 
-          />
+          <FontAwesomeIcon key={i} icon={farStar} className={styles.starEmpty} />
         );
       }
     }
-    
+
     return stars;
   };
 
   return (
-    <div className="product-grid-container">
-      <div className="product-grid">
+    <div className={styles.productGridContainer}>
+      <div className={styles.productGrid}>
         {products.map((product) => {
           // Assumir preço com desconto de 10% para produtos em promoção
-          const discountedPrice = product.promocao 
-            ? product.preco * 0.9 
-            : null;
-          
+          const discountedPrice = product.promocao ? product.preco * 0.9 : null;
+
           return (
-            <div key={product.id} className="product-card">
-              <div className="product-image">
-                <img src={product.imagem || "https://via.placeholder.com/200x200"} alt={product.nome} />
+            <div key={product.id} className={styles.productCard}>
+              <div className={styles.productImage}>
+                <img
+                  src={product.imagem || 'https://via.placeholder.com/200x200'}
+                  alt={product.nome}
+                />
                 {product.promocao && (
-                  <div className="discount-tag">
+                  <div className={styles.discountTag}>
                     -{calculateDiscount(product.preco, discountedPrice)}%
                   </div>
                 )}
               </div>
-              
-              <div className="product-rating">
-                {renderStars(product.avaliacoes)}
-              </div>
-              
-              <div className="product-info">
-                <div className="product-title">{product.nome}</div>
-                
-                <div className="product-price-container">
+
+              <div className={styles.productRating}>{renderStars(product.avaliacoes)}</div>
+
+              <div className={styles.productInfo}>
+                <div className={styles.productTitle}>{product.nome}</div>
+
+                <div className={styles.productPriceContainer}>
                   {product.promocao ? (
                     <>
-                      <span className="original-price">{formatPrice(product.preco)}</span>
-                      <span className="discounted-price">{formatPrice(discountedPrice)}</span>
+                      <span className={styles.originalPrice}>
+                        {formatPrice(product.preco)}
+                      </span>
+                      <span className={styles.discountedPrice}>
+                        {formatPrice(discountedPrice)}
+                      </span>
                     </>
                   ) : (
-                    <div className="product-price">{formatPrice(product.preco)}</div>
+                    <div className={styles.productPrice}>
+                      {formatPrice(product.preco)}
+                    </div>
                   )}
                 </div>
-                
-                <div className="product-installment" dangerouslySetInnerHTML={{ __html: product.divisao }}></div>
-                
-                <button className="product-button">Comprar</button>
+
+                <div
+                  className={styles.productInstallment}
+                  dangerouslySetInnerHTML={{ __html: product.divisao }}
+                ></div>
+
+                <button className={styles.productButton}>Comprar</button>
               </div>
             </div>
           );
@@ -96,29 +97,35 @@ const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
 
       {/* Paginação */}
       {totalPages > 1 && (
-        <div className="pagination-container">
-          <button 
-            className={`pagination-arrow ${currentPage === 1 ? 'disabled' : ''}`}
+        <div className={styles.paginationContainer}>
+          <button
+            className={`${styles.paginationArrow} ${
+              currentPage === 1 ? styles.disabled : ''
+            }`}
             onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
-          
-          <div className="pagination-numbers">
+
+          <div className={styles.paginationNumbers}>
             {Array.from({ length: totalPages }).map((_, index) => (
               <button
                 key={index}
-                className={`pagination-number ${currentPage === index + 1 ? 'active' : ''}`}
+                className={`${styles.paginationNumber} ${
+                  currentPage === index + 1 ? styles.active : ''
+                }`}
                 onClick={() => onPageChange(index + 1)}
               >
                 {index + 1}
               </button>
             ))}
           </div>
-          
-          <button 
-            className={`pagination-arrow ${currentPage === totalPages ? 'disabled' : ''}`}
+
+          <button
+            className={`${styles.paginationArrow} ${
+              currentPage === totalPages ? styles.disabled : ''
+            }`}
             onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
@@ -126,14 +133,16 @@ const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
           </button>
         </div>
       )}
-      
+
       {/* Indicadores visuais (bolinhas) */}
       {totalPages > 1 && (
-        <div className="pagination-dots">
+        <div className={styles.paginationDots}>
           {Array.from({ length: totalPages }).map((_, index) => (
             <span
               key={index}
-              className={`pagination-dot ${currentPage === index + 1 ? 'active' : ''}`}
+              className={`${styles.paginationDot} ${
+                currentPage === index + 1 ? styles.active : ''
+              }`}
               onClick={() => onPageChange(index + 1)}
             ></span>
           ))}
@@ -143,4 +152,5 @@ const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
   );
 };
 
-export default ProductGrid;
+// Usar memo para evitar re-renderizações desnecessárias
+export default memo(ProductGrid);

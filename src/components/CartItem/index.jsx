@@ -1,5 +1,7 @@
-import { FaPlus, FaMinus } from 'react-icons/fa';
-import './CartItem.css';
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import styles from './CartItem.module.css';
 
 const CartItem = ({ item, updateCartItem }) => {
   const handleIncrement = () => {
@@ -15,20 +17,20 @@ const CartItem = ({ item, updateCartItem }) => {
   };
 
   return (
-    <div className="cart-item">
-      <div className="item-image">
+    <div className={styles.cartItem}>
+      <div className={styles.itemImage}>
         <img src={item.image} alt={item.name} />
       </div>
-      <div className="item-details">
+      <div className={styles.itemDetails}>
         <h3>{item.name}</h3>
-        <p className="item-price">R$ {item.price.toFixed(2)}</p>
-        <div className="quantity-control">
+        <p className={styles.itemPrice}>R$ {item.price.toFixed(2)}</p>
+        <div className={styles.quantityControl}>
           <button onClick={handleDecrement}>
-            <FaMinus />
+            <FontAwesomeIcon icon={faMinus} />
           </button>
           <span>{item.quantity}</span>
           <button onClick={handleIncrement}>
-            <FaPlus />
+            <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
       </div>

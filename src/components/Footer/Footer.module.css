@@ -1,5 +1,5 @@
 /* Estilos para o Footer */
-.containerFooter {
+.containerfooter {
     display: flex;
     padding: 20px;
     justify-content: space-between;
@@ -7,8 +7,8 @@
     flex-wrap: wrap;
     background-color: var(--cor-footer-light);
     width: 100%;
-    margin: 0;
     box-sizing: border-box;
+    margin: 0;
   }
   
   .informacoes {
@@ -17,6 +17,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-top: 16px;
   }
   
   .informacoes h4 {
@@ -67,6 +68,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    margin-top: 16px;
   }
   
   .whats {
@@ -115,7 +117,7 @@
     gap: 16px;
   }
   
-  .emailIcon {
+  .emailicon {
     color: var(--preto);
     gap: 10px;
   }
@@ -149,23 +151,23 @@
     right: 0;
   }
   
-  .socialIcons {
+  .socialicons {
     font-size: 24px;
     display: flex;
     gap: 24px;
   }
   
-  .socialIcons a {
+  .socialicons a {
     color: var(--preto);
     font-size: 24px;
     transition: color 0.3s;
   }
   
-  .socialIcons a:hover {
+  .socialicons a:hover {
     color: var(--branco);
   }
   
-  .formasPagamento {
+  .formaspagamento {
     flex-basis: 100%;
     text-align: center;
     color: var(--branco);

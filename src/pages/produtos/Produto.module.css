@@ -233,3 +233,169 @@
 .category-not-found p {
   color: var(--cinza);
 }
+
+/* Botão de filtro */
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--preto);
+  transition: all 0.3s ease;
+}
+
+.filterButton:hover {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+.filterButton svg {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.filterButton svg.active {
+  transform: rotate(180deg);
+  color: var(--cor-primaria);
+}
+
+/* Painel de filtros */
+.filterPanel {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filterPanel h3 {
+  color: var(--cor-primaria);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.filterGroup {
+  margin-bottom: 20px;
+}
+
+.filterGroup h4 {
+  color: var(--preto);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+/* Opções de ordenação dentro do painel de filtros */
+.sortOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sortOption {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+}
+
+.sortOption:hover {
+  background-color: #f5f5f5;
+}
+
+.sortOption.active {
+  background-color: #f0f7f4;
+  color: var(--cor-primaria);
+  font-weight: 500;
+}
+
+.priceRange {
+  width: 100%;
+}
+
+.priceRange input {
+  width: 100%;
+  margin-bottom: 8px;
+  accent-color: var(--cor-primaria);
+}
+
+.priceLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: var(--cinza);
+}
+
+.filterActions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.clearFilters {
+  padding: 8px 16px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--cinza);
+  transition: all 0.3s ease;
+}
+
+.clearFilters:hover {
+  border-color: var(--cinza);
+}
+
+.applyFilters {
+  padding: 8px 16px;
+  background-color: var(--cor-primaria);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.applyFilters:hover {
+  background-color: var(--contraste-primario);
+}
+
+/* Responsividade para o filtro */
+@media (max-width: 768px) {
+  .sortContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .filterButton {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

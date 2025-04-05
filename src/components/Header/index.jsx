@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tenis, camisetas, acessorios } from '../../pages/home/produtoscards';
-import SearchBar from '../SearchBar/SearchBar';
-import Cart from '../Cart/cart';
+import SearchBar from '../SearchBar/index';
+import Cart from '../cart/index';
 import { useCart } from '../../contexts/CartContext';
 import styles from './Header.module.css';
 
@@ -120,7 +120,7 @@ function Header() {
     };
 
     // Total de itens no carrinho
-    const totalItems = getTotalItems();
+    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
         <div className={styles.header}>
@@ -135,7 +135,7 @@ function Header() {
                 </div>
                 <SearchBar />
                 <div className={styles.iconsBusca}>
-                    <Link to="/conta">
+                <Link to="/conta" className={styles.userIconWrapper}>
                         <FontAwesomeIcon icon={faUser} className={styles.userIcon} />
                     </Link>
                     <div className={styles.cartIconWrapper} onClick={openCart}>
@@ -160,17 +160,10 @@ function Header() {
                             onClick={(e) => handleNavClick(e, item.id)}
                             role="button"
                             tabIndex={0}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter' || e.key === ' ') {
-                                    handleNavClick(e, item.id);
-                                }
-                            }}
                         >
                             {item.label}
                         </div>
-                        
                         <div className={styles.tooltipArrow}></div>
-                        
                         <AnimatePresence>
                             {activeMenu === item.id && item.items.length > 0 && (
                                 <motion.div 
@@ -187,36 +180,22 @@ function Header() {
                                             animate={{ opacity: 1 }}
                                             transition={{ delay: 0.3 }}
                                         >
-                                            <Link to={`/produtos/${item.id === 'sneakers' ? 'tenis' : 
-                                                      item.id === 'roupas' ? 'camisetas' : item.id}`}>
-                                                Ver todos os produtos
-                                            </Link>
+                                            <Link to={`/produtos/${item.id}`}>Ver todos os produtos</Link>
                                         </motion.div>
                                         <div className={styles.dropdownItems}>
                                             {item.items.map((subItem, index) => (
-                                              <motion.div 
-                                              key={subItem.id}
-                                              className="dropdown-item"
-                                              initial={{ opacity: 0, x: 20 }}
-                                              animate={{ opacity: 1, x: 0 }}
-                                              transition={{ 
-                                                delay: 0.5 + (index * 0.1),
-                                                duration: 0.5
-                                              }}
-                                              whileHover={{ 
-                                                scale: 1.2,
-                                                transition: { duration: 0.7 }
-                                              }}
-                                            >
-                                              <Link 
-                                                to={`/produtos/${item.id === 'sneakers' ? 'tenis' : 
-                                                      item.id === 'roupas' ? 'camisetas' : item.id}?produto=${subItem.id}`}
-                                                className="dropdown-link"
-                                                style={{ textDecoration: 'none' }}
-                                              >
-                                                {subItem.name}
-                                              </Link>
-                                            </motion.div>
+                                                <motion.div 
+                                                    key={subItem.id}
+                                                    className={styles.dropdownItem}
+                                                    initial={{ opacity: 0, x: 20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: 0.5 + (index * 0.1), duration: 0.5 }}
+                                                    whileHover={{ scale: 1.2, transition: { duration: 0.7 } }}
+                                                >
+                                                    <Link to={`/produtos/${item.id}?produto=${subItem.id}`}>
+                                                        {subItem.name}
+                                                    </Link>
+                                                </motion.div>
                                             ))}
                                         </div>
                                     </div>

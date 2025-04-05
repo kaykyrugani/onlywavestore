@@ -27,7 +27,7 @@
     gap: 48px;
   }
   
-  .infoText {
+  .infotext {
     display: inline-block;
     margin-left: 26px;
   }
@@ -46,7 +46,7 @@
     font-weight: bold;
   }
   
-  .infoIcon {
+  .infoicon {
     color: var(--cor-primaria);
     margin-right: 8px;
     font-size: 20px;

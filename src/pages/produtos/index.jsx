@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { FiFilter } from 'react-icons/fi';
 import Layout from '../../components/Layout/Layout';
 import SEO from '../../components/SEO/SEO';
 import Container from '../../components/Container/Container';
-import ProductGrid from '../../components/ProductGrid/ProductGrid';
-import SortDropdown from './SortDropdown';
+import ProductGrid from '../../components/ProductGrid/index';
 import { tenis, camisetas, acessorios } from '../home/produtoscards';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import styles from './styleproduto.module.css';
+import styles from './Produto.module.css';
 
 // Mapeamento de categorias para dados e nomes de exibição
 const categoryMap = {
@@ -47,6 +47,7 @@ const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [sortOption, setSortOption] = useState('default');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const productsPerPage = 8; // 4 produtos por linha, 2 linhas por página
 
   // Verificar se a categoria existe e carregar os produtos correspondentes
@@ -179,14 +180,62 @@ const ProductsPage = () => {
               <h1>{categoryDisplayName}</h1>
               
               <div className={styles.sortContainer}>
-                <h4>Ordenar por:</h4>
-                <SortDropdown 
-                  options={sortOptions} 
-                  selectedOption={sortOption} 
-                  onSelect={setSortOption} 
-                />
+                {/* Apenas o botão de filtro que também inclui ordenação */}
+                <button 
+                  className={styles.filterButton} 
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  aria-label="Filtrar e ordenar produtos"
+                >
+                  <FiFilter className={isFilterOpen ? styles.active : ''} />
+                  <span>Filtrar e Ordenar</span>
+                </button>
               </div>
             </div>
+            
+            {/* Painel de filtros com opções de ordenação */}
+            {isFilterOpen && (
+              <div className={styles.filterPanel}>
+                <h3>Filtros e Ordenação</h3>
+                
+                {/* Seção de ordenação */}
+                <div className={styles.filterGroup}>
+                  <h4>Ordenar por</h4>
+                  <div className={styles.sortOptions}>
+                    {sortOptions.map(option => (
+                      <div 
+                        key={option.value}
+                        className={`${styles.sortOption} ${sortOption === option.value ? styles.active : ''}`}
+                        onClick={() => setSortOption(option.value)}
+                      >
+                        {option.label}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Seção de filtro por preço */}
+                <div className={styles.filterGroup}>
+                  <h4>Preço</h4>
+                  <div className={styles.priceRange}>
+                    <input type="range" min="0" max="1000" step="50" />
+                    <div className={styles.priceLabels}>
+                      <span>R$ 0</span>
+                      <span>R$ 1000</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className={styles.filterActions}>
+                  <button className={styles.clearFilters}>Limpar</button>
+                  <button 
+                    className={styles.applyFilters}
+                    onClick={() => setIsFilterOpen(false)}
+                  >
+                    Aplicar
+                  </button>
+                </div>
+              </div>
+            )}
             
             <ProductGrid 
               products={currentProducts} 
