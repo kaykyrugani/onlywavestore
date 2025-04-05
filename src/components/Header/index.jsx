@@ -5,7 +5,7 @@ import { faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tenis, camisetas, acessorios } from '../../pages/home/produtoscards';
 import SearchBar from '../SearchBar/index';
-import Cart from '../cart/index';
+import Cart from '../Cart/index';
 import { useCart } from '../../contexts/CartContext';
 import styles from './Header.module.css';
 
