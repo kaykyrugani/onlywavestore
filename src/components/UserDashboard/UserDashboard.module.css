@@ -1,0 +1,497 @@
+.dashboardContainer {
+  display: flex;
+  width: 100%;
+  min-height: 600px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: 24px 16px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.userAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #4EBABA;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.sidebarHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.sidebarNav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: #555;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navItem svg {
+  margin-right: 12px;
+  font-size: 18px;
+}
+
+.navItem:hover {
+  background-color: rgba(78, 186, 186, 0.1);
+  color: #4EBABA;
+}
+
+.navItem.active {
+  background-color: rgba(78, 186, 186, 0.15);
+  color: #4EBABA;
+  font-weight: 500;
+  border-left: 3px solid #4EBABA;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  color: #e74c3c;
+  border: none;
+  background: none;
+  border-top: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: rgba(231, 76, 60, 0.1);
+}
+
+.logoutButton svg {
+  margin-right: 12px;
+}
+
+/* Content Styles */
+.content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Profile Tab Styles */
+.profileTab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #eee;
+}
+
+.userInfo .userAvatar {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  margin-bottom: 0;
+}
+
+.userDetails {
+  flex: 1;
+}
+
+.userDetails h3 {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.userDetails p {
+  margin: 0 0 12px 0;
+  color: #666;
+}
+
+.editButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover {
+  background-color: #e0e0e0;
+}
+
+.accountDetails, .passwordSection {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.accountDetails h4, .passwordSection h4 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
+  color: #333;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailItem strong {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.detailItem span {
+  font-size: 16px;
+  color: #333;
+}
+
+.passwordForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.formGroup input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.submitButton {
+  padding: 12px;
+  background-color: #4EBABA;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 8px;
+}
+
+.submitButton:hover {
+  background-color: #3da8a8;
+}
+
+/* Empty State Styles */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  color: #666;
+}
+
+.emptyState svg {
+  color: #ccc;
+  margin-bottom: 16px;
+}
+
+.emptyState h4 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.emptyState p {
+  margin: 0 0 24px 0;
+  color: #666;
+}
+
+.shopNowButton, .addButton {
+  padding: 10px 20px;
+  background-color: #4EBABA;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.shopNowButton:hover, .addButton:hover {
+  background-color: #3da8a8;
+}
+
+/* Orders Tab Styles */
+.ordersTab h3, .wishlistTab h3, .addressesTab h3, .paymentsTab h3 {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 20px;
+  color: #333;
+}
+
+.orderCard {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.orderHeader h4 {
+  margin: 0 0 4px 0;
+  font-size: 16px;
+}
+
+.orderDate {
+  font-size: 14px;
+  color: #666;
+}
+
+.orderStatus {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.processing {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.shipped {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.delivered {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.orderItems {
+  padding: 16px;
+}
+
+.orderItem {
+  display: flex;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.orderItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.orderItem img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 12px;
+  border-radius: 4px;
+}
+
+.itemDetails h5 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.itemDetails p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.orderFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #eee;
+}
+
+.orderTotal {
+  font-size: 16px;
+}
+
+.orderTotal strong {
+  margin-left: 8px;
+  color: #333;
+}
+
+.viewDetailsButton {
+  padding: 8px 16px;
+  background-color: #4EBABA;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewDetailsButton:hover {
+  background-color: #3da8a8;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .dashboardContainer {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .sidebarHeader {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 16px;
+  }
+  
+  .userAvatar {
+    margin-bottom: 0;
+    margin-right: 12px;
+  }
+  
+  .sidebarNav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0;
+  }
+  
+  .navItem {
+    flex-direction: column;
+    padding: 12px;
+    text-align: center;
+  }
+  
+  .navItem svg {
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
+  
+  .navItem.active {
+    border-left: none;
+    border-bottom: 3px solid #4EBABA;
+  }
+  
+  .logoutButton {
+    padding: 12px;
+    justify-content: center;
+  }
+  
+  .logoutButton svg {
+    margin-right: 0;
+    margin-bottom: 4px;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .userInfo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .userInfo .userAvatar {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+  
+  .content {
+    padding: 16px;
+  }
+}

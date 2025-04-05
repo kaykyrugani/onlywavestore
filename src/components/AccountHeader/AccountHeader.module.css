@@ -1,0 +1,60 @@
+.header {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 20px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h3 {
+  font-size: 24px;
+  color: #000;
+  margin: 0;
+  font-weight: 600;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.securityInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lockIcon {
+  color: #4EBABA; /* Using the primary color from your existing CSS */
+  font-size: 18px;
+}
+
+.securityInfo h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .logo h3 {
+    font-size: 20px;
+  }
+  
+  .securityInfo h4 {
+    font-size: 12px;
+  }
+}

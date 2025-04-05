@@ -234,94 +234,172 @@
   color: var(--cinza);
 }
 
-/* Botão de filtro */
+/* Painel de filtros - posicionado na frente do conteúdo */
+.filterPanel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  margin-top: 10px;
+  width: 50%;
+  max-width: 400px;
+  z-index: 100;
+  overflow: auto; /* Permite rolagem se o conteúdo for muito grande */
+  max-height: 80vh; /* Limita a altura para não ultrapassar a tela */
+}
+
+/* Ajuste para o cabeçalho de produtos para posicionamento relativo */
+.productsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  position: relative; /* Importante para o posicionamento absoluto do filtro */
+}
+
+.productsHeader h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 6px;
+  transform: translateY(2px);
+}
+
 .filterButton {
   display: flex;
   align-items: center;
-  gap: 8px;
+  background-color: var(--cor-primaria, #4EBABA);
+  color: white;
+  border: none;
+  border-radius: 15px;
   padding: 8px 16px;
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  color: var(--preto);
-  transition: all 0.3s ease;
-}
-
-.filterButton:hover {
-  border-color: var(--cor-primaria);
-  color: var(--cor-primaria);
+  transition: background-color 0.2s;
+  transform: translateY(8px);
 }
 
 .filterButton svg {
+  margin-right: 8px;
   font-size: 16px;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s;
 }
 
 .filterButton svg.active {
   transform: rotate(180deg);
-  color: var(--cor-primaria);
 }
 
-/* Painel de filtros */
+/* Painel de filtros - ajuste de largura e espaçamento */
 .filterPanel {
+  position: absolute;
+  top: 100%;
+  right: 0;
   background-color: white;
-  border: 1px solid #e0e0e0;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 30px;
-  animation: slideDown 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 12px; /* Espaçamento interno de 12px em todos os lados */
+  margin-top: 10px;
+  width: auto; /* Largura automática baseada no conteúdo */
+  min-width: 250px; /* Largura mínima para evitar que fique muito estreito */
+  max-width: 350px; /* Largura máxima para não ficar muito largo */
+  z-index: 100;
+  overflow: auto;
+  max-height: 80vh;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Título do painel de filtros */
 .filterPanel h3 {
+  font-size: 22px; /* Tamanho da fonte do título */
+  margin-bottom: 12px;
   color: var(--cor-primaria);
-  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #f0f0f0;
 }
 
-.filterGroup {
-  margin-bottom: 20px;
-}
-
+/* Subtítulos dos grupos de filtro */
 .filterGroup h4 {
-  color: var(--preto);
   font-size: 16px;
-  font-weight: 500;
   margin-bottom: 10px;
+  font-weight: 500;
 }
 
 /* Opções de ordenação dentro do painel de filtros */
 .sortOptions {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 8px; /* Espaçamento de 8px entre os itens */
 }
 
 .sortOption {
-  padding: 10px 16px;
+  padding: 10px 12px; /* Espaçamento interno horizontal de 12px */
   cursor: pointer;
-  transition: background-color 0.2s ease;
   border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  font-size: 14px; /* Tamanho da fonte dos itens */
+  white-space: nowrap; /* Evita quebra de linha */
 }
 
+/* Animação de hover similar ao dropdownItems */
 .sortOption:hover {
   background-color: #f5f5f5;
+  transition: transform 0.7s;
+}
+
+/* Efeito de sublinhado ao passar o mouse */
+.sortOption::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--cor-primaria);
+  transition: width 0.3s ease;
+}
+
+.sortOption:hover::after {
+  width: 100%;
+}
+
+/* Classe para animar a entrada dos itens */
+.sortOption.animate-in {
+  animation: slideInFromLeft 0.5s forwards;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Adicionar delay para cada item */
+.sortOption:nth-child(1) {
+  animation-delay: 0.5s;
+}
+
+.sortOption:nth-child(2) {
+  animation-delay: 0.6s;
+}
+
+.sortOption:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.sortOption:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.sortOption:nth-child(5) {
+  animation-delay: 0.9s;
 }
 
 .sortOption.active {
@@ -347,21 +425,24 @@
   color: var(--cinza);
 }
 
+/* Botões de ação do filtro */
 .filterActions {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 15px;
+  margin-top: 16px;
+  padding-top: 12px;
   border-top: 1px solid #f0f0f0;
 }
 
-.clearFilters {
+.clearFilters, .applyFilters {
   padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.clearFilters {
   background-color: white;
   border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
   color: var(--cinza);
   transition: all 0.3s ease;
 }
@@ -371,20 +452,13 @@
 }
 
 .applyFilters {
-  padding: 8px 16px;
   background-color: var(--cor-primaria);
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
   color: white;
   font-weight: 500;
   transition: all 0.3s ease;
 }
 
-.applyFilters:hover {
-  background-color: var(--contraste-primario);
-}
 
 /* Responsividade para o filtro */
 @media (max-width: 768px) {
