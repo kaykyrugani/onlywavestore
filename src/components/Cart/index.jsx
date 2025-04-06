@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Cart.module.css';
 
 const Cart = ({ 
@@ -13,8 +14,11 @@ const Cart = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [showClearCartModal, setShowClearCartModal] = useState(false);
+  const [showRemoveItemModal, setShowRemoveItemModal] = useState(false);
+  const [itemToRemove, setItemToRemove] = useState(null);
   const cartRef = useRef(null);
   const overlayRef = useRef(null);
+  const navigate = useNavigate();
   
   // Calcular o total do carrinho
   const cartTotal = items.reduce((total, item) => 
@@ -33,6 +37,10 @@ const Cart = ({
       });
     } else {
       setIsVisible(false);
+      // Resetar o estado do modal quando o carrinho é fechado
+      setShowClearCartModal(false);
+      setShowRemoveItemModal(false);
+      setItemToRemove(null);
       // O componente será removido pelo useEffect abaixo quando a transição terminar
     }
   }, [isOpen]);
@@ -73,6 +81,49 @@ const Cart = ({
       window.removeEventListener('keydown', handleEscKey);
     };
   }, [isVisible]);
+
+  // Função para lidar com a diminuição de quantidade
+  const handleDecrementQuantity = (item) => {
+    if (item.quantity <= 1) {
+      // Se só tiver uma unidade, mostrar modal de confirmação
+      setItemToRemove(item);
+      setShowRemoveItemModal(true);
+    } else {
+      // Se tiver mais de uma unidade, diminuir normalmente
+      onUpdateQuantity(item.id, item.quantity - 1);
+    }
+  };
+
+  // Função para lidar com o aumento de quantidade
+  const handleIncrementQuantity = (item) => {
+    onUpdateQuantity(item.id, item.quantity + 1);
+  };
+
+  // Função para limpar o carrinho
+  const handleClearCart = () => {
+    onClearCart();
+    setShowClearCartModal(false);
+  };
+
+  // Função para remover um item com confirmação
+  const handleRemoveItem = () => {
+    if (itemToRemove) {
+      onRemoveItem(itemToRemove.id);
+      setShowRemoveItemModal(false);
+      setItemToRemove(null);
+    }
+  };
+  
+  // Manipulador para navegação
+  const handleNavigate = (path) => {
+    // Primeiro fechar o carrinho
+    setIsVisible(false);
+    
+    // Usar um timeout para garantir que o carrinho está fechado antes de navegar
+    setTimeout(() => {
+      navigate(path);
+    }, 300); // Tempo suficiente para a animação de fechamento
+  };
   
   // Não renderizar nada se o carrinho nunca foi aberto
   if (!isOpen && !isVisible) return null;
@@ -110,14 +161,14 @@ const Cart = ({
               <p>Adicione produtos para continuar comprando</p>
               <button 
                 className={styles.backToShopBtn}
-                onClick={() => setIsVisible(false)}
+                onClick={() => handleNavigate('/')}
               >
                 Voltar às compras
               </button>
             </div>
           ) : (
             items.map(item => (
-              <div key={item.id} className={styles['cart-item']}>
+              <div key={`${item.id}-${item.tamanho || item.size}`} className={styles['cart-item']}>
                 <img
                   src={item.image}
                   alt={item.name}
@@ -125,19 +176,21 @@ const Cart = ({
                 />
                 <div className={styles['cart-item-details']}>
                   <h3>{item.name}</h3>
+                  <div className={styles.itemSize}>
+                    Tamanho: <span>{item.size || item.tamanho}</span>
+                  </div>
                   <p>R$ {item.price.toFixed(2)}</p>
                   
                   <div className={styles['quantity-controls']}>
                     <button 
-                      onClick={() => onUpdateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                      onClick={() => handleDecrementQuantity(item)}
                       aria-label="Diminuir quantidade"
-                      disabled={item.quantity <= 1}
                     >
                       -
                     </button>
                     <span>{item.quantity}</span>
                     <button 
-                      onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => handleIncrementQuantity(item)}
                       aria-label="Aumentar quantidade"
                     >
                       +
@@ -147,7 +200,10 @@ const Cart = ({
                 
                 <button 
                   className={styles['remove-item']}
-                  onClick={() => onRemoveItem(item.id)}
+                  onClick={() => {
+                    setItemToRemove(item);
+                    setShowRemoveItemModal(true);
+                  }}
                   aria-label={`Remover ${item.name} do carrinho`}
                 >
                   ✕
@@ -158,43 +214,78 @@ const Cart = ({
         </div>
         
         {items.length > 0 && (
-          <div className={styles.cartFooter}>
-            <div className={styles.cartTotal}>
-              <span>Total:</span>
-              <span>R$ {cartTotal.toFixed(2)}</span>
+          <>
+            <div className={styles.cartSummary}>
+              <div className={styles.summaryItem}>
+                <span>Subtotal:</span>
+                <span>R$ {cartTotal.toFixed(2)}</span>
+              </div>
+              <div className={styles.summaryTotal}>
+                <span>Total:</span>
+                <span>R$ {cartTotal.toFixed(2)}</span>
+              </div>
             </div>
             
-            <div className={styles.cartActions}>
-              <button 
-                className={styles.clearButton}
-                onClick={() => setShowClearCartModal(true)}
-              >
-                Limpar
-              </button>
-              <button 
-                className={styles.checkoutButton}
-                onClick={onCheckout}
-              >
-                Finalizar Compra
-              </button>
+            <div className={styles.cartFooter}>
+              <div className={styles.continueShoppingBtnWrapper}>
+                <button 
+                  className={styles.continueShoppingBtn}
+                  onClick={() => handleNavigate('/')}
+                >
+                  Continuar comprando
+                </button>
+              </div>
+              
+              <div className={styles.cartActions}>
+                <button 
+                  className={styles.clearButton}
+                  onClick={() => setShowClearCartModal(true)}
+                >
+                  Limpar
+                </button>
+                <button 
+                  className={styles.checkoutButton}
+                  onClick={onCheckout}
+                >
+                  Finalizar Compra
+                </button>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
       
       {/* Modal de confirmação para limpar carrinho */}
       {showClearCartModal && (
-        <div className={styles.clearCartModalOverlay}>
+        <div className={styles.clearCartModalOverlay} onClick={(e) => e.stopPropagation()}>
           <div className={styles.clearCartModal}>
             <h3>Tem certeza que deseja limpar o carrinho?</h3>
             <div className={styles.modalButtons}>
-              <button onClick={() => {
-                onClearCart();
-                setShowClearCartModal(false);
-              }}>
+              <button onClick={handleClearCart}>
                 Sim, limpar
               </button>
               <button onClick={() => setShowClearCartModal(false)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de confirmação para remover item */}
+      {showRemoveItemModal && itemToRemove && (
+        <div className={styles.clearCartModalOverlay} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.clearCartModal}>
+            <h3>Tem certeza que deseja remover este item?</h3>
+            <p>{itemToRemove.name} - Tamanho: {itemToRemove.size || itemToRemove.tamanho}</p>
+            <div className={styles.modalButtons}>
+              <button onClick={handleRemoveItem}>
+                Sim, remover
+              </button>
+              <button onClick={() => {
+                setShowRemoveItemModal(false);
+                setItemToRemove(null);
+              }}>
                 Cancelar
               </button>
             </div>

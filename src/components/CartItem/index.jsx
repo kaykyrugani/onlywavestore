@@ -23,6 +23,9 @@ const CartItem = ({ item, updateCartItem }) => {
       </div>
       <div className={styles.itemDetails}>
         <h3>{item.name}</h3>
+        <div className={styles.itemSize}>
+          Tamanho: <span>{item.size || item.tamanho}</span>
+        </div>
         <p className={styles.itemPrice}>R$ {item.price.toFixed(2)}</p>
         <div className={styles.quantityControl}>
           <button onClick={handleDecrement}>

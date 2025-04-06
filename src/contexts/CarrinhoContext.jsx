@@ -16,13 +16,16 @@ export const CarrinhoProvider = ({ children }) => {
     const carrinhoSalvo = localStorage.getItem('carrinho');
     return carrinhoSalvo ? JSON.parse(carrinhoSalvo) : [];
   });
+  
+  // Estado para controlar animações
+  const [itemAnimando, setItemAnimando] = useState(null);
 
   // Salva o carrinho no localStorage sempre que ele mudar
   useEffect(() => {
     localStorage.setItem('carrinho', JSON.stringify(carrinho));
   }, [carrinho]);
 
-  // Adiciona um item ao carrinho
+  // Adiciona um item ao carrinho com comportamento inteligente
   const adicionarItem = (produto) => {
     setCarrinho((prevCarrinho) => {
       // Verifica se o produto já existe no carrinho com o mesmo tamanho
@@ -30,31 +33,79 @@ export const CarrinhoProvider = ({ children }) => {
         (item) => item.id === produto.id && item.tamanho === produto.tamanho
       );
 
+      let novoCarrinho;
+
       if (itemExistente) {
-        // Se existir, atualiza a quantidade
-        return prevCarrinho.map((item) =>
+        // Se existir, atualiza a quantidade e aplica animação
+        novoCarrinho = prevCarrinho.map((item) =>
           item.id === produto.id && item.tamanho === produto.tamanho
             ? { ...item, quantidade: item.quantidade + produto.quantidade }
             : item
         );
+        
+        // Define o item para animar
+        setItemAnimando({
+          id: produto.id,
+          tamanho: produto.tamanho,
+          tipo: 'atualizado'
+        });
+        
+        // Remove a animação após 1 segundo
+        setTimeout(() => setItemAnimando(null), 1000);
       } else {
         // Se não existir, adiciona como novo item
-        return [...prevCarrinho, produto];
+        novoCarrinho = [...prevCarrinho, produto];
+        
+        // Define o item para animar
+        setItemAnimando({
+          id: produto.id,
+          tamanho: produto.tamanho,
+          tipo: 'adicionado'
+        });
+        
+        // Remove a animação após 1 segundo
+        setTimeout(() => setItemAnimando(null), 1000);
       }
+      
+      return novoCarrinho;
     });
   };
 
   // Remove um item do carrinho
   const removerItem = (produtoId, tamanho) => {
-    setCarrinho((prevCarrinho) =>
-      prevCarrinho.filter(
-        (item) => !(item.id === produtoId && item.tamanho === tamanho)
-      )
-    );
+    // Define o item para animar antes de remover
+    setItemAnimando({
+      id: produtoId,
+      tamanho: tamanho,
+      tipo: 'removido'
+    });
+    
+    // Pequeno delay para permitir a animação antes de remover
+    setTimeout(() => {
+      setCarrinho((prevCarrinho) =>
+        prevCarrinho.filter(
+          (item) => !(item.id === produtoId && item.tamanho === tamanho)
+        )
+      );
+      setItemAnimando(null);
+    }, 300);
   };
 
   // Atualiza a quantidade de um item
   const atualizarQuantidade = (produtoId, tamanho, novaQuantidade) => {
+    // Se a quantidade for 0, remover o item
+    if (novaQuantidade <= 0) {
+      removerItem(produtoId, tamanho);
+      return;
+    }
+    
+    // Define o item para animar
+    setItemAnimando({
+      id: produtoId,
+      tamanho: tamanho,
+      tipo: 'atualizado'
+    });
+    
     setCarrinho((prevCarrinho) =>
       prevCarrinho.map((item) =>
         item.id === produtoId && item.tamanho === tamanho
@@ -62,11 +113,23 @@ export const CarrinhoProvider = ({ children }) => {
           : item
       )
     );
+    
+    // Remove a animação após 1 segundo
+    setTimeout(() => setItemAnimando(null), 1000);
   };
 
   // Limpa o carrinho
   const limparCarrinho = () => {
-    setCarrinho([]);
+    // Define uma animação para o carrinho sendo limpo
+    setItemAnimando({
+      tipo: 'limpo'
+    });
+    
+    // Limpa o carrinho após uma pequena animação
+    setTimeout(() => {
+      setCarrinho([]);
+      setItemAnimando(null);
+    }, 300);
   };
 
   // Calcula o total de itens no carrinho
@@ -87,7 +150,8 @@ export const CarrinhoProvider = ({ children }) => {
         atualizarQuantidade,
         limparCarrinho,
         totalItens,
-        valorTotal
+        valorTotal,
+        itemAnimando
       }}
     >
       {children}
