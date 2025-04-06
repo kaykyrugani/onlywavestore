@@ -22,7 +22,6 @@
 
 .adicionarBotao:hover:not(.desabilitado) {
   background-color: #0055aa;
-  
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

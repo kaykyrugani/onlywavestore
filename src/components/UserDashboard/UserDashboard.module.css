@@ -92,6 +92,7 @@
   border-top: 1px solid #eee;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  border-radius: 24px;
 }
 
 .logoutButton:hover {
@@ -152,7 +153,7 @@
   padding: 8px 16px;
   background-color: #f0f0f0;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   color: #333;
   font-size: 14px;
   cursor: pointer;
@@ -227,7 +228,7 @@
   background-color: #4EBABA;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -271,7 +272,7 @@
   background-color: #4EBABA;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -409,7 +410,7 @@
   background-color: #4EBABA;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -467,6 +468,7 @@
   .logoutButton {
     padding: 12px;
     justify-content: center;
+    
   }
   
   .logoutButton svg {

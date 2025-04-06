@@ -1,7 +1,6 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
-import { useTheme } from '../../hooks/useTheme';
+import { FaSun, FaMoon } from 'react-icons/fa';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './ThemeToggle.module.css';
 
 const ThemeToggle = () => {
@@ -13,10 +12,14 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       aria-label={theme === 'light' ? 'Ativar modo escuro' : 'Ativar modo claro'}
     >
-      <FontAwesomeIcon 
-        icon={theme === 'light' ? faMoon : faSun} 
-        className={styles.icon}
-      />
+      <div className={styles.toggleContainer}>
+        <div className={`${styles.iconContainer} ${theme === 'dark' ? styles.active : ''}`}>
+          <FaMoon className={styles.icon} />
+        </div>
+        <div className={`${styles.iconContainer} ${theme === 'light' ? styles.active : ''}`}>
+          <FaSun className={styles.icon} />
+        </div>
+      </div>
     </button>
   );
 };

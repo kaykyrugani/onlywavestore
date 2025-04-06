@@ -118,7 +118,7 @@
 .checkoutButton {
   padding: 10px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   cursor: pointer;
   font-weight: bold;
 }
@@ -179,7 +179,7 @@
 .modalButtons button {
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 24px;
   cursor: pointer;
   font-weight: bold;
   transition: opacity 0.3s;
@@ -239,6 +239,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border-radius: 24px;
 }
 
 .quantity-controls span {
@@ -269,9 +270,11 @@
   margin-bottom: 10px;
   border: none;
   cursor: pointer;
+  border-radius: 24px;
 }
 
 .checkout-button {
+  border-radius: 24px;
   background-color: #000;
   color: white;
 }
