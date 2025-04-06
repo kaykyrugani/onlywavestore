@@ -1,0 +1,128 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--preto);
+}
+
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.opcao {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  background-color: white;
+}
+
+.opcao:hover {
+  border-color: var(--cor-primaria);
+}
+
+.opcao.selecionada {
+  border-color: var(--cor-primaria);
+  background-color: rgba(var(--cor-primaria-rgb), 0.05);
+}
+
+.radioCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #b0b0b0;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+}
+
+.opcao.selecionada .radioCircle {
+  border-color: var(--cor-primaria);
+}
+
+.radioInner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--cor-primaria);
+}
+
+.conteudo {
+  flex: 1;
+}
+
+.infoTopo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.nome {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--preto);
+  margin: 0;
+}
+
+.valor {
+  font-weight: 600;
+  color: var(--cor-primaria);
+}
+
+.infoBaixo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.descricao {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.prazo {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.continuarBtn {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.continuarBtn:hover {
+  background-color: rgba(var(--cor-primaria-rgb), 0.9);
+}
+
+@media (max-width: 600px) {
+  .infoBaixo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+} 

@@ -1,0 +1,455 @@
+.container {
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.metodosContainer {
+  margin-bottom: 24px;
+}
+
+.metodosToggle {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.metodoBtn {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 8px;
+  font-size: 16px;
+  color: #777;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.metodoBtn:hover {
+  background-color: #f5f5f5;
+}
+
+.metodoBtn.ativo {
+  color: #4a90e2;
+  font-weight: 500;
+}
+
+.metodoBtn.ativo::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #4a90e2;
+  border-radius: 3px 3px 0 0;
+}
+
+/* Cartões salvos */
+.cartoesSalvos {
+  margin-bottom: 24px;
+}
+
+.cartoesSalvosTitulo {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.cartoesList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cartaoSalvo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cartaoSalvo:hover {
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+}
+
+.cartaoSalvo.selecionado {
+  border-color: #4a90e2;
+  background-color: rgba(74, 144, 226, 0.05);
+}
+
+.cartaoSalvoInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.cartaoSalvoNumero {
+  font-family: monospace;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.cartaoSalvoNome {
+  font-size: 12px;
+  color: #666;
+}
+
+.removerCartaoBtn {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.removerCartaoBtn:hover {
+  color: #e53935;
+}
+
+.novoCartaoBtn {
+  padding: 12px 16px;
+  background-color: #f5f5f5;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  color: #4a90e2;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.novoCartaoBtn:hover {
+  background-color: #eaf2fd;
+  border-color: #4a90e2;
+}
+
+/* Checkbox para salvar cartão */
+.salvarCartaoCheck {
+  margin-top: 16px;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  user-select: none;
+}
+
+.checkboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.checkboxContainer:hover input ~ .checkmark {
+  background-color: #f5f5f5;
+}
+
+.checkboxContainer input:checked ~ .checkmark {
+  background-color: #4a90e2;
+  border-color: #4a90e2;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkboxContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkboxContainer .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Formulário do Cartão */
+.cartaoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Visual do Cartão */
+.cartaoVisual {
+  perspective: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  height: 220px;
+}
+
+.cartao {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.virarCartao {
+  transform: rotateY(180deg);
+}
+
+.cartaoFrente,
+.cartaoVerso {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.cartaoFrente {
+  background: linear-gradient(135deg, #42a5f5, #2196f3, #1976d2);
+  color: white;
+}
+
+.cartaoVerso {
+  background: linear-gradient(135deg, #42a5f5, #2196f3, #1976d2);
+  color: white;
+  transform: rotateY(180deg);
+}
+
+.cartaoLogo {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.cartaoChip {
+  width: 50px;
+  height: 40px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.cartaoNumero {
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  font-family: monospace;
+}
+
+.cartaoDetalhes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.cartaoFaixa {
+  width: 100%;
+  height: 40px;
+  background-color: #333;
+  margin: 20px 0;
+}
+
+.cartaoCvvContainer {
+  align-self: flex-end;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  color: #333;
+  display: flex;
+  gap: 8px;
+}
+
+.cartaoCvvLabel {
+  font-weight: 600;
+}
+
+/* Formulário de Dados do Cartão */
+.cartaoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formRow {
+  display: flex;
+  gap: 16px;
+}
+
+.formRow .formGroup {
+  flex: 1;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.formGroup input {
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.formGroup input:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Estilos para PIX */
+.pixContainer, .boletoContainer {
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.pixInfo, .boletoInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pixInfo h3, .boletoInfo h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.pixInfo p, .boletoInfo p {
+  color: #666;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.pixIcon, .boletoIcon {
+  margin-top: 16px;
+}
+
+.pixIcon svg path, .boletoIcon svg path {
+  fill: #4a90e2;
+}
+
+/* Botões */
+.botoesContainer {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.voltarBtn {
+  flex: 1;
+  height: 48px;
+  background-color: white;
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.voltarBtn:hover {
+  background-color: #f0f8ff;
+}
+
+.voltarBtn:active {
+  transform: scale(0.98);
+}
+
+.confirmarBtn {
+  flex: 2;
+  height: 48px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.confirmarBtn:hover {
+  background-color: #357abD;
+}
+
+.confirmarBtn:active {
+  transform: scale(0.98);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .cartaoContainer {
+    gap: 32px;
+  }
+  
+  .cartaoVisual {
+    height: 200px;
+  }
+  
+  .formRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .botoesContainer {
+    flex-direction: column;
+  }
+} 

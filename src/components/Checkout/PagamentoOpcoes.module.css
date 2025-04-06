@@ -1,0 +1,148 @@
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--preto);
+}
+
+.metodosLista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.metodoContainer {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.metodoHeader {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: white;
+}
+
+.metodoHeader:hover {
+  background-color: #f9f9f9;
+}
+
+.metodoHeader.selecionado {
+  border-left: 3px solid var(--cor-primaria);
+  background-color: rgba(var(--cor-primaria-rgb), 0.05);
+}
+
+.radioCircle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #b0b0b0;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+}
+
+.metodoHeader.selecionado .radioCircle {
+  border-color: var(--cor-primaria);
+}
+
+.radioInner {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--cor-primaria);
+}
+
+.metodoInfo {
+  flex: 1;
+}
+
+.metodoTitulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem 0;
+  color: var(--preto);
+}
+
+.metodoDesc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.metodoIcone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seta {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.seta.aberto {
+  transform: rotate(180deg);
+}
+
+.metodoConteudo {
+  padding: 1rem;
+  border-top: 1px solid #e0e0e0;
+  background-color: #fcfcfc;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.continuarBtn {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.continuarBtn:hover {
+  background-color: rgba(var(--cor-primaria-rgb), 0.9);
+}
+
+/* Estilos para formulários internos */
+.formRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.formRow > div {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .formRow {
+    flex-direction: column;
+    gap: 1rem;
+  }
+} 

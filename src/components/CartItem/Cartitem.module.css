@@ -27,6 +27,22 @@
     font-size: 16px;
   }
   
+  .itemSize {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    padding: 2px 0;
+  }
+  
+  .itemSize span {
+    font-weight: bold;
+    color: var(--cor-primaria);
+    background-color: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+  
   .itemPrice {
     font-weight: bold;
     color: var(--cor-primaria);

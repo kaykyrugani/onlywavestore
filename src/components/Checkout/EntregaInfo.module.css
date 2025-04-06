@@ -1,0 +1,141 @@
+.container {
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.enderecoCard {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  transition: box-shadow 0.2s;
+}
+
+.enderecoCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.enderecoInfo {
+  flex: 1;
+}
+
+.nomeCliente {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.enderecoDetalhes {
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.bairroCep {
+  color: #777;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editarBtn,
+.excluirBtn {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #4a90e2;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+  text-align: right;
+}
+
+.editarBtn:hover {
+  color: #357abd;
+}
+
+.excluirBtn {
+  color: #e53935;
+}
+
+.excluirBtn:hover {
+  color: #c62828;
+}
+
+.entregaMetodo {
+  margin-bottom: 24px;
+}
+
+.entregaTitulo {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.metodoCard {
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.metodoCard:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metodoNome {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.metodoPrazo {
+  color: #777;
+  font-size: 14px;
+}
+
+.avancarBtn {
+  width: 100%;
+  height: 48px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 16px;
+}
+
+.avancarBtn:hover {
+  background-color: #357abD;
+}
+
+.avancarBtn:active {
+  transform: scale(0.98);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .enderecoCard {
+    flex-direction: column;
+  }
+  
+  .actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+} 

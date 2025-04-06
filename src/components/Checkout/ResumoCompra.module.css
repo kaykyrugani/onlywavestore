@@ -1,0 +1,78 @@
+.resumoContainer {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.resumoTitulo {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.resumoItens {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.resumoLinha {
+  display: flex;
+  justify-content: space-between;
+  color: #555;
+  font-size: 14px;
+}
+
+.freteGratis {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.desconto {
+  color: #e53935;
+  font-weight: 500;
+}
+
+.linhaDivisoria {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 16px 0;
+}
+
+.resumoTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.valorTotal {
+  color: #4a90e2;
+}
+
+.parcelamento {
+  font-size: 13px;
+  color: #666;
+  text-align: right;
+  margin-top: 8px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .resumoContainer {
+    padding: 16px;
+  }
+  
+  .resumoTitulo {
+    font-size: 16px;
+  }
+  
+  .resumoTotal {
+    font-size: 16px;
+  }
+} 

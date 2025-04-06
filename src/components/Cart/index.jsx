@@ -245,7 +245,7 @@ const Cart = ({
                 </button>
                 <button 
                   className={styles.checkoutButton}
-                  onClick={onCheckout}
+                  onClick={() => handleNavigate('/teste')}
                 >
                   Finalizar Compra
                 </button>

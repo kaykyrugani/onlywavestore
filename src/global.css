@@ -2,6 +2,7 @@
 :root {
     /* cores primarias */
     --cor-primaria: #4EBABA;
+    --cor-primaria-rgb: 78, 186, 186; /* Valor RGB da cor primária para transparências */
     --primaria-contraste: #17F1F1;
     --primaria-esura: #0F2626;
     --cinza: #838585;
