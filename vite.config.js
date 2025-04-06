@@ -5,8 +5,13 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    // Isso permite que o Vite redirecione todas as requisições para index.html
-    // para que o React Router possa lidar com as rotas no lado do cliente
-    historyApiFallback: true,
+    port: 5173,
+    open: true
+  },
+  base: '/',
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: true
   }
 })

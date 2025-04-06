@@ -1,0 +1,285 @@
+@import '../../global.css';
+
+.avaliacoesContainer {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avaliacoesHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.avaliacoesHeader h2 {
+  font-size: 1.5rem;
+  color: var(--texto-primario);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.avaliacoesHeader p {
+  color: var(--texto-secundario);
+}
+
+.semAvaliacoes {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.semAvaliacoes p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.avaliarButton {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.avaliarButton:hover {
+  background-color: var(--primaria-contraste);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avaliacoesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.avaliacaoItem {
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.avaliacaoItem:hover {
+  transform: translateY(-2px);
+}
+
+.avaliacaoHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.avaliacaoHeader h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0;
+}
+
+.estrelas {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.estrela {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s ease;
+}
+
+.estrela.ativa {
+  color: #ffc107;
+}
+
+.estrela:hover {
+  transform: scale(1.1);
+}
+
+.data {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.comentario {
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal {
+  width: 90%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  animation: slideIn 0.3s ease;
+}
+
+.fecharModal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.fecharModal:hover {
+  color: #333;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.formGroup textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+}
+
+.enviarButton {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.enviarButton:hover {
+  background-color: var(--primaria-contraste);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .avaliacoesContainer {
+    padding: 1rem;
+  }
+
+  .avaliacaoHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .modal {
+    width: 95%;
+    padding: 1.5rem;
+  }
+}
+
+/* Seções de informação */
+.infoSections{ 
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.infoSection {
+  background-color: var(--fundo);
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+
+}
+
+.infoSection h2 {
+  font-size: 1.25rem;
+  color: var(--texto-primario);
+  margin-bottom: 1rem;
+}
+
+.infoSection p {
+  color: var(--texto-secundario);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+} 

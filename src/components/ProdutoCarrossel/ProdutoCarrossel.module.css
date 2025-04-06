@@ -1,0 +1,181 @@
+.produtoCarrossel {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  align-items: flex-start;
+  max-width: 600px;
+  position: relative;
+}
+
+/* Container das miniaturas */
+.thumbnailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 100px;
+  height: 500px;
+  transform: translateY(-94px);
+  padding-right: 8px;
+}
+
+/* Estilização da scrollbar para navegadores WebKit */
+.thumbnailsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thumbnailsContainer::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+.thumbnailsContainer::-webkit-scrollbar-thumb {
+  background-color: var(--cor-primaria);
+  border-radius: 12px;
+}
+
+/* Botão da miniatura */
+.thumbnailButton {
+  padding: 0;
+  border: 2px solid transparent;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 100px;
+  height: 100px;
+}
+
+.thumbnailButton:hover {
+  border-color: var(--cor-primaria);
+}
+
+.thumbnailButton.active {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagem da miniatura */
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.thumbnailButton:hover .thumbnail {
+  transform: scale(1.05);
+}
+
+/* Container da imagem principal */
+.mainImageContainer {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+/* Imagem principal */
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Container do zoom */
+.zoomContainer {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 24px);
+  width: 500px;
+  height: 500px;
+  z-index: 10;
+}
+
+/* Animação da imagem principal */
+.mainImage.animating {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+/* Efeito de hover na imagem principal */
+.mainImageContainer:hover .mainImage:not(.animating) {
+  transform: scale(1.02);
+}
+
+/* Botões de navegação */
+.navigationButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--texto-primario);
+  transition: all 0.3s ease;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navigationButton:hover {
+  background-color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .produtoCarrossel {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
+  }
+
+  .mainImageContainer {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+
+  .thumbnailsContainer {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    top: 0;
+    height: auto;
+    padding: 0 0 1rem 0;
+  }
+
+  .thumbnailButton {
+    flex: 0 0 80px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .zoomContainer {
+    display: none;
+  }
+} 

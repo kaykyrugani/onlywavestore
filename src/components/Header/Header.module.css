@@ -6,6 +6,105 @@
   align-self: stretch;
   position: relative;
   z-index: 14;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 24px;
+  ;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLink {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: #0066cc;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.searchButton,
+.cartButton,
+.menuButton {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.searchButton:hover,
+.cartButton:hover,
+.menuButton:hover {
+  color: #0066cc;
+}
+
+.cartButton {
+  text-decoration: none;
+}
+
+.cartCount {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #0066cc;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+
+  .searchButton,
+  .cartButton,
+  .menuButton {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 .desconto {
@@ -34,13 +133,6 @@
   width: 100%;
   padding: 0 304px;
   z-index: 16;
-}
-
-.logo {
-  width: 184px;
-  height: 114px;
-  flex-shrink: 0;
-  aspect-ratio: 92/57;
 }
 
 .iconsBusca {
