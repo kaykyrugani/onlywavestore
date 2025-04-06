@@ -1,51 +1,50 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Criando o contexto
 const ThemeContext = createContext();
 
 // Provedor do contexto
-export const ThemeProvider = ({ children }) => {
+export function ThemeProvider({ children }) {
   // Estado para armazenar o tema atual
-  const [theme, setTheme] = useState(() => {
+  const [isDarkMode, setIsDarkMode] = useState(() => {
     // Verificar se há um tema salvo no localStorage
     const savedTheme = localStorage.getItem('theme');
     // Se não houver tema salvo, usar o tema claro como padrão
-    return savedTheme || 'light';
+    return savedTheme === 'dark';
   });
 
   // Efeito para aplicar o tema ao documento e salvar no localStorage
   useEffect(() => {
     // Aplicar o tema ao elemento HTML
-    document.documentElement.setAttribute('data-theme', theme);
+    if (isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
     // Salvar o tema no localStorage
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
 
   // Função para alternar entre temas
   const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    setIsDarkMode(prev => !prev);
   };
 
   // Valores do contexto
-  const value = {
-    theme,
-    toggleTheme
-  };
-
   return (
-    <ThemeContext.Provider value={value}>
+    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
-};
+}
 
 // Hook personalizado para usar o contexto
-export const useTheme = () => {
+export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
     throw new Error('useTheme deve ser usado dentro de um ThemeProvider');
   }
   return context;
-};
+}
 
 export default ThemeContext; 

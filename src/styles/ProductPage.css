@@ -1,14 +1,14 @@
 /* ===== VARIÁVEIS CSS ===== */
 :root {
   /* Cores principais */
-  --primary-color: #0066cc;
-  --secondary-color: #004d99;
-  --accent-color: #ff6600;
-  --text-color: #333333;
-  --light-text: #666666;
-  --background-color: #ffffff;
-  --light-background: #f5f5f5;
-  --border-color: #e0e0e0;
+  --primary-color: var(--cor-primaria, #0066cc);
+  --secondary-color: var(--primaria-contraste, #004d99);
+  --accent-color: var(--verde-analogo, #ff6600);
+  --text-color: var(--texto-primario, #333333);
+  --light-text: var(--texto-secundario, #666666);
+  --background-color: var(--fundo, #ffffff);
+  --light-background: var(--cor-clara, #f5f5f5);
+  --border-color: var(--borda, #e0e0e0);
   
   /* Espaçamentos */
   --spacing-xs: 0.25rem;
@@ -20,7 +20,7 @@
   
   /* Bordas e sombras */
   --border-radius: 4px;
-  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --box-shadow: var(--sombra, 0 2px 8px rgba(0, 0, 0, 0.1));
   
   /* Tipografia */
   --font-family: 'Roboto', sans-serif;
