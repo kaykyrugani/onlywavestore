@@ -16,6 +16,7 @@ import CheckoutPage from "../pages/checkout";
 import ProtectedRoute from "../components/ProtectedRoute";
 import NotFoundPage from "../pages/not-found/NotFoundPage";
 import TestePage from "../pages/teste/TestePage";
+import InformacoesPage from "../pages/informacoes";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
                   <Route path="/produtos/:categoria" element={<ProdutosPage />} />
                   <Route path="/produto/:id" element={<ProdutoPage />} />
                   <Route path="/teste" element={<TestePage />} />
+                  
+                  {/* Rotas de informações */}
+                  <Route path="/informacoes" element={<InformacoesPage />} />
+                  <Route path="/informacoes/:tipo" element={<InformacoesPage />} />
                   
                   {/* Rotas protegidas que exigem autenticação */}
                   <Route path="/conta/profile" element={

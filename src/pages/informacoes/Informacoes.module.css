@@ -1,0 +1,163 @@
+.informacoesPage {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--fundo);
+  color: var(--texto-primario);
+}
+
+.informacoesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  width: 100%;
+  flex: 1;
+}
+
+.breadcrumbs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.breadcrumbs a {
+  color: var(--texto-secundario);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.breadcrumbs a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--cinza);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.7s ease-in-out;
+}
+
+.breadcrumbs a:hover {
+  color: var(--cinza);
+}
+
+.breadcrumbs a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.breadcrumbs span {
+  color: var(--texto-primario);
+}
+
+.mainContent {
+  display: flex;
+  gap: 40px;
+}
+
+.sidebar {
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.content {
+  flex: 1;
+}
+
+.sidebarTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: var(--texto-primario);
+}
+
+.sidebarList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebarList li {
+  margin-bottom: 10px;
+}
+
+.sidebarLink {
+  position: relative;
+  color: var(--texto-secundario);
+  font-size: 16px;
+  text-decoration: none;
+  transition: color 0.3s;
+  display: inline-block;
+  padding-bottom: 3px;
+}
+
+.sidebarLink::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--cinza);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.7s ease-in-out;
+}
+
+.sidebarLink:hover, .activeLink {
+  color: var(--cinza);
+}
+
+.sidebarLink:hover::after, .activeLink::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.contentTitle {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: var(--texto-primario);
+}
+
+.contentText {
+  color: var(--texto-primario);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.contentText p {
+  margin-bottom: 24px;
+  text-align: justify;
+}
+
+.contentText ul {
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.contentText li {
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 16px;
+}
+
+.contentText li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--cor-primaria);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+} 

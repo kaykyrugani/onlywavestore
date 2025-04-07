@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import { faTiktok, faInstagram, } from "@fortawesome/free-brands-svg-icons"; // Importando do pacote correto
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons"; // Corrigido para importar do pacote correto
@@ -12,14 +13,14 @@ function Footer() {
                 <div className={styles.informacoes}>
                     <h4>Informações</h4>
                     <ul>
-                        <li><a href="">Perguntas frequentes</a></li>
-                        <li><a href="">Política de envio</a></li>
-                        <li><a href="">Política de privacidade</a></li>
-                        <li><a href="">Política de reembolso</a></li>
-                        <li><a href="">Política de troca e devoluções</a></li>
-                        <li><a href="">Termos de Serviço</a></li>
-                        <li><a href="">Termos legais</a></li>
-                        <li><a href="">Política de cookies</a></li>
+                        <li><Link to="/informacoes/perguntas-frequentes">Perguntas frequentes</Link></li>
+                        <li><Link to="/informacoes/politica-de-envio">Política de envio</Link></li>
+                        <li><Link to="/informacoes/politica-de-privacidade">Política de privacidade</Link></li>
+                        <li><Link to="/informacoes/politica-de-reembolso">Política de reembolso</Link></li>
+                        <li><Link to="/informacoes/politica-de-trocas-e-devolucoes">Política de troca e devoluções</Link></li>
+                        <li><Link to="/informacoes/termos-de-servico">Termos de Serviço</Link></li>
+                        <li><Link to="/informacoes/termos-legais">Termos legais</Link></li>
+                        <li><Link to="/informacoes/politica-de-cookies">Política de cookies</Link></li>
                     </ul>
                 </div>
                 <div className={styles.atendimento}>
