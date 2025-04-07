@@ -1,7 +1,7 @@
 .header {
   width: 100%;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  background-color: var(--fundo);
+  box-shadow: 0 2px 4px var(--sombra);
   padding: 20px 0;
 }
 
@@ -16,7 +16,7 @@
 
 .logo h3 {
   font-size: 24px;
-  color: #000;
+  color: var(--texto-primario);
   margin: 0;
   font-weight: 600;
 }
@@ -41,7 +41,7 @@
   margin: 0;
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--texto-primario);
 }
 
 /* Responsive adjustments */

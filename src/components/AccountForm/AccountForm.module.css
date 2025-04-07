@@ -10,9 +10,9 @@
 .formWrapper {
   width: 100%;
   max-width: 480px;
-  background-color: white;
+  background-color: var(--fundo);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--sombra);
   padding: 32px;
 }
 
@@ -23,18 +23,18 @@
 
 .formHeader h2 {
   font-size: 28px;
-  color: #333;
+  color: var(--texto-primario);
   margin-bottom: 8px;
 }
 
 .formHeader p {
-  color: #666;
+  color: var(--texto-secundario);
   font-size: 14px;
 }
 
 .formTabs {
   display: flex;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--borda);
   margin-bottom: 24px;
 }
 
@@ -46,7 +46,7 @@
   padding: 12px 16px;
   font-size: 16px;
   font-weight: 500;
-  color: #666;
+  color: var(--texto-secundario);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
@@ -82,7 +82,7 @@
   display: block;
   margin-bottom: 6px;
   font-size: 14px;
-  color: #333;
+  color: var(--texto-primario);
   font-weight: 500;
 }
 
@@ -102,7 +102,9 @@
 .input {
   width: 100%;
   padding: 12px 12px 12px 40px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--borda);
+  background-color: var(--fundo);
+  color: var(--texto-primario);
   border-radius: 4px;
   font-size: 14px;
   transition: border-color 0.3s ease;
@@ -153,7 +155,7 @@
   display: flex;
   align-items: center;
   margin: 24px 0;
-  color: #999;
+  color: var(--texto-secundario);
   font-size: 14px;
 }
 
@@ -162,7 +164,7 @@
   content: '';
   flex: 1;
   height: 1px;
-  background-color: #eee;
+  background-color: var(--borda);
 }
 
 .divider span {
@@ -182,9 +184,9 @@
   justify-content: center;
   gap: 8px;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--borda);
   border-radius: 24px;
-  background-color: white;
+  background-color: var(--fundo);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -212,7 +214,7 @@
 .switchForm {
   text-align: center;
   font-size: 14px;
-  color: #666;
+  color: var(--texto-secundario);
 }
 
 .switchButton {

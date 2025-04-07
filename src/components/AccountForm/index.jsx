@@ -29,12 +29,12 @@ const AccountForm = () => {
         // Login
         await login(data.email, data.password);
         toast.success('Login realizado com sucesso!');
-        navigate('/'); // Redirecionar para a página inicial após login
+        navigate('/conta'); // Redirecionar para a página de conta após login
       } else {
         // Registro
         await registerUser(data.name, data.email, data.password);
         toast.success('Conta criada com sucesso!');
-        navigate('/'); // Redirecionar para a página inicial após registro
+        navigate('/conta'); // Redirecionar para a página de conta após registro
       }
     } catch (error) {
       // O erro já está sendo tratado no AuthContext
