@@ -1,0 +1,142 @@
+.dashboard {
+  color: var(--admin-text);
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  flex: 1 1 calc(33.333% - 1.5rem);
+  background-color: var(--admin-table-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+:root:not([data-theme="dark"]) .card {
+  border: 1px solid var(--preto);
+  background-color: var(--container-light);
+}
+
+:root[data-theme="dark"] .card {
+  border: 1px solid var(--branco);
+}
+
+.cardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.cardValue {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--admin-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.cardChange {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.cardChangePositive {
+  color: #4CAF50;
+}
+
+.cardChangeNegative {
+  color: #dc3545;
+}
+
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.chart {
+  flex: 1 1 calc(50% - 1.5rem);
+  background-color: var(--admin-table-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+:root:not([data-theme="dark"]) .chart {
+  border: 1px solid var(--preto);
+  background-color: var(--container-light);
+}
+
+:root[data-theme="dark"] .chart {
+  border: 1px solid var(--branco);
+}
+
+.chartTitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0 0 1rem 0;
+}
+
+.chartContent {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--admin-table-header-bg);
+  border-radius: 8px;
+  color: var(--admin-text);
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: var(--text-color-inverse);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-normal) ease-in-out;
+}
+
+:root[data-theme="light"] .button {
+  background-color: var(--primary-color-dark);
+  color: var(--text-color-inverse);
+} 

@@ -21,7 +21,10 @@
     --texto-secundario: var(--cinza);
     --borda: #e0e0e0;
     --sombra: rgba(0, 0, 0, 0.3);
-  
+    --navbar-light: #e0e0e0;
+    --container-light: #e5e5e5;
+    --container-inner-light: #f5f5f5;
+    
     /* light mode valores */
     --fundo-light: #FFFFFF;
     --fundo-texto-light: #7BC9CC;
@@ -54,7 +57,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color 0.6s ease-in-out, color 0.6s ease-in-out, border-color 0.6s ease-in-out, box-shadow 0.6s ease-in-out;
+  }
+  
+  /* Aplicar transições apenas às propriedades necessárias */
+  body, button, a, input, textarea, select {
+    transition: background-color 0.2s ease-in-out,
+                color 0.2s ease-in-out,
+                border-color 0.2s ease-in-out;
   }
   
   html, body {
@@ -88,6 +97,79 @@
     cursor: pointer;
     border: none;
     outline: none;
+  }
+  
+  /* Botões de adição no modo light */
+  button.addButton {
+    background-color: var(--cor-primaria);
+    color: var(--branco);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+  
+  /* Estilo específico para o modo light */
+  :root:not([data-theme="dark"]) .adminSidebar {
+    background-color: var(--navbar-light);
+    border-right: 1px solid var(--preto);
+  }
+  
+  :root:not([data-theme="dark"]) .adminSidebarLink.active {
+    background-color: var(--cor-primaria);
+    color: var(--branco);
+  }
+  
+  :root:not([data-theme="dark"]) .card,
+  :root:not([data-theme="dark"]) .chart,
+  :root:not([data-theme="dark"]) .tableContainer {
+    background-color: var(--container-light);
+    border: 1px solid var(--preto);
+  }
+  
+  :root:not([data-theme="dark"]) .search,
+  :root:not([data-theme="dark"]) .filter {
+    border: 1px solid var(--preto);
+    background-color: var(--container-inner-light);
+  }
+  
+  :root:not([data-theme="dark"]) .adminContent {
+    background-color: var(--fundo-light);
+  }
+  
+  :root:not([data-theme="dark"]) .table th {
+    background-color: var(--navbar-light);
+  }
+  
+  :root:not([data-theme="dark"]) .table {
+    border: 1px solid var(--preto);
+  }
+  
+  :root:not([data-theme="dark"]) .pagination {
+    margin-top: 20px;
+  }
+  
+  :root:not([data-theme="dark"]) .paginationButton {
+    border: 1px solid var(--preto);
+  }
+  
+  /* Estilos para o tema escuro */
+  :root[data-theme="dark"] .card,
+  :root[data-theme="dark"] .chart,
+  :root[data-theme="dark"] .tableContainer {
+    border: 1px solid var(--branco);
+  }
+  
+  :root[data-theme="dark"] .table {
+    border: 1px solid var(--branco);
+  }
+  
+  :root[data-theme="dark"] .paginationButton {
+    border: 1px solid var(--branco);
   }
   
   /* Utilitários */

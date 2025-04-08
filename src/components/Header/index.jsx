@@ -175,28 +175,40 @@ function Header() {
 
     // Funções para controlar a exibição da miniatura do carrinho
     const handleCartMouseEnter = () => {
+        // Limpar qualquer timeout existente para evitar que o carrinho feche durante o hover
         if (miniCarrinhoTimeoutRef.current) {
             clearTimeout(miniCarrinhoTimeoutRef.current);
+            miniCarrinhoTimeoutRef.current = null;
         }
         setMostrarMiniCarrinho(true);
     };
 
     const handleCartMouseLeave = () => {
-        miniCarrinhoTimeoutRef.current = setTimeout(() => {
-            setMostrarMiniCarrinho(false);
-        }, 300);
+        // Só define o timeout se não estiver já definido
+        if (!miniCarrinhoTimeoutRef.current) {
+            miniCarrinhoTimeoutRef.current = setTimeout(() => {
+                setMostrarMiniCarrinho(false);
+                miniCarrinhoTimeoutRef.current = null;
+            }, 500); // Aumentado para 500ms para evitar fechamentos acidentais
+        }
     };
 
     const handleMiniCartMouseEnter = () => {
+        // Limpar o timeout quando o mouse entrar no mini carrinho
         if (miniCarrinhoTimeoutRef.current) {
             clearTimeout(miniCarrinhoTimeoutRef.current);
+            miniCarrinhoTimeoutRef.current = null;
         }
     };
 
     const handleMiniCartMouseLeave = () => {
-        miniCarrinhoTimeoutRef.current = setTimeout(() => {
-            setMostrarMiniCarrinho(false);
-        }, 300);
+        // Só define o timeout se não estiver já definido
+        if (!miniCarrinhoTimeoutRef.current) {
+            miniCarrinhoTimeoutRef.current = setTimeout(() => {
+                setMostrarMiniCarrinho(false);
+                miniCarrinhoTimeoutRef.current = null;
+            }, 500); // Aumentado para 500ms para maior consistência
+        }
     };
 
     // Handler para remover um item do mini carrinho
@@ -228,6 +240,21 @@ function Header() {
             };
         }
     }, [itemAnimando]);
+
+    // Efeito para limpar os timeouts quando o componente é desmontado
+    useEffect(() => {
+        return () => {
+            // Limpa todos os timeouts na desmontagem do componente
+            if (miniCarrinhoTimeoutRef.current) {
+                clearTimeout(miniCarrinhoTimeoutRef.current);
+                miniCarrinhoTimeoutRef.current = null;
+            }
+            if (debounceRef.current) {
+                clearTimeout(debounceRef.current);
+                debounceRef.current = null;
+            }
+        };
+    }, []);
 
     return (
         <div className={styles.header}>
@@ -306,11 +333,11 @@ function Header() {
                                                 className={styles.miniCartCheckout}
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    navigate('/carrinho');
+                                                    navigate('/teste');
                                                     setMostrarMiniCarrinho(false);
                                                 }}
                                             >
-                                                Ver Carrinho
+                                                Finalizar Compra
                                             </button>
                                         </div>
                                     </>

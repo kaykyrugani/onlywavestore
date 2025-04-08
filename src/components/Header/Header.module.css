@@ -384,6 +384,8 @@
   z-index: 100;
   overflow: hidden;
   animation: slideDown 0.3s ease-in-out;
+  padding-top: 10px;
+  margin-top: 5px;
 }
 
 @keyframes slideDown {
@@ -520,9 +522,11 @@
   position: relative;
   cursor: pointer;
   padding: 5px;
+  padding-bottom: 15px;
 }
 
 .cartIcon {
+  transform: translateY(5px);
   font-size: 20px;
   transition: transform 0.3s ease;
 }

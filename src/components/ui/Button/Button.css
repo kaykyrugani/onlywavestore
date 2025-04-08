@@ -1,0 +1,138 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal) ease-in-out;
+  border: 1px solid transparent;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Variantes */
+.button--primary {
+  background-color: var(--primary-color);
+  color: var(--text-color-inverse);
+}
+
+.button--primary:hover:not(:disabled) {
+  background-color: var(--primary-color-dark);
+}
+
+.button--secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color-inverse);
+}
+
+.button--secondary:hover:not(:disabled) {
+  background-color: var(--secondary-color-dark);
+}
+
+.button--outline {
+  background-color: transparent;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.button--outline:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: var(--text-color-inverse);
+}
+
+.button--text {
+  background-color: transparent;
+  color: var(--primary-color);
+  padding: 0.25rem 0.5rem;
+}
+
+.button--text:hover:not(:disabled) {
+  background-color: var(--background-color-alt);
+}
+
+.button--danger {
+  background-color: var(--danger-color);
+  color: var(--text-color-inverse);
+}
+
+.button--danger:hover:not(:disabled) {
+  background-color: var(--danger-color-dark);
+}
+
+/* Tamanhos */
+.button--small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.button--medium {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.button--large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+/* Estados */
+.button--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button--loading {
+  cursor: wait;
+}
+
+.button--full-width {
+  width: 100%;
+}
+
+/* Loader */
+.button__loader {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--text-color-inverse);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 0.6s linear infinite;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Ícones */
+.button--icon-left {
+  padding-left: 0.75rem;
+}
+
+.button--icon-right {
+  padding-right: 0.75rem;
+}
+
+.button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button__content {
+  opacity: 1;
+  transition: opacity var(--transition-normal) ease-in-out;
+}
+
+.button--loading .button__content {
+  opacity: 0;
+} 

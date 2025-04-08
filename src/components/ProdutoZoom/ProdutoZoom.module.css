@@ -6,6 +6,7 @@
   background-color: var(--fundo-secundario);
   border-radius: 8px;
   user-select: none;
+  transition: transform 0.3s ease;
 }
 
 .zoomImage {
@@ -38,15 +39,24 @@
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: var(--fundo-secundario);
   opacity: 1;
   transition: opacity 0.3s linear;
+  gap: 1rem;
+}
+
+.placeholder p {
+  color: var(--texto-secundario);
+  font-size: 0.875rem;
+  margin: 0;
 }
 
 .loaded ~ .placeholder {
   opacity: 0;
+  pointer-events: none;
 }
 
 .spinner {
@@ -56,6 +66,43 @@
   border-top-color: var(--primaria);
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+.errorMessage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--fundo-secundario);
+  gap: 1rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.errorMessage p {
+  color: var(--texto-secundario);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.errorMessage button {
+  padding: 0.5rem 1rem;
+  background-color: var(--primaria);
+  color: var(--texto-primario);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease;
+}
+
+.errorMessage button:hover {
+  background-color: var(--primaria-hover);
 }
 
 .zoomed {
@@ -72,6 +119,12 @@
   }
 }
 
+@media (hover: hover) {
+  .zoomContainer:not(.zoomed):hover {
+    transform: scale(1.02);
+  }
+}
+
 @media (max-width: 768px) {
   .zoomContainer {
     border-radius: 4px;
@@ -81,5 +134,15 @@
     width: 32px;
     height: 32px;
     border-width: 2px;
+  }
+  
+  .placeholder p,
+  .errorMessage p {
+    font-size: 0.75rem;
+  }
+  
+  .errorMessage button {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
   }
 } 

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import Header from '../../components/Header/index';
-import Footer from '../../components/Footer/index';
 import styles from './Informacoes.module.css';
 
 const InformacoesPage = () => {
@@ -70,8 +68,6 @@ const InformacoesPage = () => {
 
   return (
     <div className={styles.informacoesPage}>
-      <Header />
-      
       <div className={styles.informacoesContainer}>
         <div className={styles.breadcrumbs}>
           <Link to="/">Página Inicial</Link>
@@ -105,8 +101,6 @@ const InformacoesPage = () => {
           </div>
         </div>
       </div>
-      
-      <Footer />
     </div>
   );
 };

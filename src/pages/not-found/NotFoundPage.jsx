@@ -1,14 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/index';
-import Footer from '../../components/Footer/index';
 import styles from './NotFoundPage.module.css';
 
 const NotFoundPage = () => {
   return (
     <div className={styles.notFoundPage}>
-      <Header />
-      
       <main className={styles.notFoundContainer}>
         <div className={styles.content}>
           <h1 className={styles.title}>404</h1>
@@ -26,8 +22,6 @@ const NotFoundPage = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };

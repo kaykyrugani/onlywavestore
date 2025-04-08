@@ -76,6 +76,14 @@ const ProdutoInfo = ({ produto }) => {
     setQuantity(newQuantity);
   };
 
+  // Calcula o preço com desconto se houver promoção
+  const precoComDesconto = produto.promocao ? produto.preco * 0.9 : produto.preco;
+
+  // Extrai o número de parcelas e o valor da parcela da string de divisão
+  const [numParcelas, valorParcela] = produto.divisao
+    .match(/(\d+)x de <span>(\d+,\d+)<\/span>/)
+    .slice(1);
+
   return (
     <div className={styles.produtoInfo}>
       <div className={styles.produtoDetails}>
@@ -83,32 +91,37 @@ const ProdutoInfo = ({ produto }) => {
         
         <div className={styles.produtoPrice}>
           <span className={styles.currentPrice}>
-            {produto.preco.toLocaleString('pt-BR', {
+            {precoComDesconto.toLocaleString('pt-BR', {
               style: 'currency',
               currency: 'BRL'
             })}
           </span>
-          {produto.precoOriginal && (
+          {produto.promocao && (
             <>
               <span className={styles.originalPrice}>
-                {produto.precoOriginal.toLocaleString('pt-BR', {
+                {produto.preco.toLocaleString('pt-BR', {
                   style: 'currency',
                   currency: 'BRL'
                 })}
               </span>
               <span className={styles.discount}>
-                {Math.round(((produto.precoOriginal - produto.preco) / produto.precoOriginal) * 100)}%
+                {Math.round(((produto.preco - precoComDesconto) / produto.preco) * 100)}%
               </span>
             </>
           )}
         </div>
 
-        <button 
-          className={styles.parcelamentoLink}
-          onClick={() => setShowParcelamento(true)}
-        >
-          Ver opções de parcelamento
-        </button>
+        <div className={styles.parcelamento}>
+          <span className={styles.parcelamentoText}>
+            {numParcelas}x de <span className={styles.parcelamentoValor}>R$ {valorParcela}</span> sem juros
+          </span>
+          <button 
+            className={styles.parcelamentoLink}
+            onClick={() => setShowParcelamento(true)}
+          >
+            Ver parcelamento
+          </button>
+        </div>
 
         <ProdutoTamanho 
           tamanhos={tamanhosDisponiveis}
@@ -135,17 +148,17 @@ const ProdutoInfo = ({ produto }) => {
       <section className={styles.produtoSections}>
         <div className={styles.sectionDescricao}>
           <h2>Descrição do Produto</h2>
-          <p>{produto.descricao}</p>
+          <p>{produto.nome} - Produto de alta qualidade da OnlyWave Store.</p>
         </div>
 
         <div className={styles.sectionDescricao}>
           <h2>Qualidade do Produto</h2>
-          <p>{produto.qualidade}</p>
+          <p>Produto com garantia de qualidade e durabilidade.</p>
         </div>
 
         <div className={styles.sectionDescricao}>
           <h2>Troca e Devolução</h2>
-          <p>{produto.trocaDevolucao}</p>
+          <p>Devolução gratuita em até 30 dias após a compra, desde que o produto esteja em perfeitas condições e com a etiqueta.</p>
         </div>
       </section>
 
@@ -160,7 +173,7 @@ const ProdutoInfo = ({ produto }) => {
       <ParcelamentoModal 
         isOpen={showParcelamento}
         onClose={() => setShowParcelamento(false)}
-        preco={produto.preco}
+        preco={precoComDesconto}
       />
     </div>
   );

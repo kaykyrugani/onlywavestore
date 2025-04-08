@@ -1,44 +1,57 @@
-import { useState, useEffect } from 'react';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export const useFavorites = () => {
-  const [favorites, setFavorites] = useState(() => {
-    // Carregar favoritos do localStorage
-    const savedFavorites = localStorage.getItem('favorites');
-    return savedFavorites ? JSON.parse(savedFavorites) : [];
-  });
+const useFavorites = create(
+  persist(
+    (set, get) => ({
+      favorites: [],
 
-  // Salvar favoritos no localStorage quando mudar
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
+      addFavorite: (product) => {
+        const currentFavorites = get().favorites;
+        if (!currentFavorites.find((item) => item.id === product.id)) {
+          set({
+            favorites: [...currentFavorites, product],
+          });
+        }
+      },
 
-  // Adicionar produto aos favoritos
-  const addToFavorites = (product) => {
-    setFavorites(prevFavorites => {
-      // Verificar se o produto já está nos favoritos
-      if (prevFavorites.some(item => item.id === product.id)) {
-        return prevFavorites;
-      }
-      return [...prevFavorites, product];
-    });
-  };
+      removeFavorite: (productId) => {
+        const currentFavorites = get().favorites;
+        set({
+          favorites: currentFavorites.filter((item) => item.id !== productId),
+        });
+      },
 
-  // Remover produto dos favoritos
-  const removeFromFavorites = (productId) => {
-    setFavorites(prevFavorites => 
-      prevFavorites.filter(item => item.id !== productId)
-    );
-  };
+      isFavorite: (productId) => {
+        const currentFavorites = get().favorites;
+        return currentFavorites.some((item) => item.id === productId);
+      },
 
-  // Verificar se um produto está nos favoritos
-  const isFavorite = (productId) => {
-    return favorites.some(item => item.id === productId);
-  };
+      toggleFavorite: (product) => {
+        const currentFavorites = get().favorites;
+        const isCurrentlyFavorite = currentFavorites.some(
+          (item) => item.id === product.id
+        );
 
-  return { 
-    favorites, 
-    addToFavorites, 
-    removeFromFavorites, 
-    isFavorite 
-  };
-};
+        if (isCurrentlyFavorite) {
+          set({
+            favorites: currentFavorites.filter((item) => item.id !== product.id),
+          });
+        } else {
+          set({
+            favorites: [...currentFavorites, product],
+          });
+        }
+      },
+
+      clearFavorites: () => {
+        set({ favorites: [] });
+      },
+    }),
+    {
+      name: 'favorites-storage',
+    }
+  )
+);
+
+export default useFavorites;

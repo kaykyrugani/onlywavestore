@@ -1,0 +1,124 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.input--full-width {
+  width: 100%;
+}
+
+.input__label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.input__required {
+  color: var(--danger-color);
+  margin-left: 0.25rem;
+}
+
+.input__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input__field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all var(--transition-normal) ease-in-out;
+}
+
+.input__field:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color-light);
+}
+
+.input__field::placeholder {
+  color: var(--text-color-muted);
+}
+
+.input--icon-left .input__field {
+  padding-left: 2.5rem;
+}
+
+.input--icon-right .input__field {
+  padding-right: 2.5rem;
+}
+
+.input__icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color-muted);
+  pointer-events: none;
+}
+
+.input__icon--left {
+  left: 0.75rem;
+}
+
+.input__icon--right {
+  right: 0.75rem;
+}
+
+.input--error .input__field {
+  border-color: var(--danger-color);
+}
+
+.input--error .input__field:focus {
+  box-shadow: 0 0 0 2px var(--danger-color-light);
+}
+
+.input--disabled .input__field {
+  background-color: var(--background-color-alt);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.input__message {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.input__message--error {
+  color: var(--danger-color);
+}
+
+/* Estilos para diferentes tipos de input */
+.input__field[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input__field[type="number"]::-webkit-outer-spin-button,
+.input__field[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input__field[type="search"] {
+  padding-right: 2.5rem;
+}
+
+.input__field[type="password"] {
+  letter-spacing: 0.25rem;
+}
+
+/* Estilos para autofill */
+.input__field:-webkit-autofill,
+.input__field:-webkit-autofill:hover,
+.input__field:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-color);
+  -webkit-box-shadow: 0 0 0px 1000px var(--background-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
+} 

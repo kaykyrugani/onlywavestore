@@ -1,0 +1,225 @@
+.admin-dashboard {
+  padding: 1rem;
+}
+
+.admin-dashboard h1 {
+  margin-bottom: 2rem;
+  color: var(--color-text);
+}
+
+.admin-dashboard__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard__card {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard__card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.5rem;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.admin-dashboard__card-content {
+  flex: 1;
+}
+
+.admin-dashboard__card-content h3 {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+}
+
+.admin-dashboard__card-value {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.admin-dashboard__card-change {
+  margin: 0;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.admin-dashboard__card-change.positive {
+  color: var(--color-success);
+}
+
+.admin-dashboard__card-change.negative {
+  color: var(--color-error);
+}
+
+.admin-dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-dashboard__chart {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard__chart h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.admin-dashboard__chart-placeholder {
+  height: 300px;
+  background-color: var(--color-background);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-light);
+}
+
+.dashboard {
+  color: var(--admin-text);
+}
+
+.dashboard__header {
+  margin-bottom: 2rem;
+}
+
+.dashboard__title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--admin-text);
+  margin: 0;
+}
+
+.dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard__card {
+  background-color: var(--admin-table-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.dashboard__card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.dashboard__card-content {
+  flex: 1;
+}
+
+.dashboard__card-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.dashboard__card-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--admin-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.dashboard__card-change {
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.dashboard__card-change--positive {
+  color: #4CAF50;
+}
+
+.dashboard__card-change--negative {
+  color: #dc3545;
+}
+
+.dashboard__charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard__chart {
+  background-color: var(--admin-table-bg);
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.dashboard__chart-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--admin-text);
+  margin: 0 0 1rem 0;
+}
+
+.dashboard__chart-content {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--admin-table-header-bg);
+  border-radius: 8px;
+  color: var(--admin-text);
+}
+
+@media (max-width: 768px) {
+  .dashboard__grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard__title {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard__card-value {
+    font-size: 1.5rem;
+  }
+  
+  .dashboard__charts {
+    grid-template-columns: 1fr;
+  }
+} 

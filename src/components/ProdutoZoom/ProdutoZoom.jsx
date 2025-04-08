@@ -5,6 +5,7 @@ import useZoom from '../../hooks/useZoom';
 const ProdutoZoom = ({ imageUrl, alt, onZoomChange, isAnimating }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
+  const [loadError, setLoadError] = useState(false);
   
   const {
     isZoomed,
@@ -22,51 +23,71 @@ const ProdutoZoom = ({ imageUrl, alt, onZoomChange, isAnimating }) => {
     onZoomChange
   });
 
-  // Implementação de lazy loading
+  // Implementação de lazy loading com tratamento de erro
   useEffect(() => {
+    setImageLoaded(false);
+    setLoadError(false);
+    
     const img = new Image();
     img.src = imageUrl;
     
     img.onload = () => {
       setImageLoaded(true);
       setImageSrc(imageUrl);
+      setLoadError(false);
+    };
+    
+    img.onerror = () => {
+      setImageLoaded(true);
+      setLoadError(true);
+      setImageSrc('https://via.placeholder.com/400x400?text=Erro+ao+carregar+imagem');
     };
     
     return () => {
       img.onload = null;
+      img.onerror = null;
     };
   }, [imageUrl]);
 
-  // Desativa o zoom quando a imagem está animando
+  // Desativa o zoom quando a imagem está animando ou houve erro
   useEffect(() => {
-    if (isAnimating && isZoomed) {
+    if ((isAnimating || loadError) && isZoomed) {
       handleZoomDeactivate();
     }
-  }, [isAnimating, isZoomed, handleZoomDeactivate]);
+  }, [isAnimating, loadError, isZoomed, handleZoomDeactivate]);
 
   return (
     <div 
       ref={containerRef}
       className={`${styles.zoomContainer} ${isZoomed ? styles.zoomed : ''} ${isAnimating ? styles.animating : ''}`}
-      onClick={isZoomed ? handleZoomDeactivate : handleZoomActivate}
-      onMouseMove={handleMouseMove}
+      onClick={loadError ? null : (isZoomed ? handleZoomDeactivate : handleZoomActivate)}
+      onMouseMove={loadError ? null : handleMouseMove}
       onMouseLeave={handleZoomDeactivate}
+      style={{ cursor: loadError ? 'default' : (isZoomed ? 'zoom-out' : 'zoom-in') }}
     >
       <div 
         ref={imageRef}
         className={styles.zoomImage}
         style={{
           transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
-          transform: isZoomed ? `scale(${zoomLevel})` : 'scale(1)',
-          cursor: isZoomed ? 'zoom-out' : 'zoom-in',
+          transform: isZoomed && !loadError ? `scale(${zoomLevel})` : 'scale(1)',
           transition: `transform ${animationDuration}ms ease`
         }}
       >
         {!imageLoaded && (
           <div className={styles.placeholder}>
             <div className={styles.spinner}></div>
+            <p>Carregando imagem...</p>
           </div>
         )}
+        
+        {loadError && imageLoaded && (
+          <div className={styles.errorMessage}>
+            <p>Erro ao carregar a imagem</p>
+            <button onClick={() => window.location.reload()}>Tentar novamente</button>
+          </div>
+        )}
+        
         <img 
           src={imageSrc}
           alt={alt}

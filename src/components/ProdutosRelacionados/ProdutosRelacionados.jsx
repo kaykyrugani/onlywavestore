@@ -26,7 +26,7 @@ const ProdutosRelacionados = ({ produtoId }) => {
     );
   }
 
-  if (produtosRelacionados.length === 0) {
+  if (!produtosRelacionados || produtosRelacionados.length === 0) {
     return null;
   }
 
@@ -42,7 +42,7 @@ const ProdutosRelacionados = ({ produtoId }) => {
           >
             <div className={styles.imagemContainer}>
               <img 
-                src={produto.imagens[0]} 
+                src={produto.imagem} 
                 alt={produto.nome} 
                 className={styles.imagem}
               />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEnvelope, FaLock, FaUser, FaFacebookF, FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
@@ -6,10 +6,15 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './AccountForm.module.css';
 
-const AccountForm = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const AccountForm = ({ initialMode = 'login' }) => {
+  const [isLogin, setIsLogin] = useState(initialMode === 'login');
   const { login, register: registerUser, error: authError } = useAuth();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    // Atualizar o modo com base na propriedade initialMode
+    setIsLogin(initialMode === 'login');
+  }, [initialMode]);
   
   const { 
     register, 

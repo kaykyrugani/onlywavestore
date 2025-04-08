@@ -17,6 +17,9 @@
   height: 500px;
   transform: translateY(-94px);
   padding-right: 8px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cor-primaria) #e0e0e0;
 }
 
 /* Estilização da scrollbar para navegadores WebKit */
@@ -45,6 +48,7 @@
   transition: all 0.3s ease;
   width: 100px;
   height: 100px;
+  position: relative;
 }
 
 .thumbnailButton:hover {
@@ -56,6 +60,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.thumbnailButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 /* Imagem da miniatura */
 .thumbnail {
   width: 100%;
@@ -65,7 +74,7 @@
   transition: transform 0.3s ease;
 }
 
-.thumbnailButton:hover .thumbnail {
+.thumbnailButton:hover:not(:disabled) .thumbnail {
   transform: scale(1.05);
 }
 
@@ -76,39 +85,44 @@
   height: 500px;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: var(--fundo-secundario);
 }
 
-/* Imagem principal */
-.mainImage {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  opacity: 1;
-  transform: scale(1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-/* Container do zoom */
-.zoomContainer {
+/* Placeholder */
+.placeholder {
   position: absolute;
   top: 0;
-  left: calc(100% + 24px);
-  width: 500px;
-  height: 500px;
-  z-index: 10;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--fundo-secundario);
+  gap: 1rem;
+  z-index: 1;
 }
 
-/* Animação da imagem principal */
-.mainImage.animating {
-  opacity: 0;
-  transform: scale(0.98);
+.placeholder p {
+  color: var(--texto-secundario);
+  font-size: 0.875rem;
+  margin: 0;
 }
 
-/* Efeito de hover na imagem principal */
-.mainImageContainer:hover .mainImage:not(.animating) {
-  transform: scale(1.02);
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--fundo-terciario);
+  border-top-color: var(--primaria);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Botões de navegação */
@@ -130,11 +144,21 @@
   transition: all 0.3s ease;
   z-index: 2;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
 }
 
-.navigationButton:hover {
+.mainImageContainer:hover .navigationButton:not(:disabled) {
+  opacity: 1;
+}
+
+.navigationButton:hover:not(:disabled) {
   background-color: white;
   transform: translateY(-50%) scale(1.1);
+}
+
+.navigationButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
 }
 
 .prevButton {
@@ -145,7 +169,42 @@
   right: 10px;
 }
 
+/* Carrossel simbólico */
+.carrosselSimbolico {
+  position: absolute;
+  right: -120px;
+  top: 0;
+  width: 100px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--fundo-secundario);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carrosselItem {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: var(--fundo-terciario);
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.carrosselItem:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
 /* Responsividade */
+@media (max-width: 1440px) {
+  .carrosselSimbolico {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .produtoCarrossel {
     grid-template-columns: 1fr;
@@ -167,15 +226,39 @@
     top: 0;
     height: auto;
     padding: 0 0 1rem 0;
+    transform: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
   }
 
   .thumbnailButton {
     flex: 0 0 80px;
     width: 80px;
     height: 80px;
+    scroll-snap-align: start;
   }
 
-  .zoomContainer {
-    display: none;
+  .navigationButton {
+    opacity: 1;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border-width: 2px;
+  }
+
+  .placeholder p {
+    font-size: 0.75rem;
+  }
+}
+
+/* Suporte a toque */
+@media (hover: none) {
+  .navigationButton {
+    opacity: 1;
   }
 } 

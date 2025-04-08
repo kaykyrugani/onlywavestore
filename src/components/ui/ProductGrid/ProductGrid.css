@@ -1,0 +1,117 @@
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns, 4), 1fr);
+  gap: var(--grid-gap, 1rem);
+  width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estados de loading */
+.product-grid--loading {
+  min-height: 400px;
+}
+
+.product-grid__skeleton {
+  background-color: var(--background-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: pulse 1.5s infinite;
+}
+
+.product-grid__skeleton-image {
+  aspect-ratio: 1;
+  background-color: var(--background-color-alt);
+}
+
+.product-grid__skeleton-content {
+  padding: 1rem;
+}
+
+.product-grid__skeleton-title {
+  height: 1.25rem;
+  background-color: var(--background-color-alt);
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
+  width: 80%;
+}
+
+.product-grid__skeleton-price {
+  height: 1.5rem;
+  background-color: var(--background-color-alt);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  width: 40%;
+}
+
+.product-grid__skeleton-button {
+  height: 2.5rem;
+  background-color: var(--background-color-alt);
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Estados de erro e vazio */
+.product-grid--error,
+.product-grid--empty {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.product-grid__error,
+.product-grid__empty {
+  max-width: 400px;
+}
+
+.product-grid__error p,
+.product-grid__empty p {
+  margin-bottom: 1rem;
+  color: var(--text-color-muted);
+}
+
+.product-grid__error button {
+  background-color: var(--primary-color);
+  color: var(--text-color-inverse);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-normal) ease-in-out;
+}
+
+.product-grid__error button:hover {
+  background-color: var(--primary-color-dark);
+} 

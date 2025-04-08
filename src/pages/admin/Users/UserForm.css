@@ -1,0 +1,158 @@
+.user-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.user-form-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.user-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.user-form-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.user-form-close {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+
+.user-form-close:hover {
+  color: #333;
+}
+
+.user-form-error {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #ffebee;
+  color: #c62828;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.user-form {
+  padding: 1.5rem;
+}
+
+.user-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.user-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.user-form-group input,
+.user-form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.user-form-group input:focus,
+.user-form-group select:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.user-form-group input:disabled,
+.user-form-group select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.user-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.user-form-cancel,
+.user-form-save {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.user-form-cancel {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.user-form-cancel:hover:not(:disabled) {
+  background-color: #eee;
+}
+
+.user-form-save {
+  background-color: #1976d2;
+  border: none;
+  color: white;
+}
+
+.user-form-save:hover:not(:disabled) {
+  background-color: #1565c0;
+}
+
+.user-form-cancel:disabled,
+.user-form-save:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Estilização da barra de rolagem */
+.user-form-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.user-form-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.user-form-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.user-form-container::-webkit-scrollbar-thumb:hover {
+  background: #666;
+} 
