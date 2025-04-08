@@ -53,6 +53,7 @@
   gap: 1rem;
 }
 
+
 .searchButton,
 .cartButton,
 .menuButton {
@@ -94,18 +95,6 @@
   padding: 0 4px;
 }
 
-@media (max-width: 768px) {
-  .nav {
-    display: none;
-  }
-
-  .searchButton,
-  .cartButton,
-  .menuButton {
-    width: 36px;
-    height: 36px;
-  }
-}
 
 .desconto {
   display: flex;
@@ -127,11 +116,12 @@
 }
 
 .buscaHeader {
+  justify-content: center;
   display: flex;
   align-items: center;
-  gap: 32px; /* Espaçamento entre logo, barra de busca e ícones */
+  gap: 240px; /* Espaçamento entre logo, barra de busca e ícones */
   width: 100%;
-  padding: 0 304px;
+  padding: 0 104px;
   z-index: 16;
 }
 
@@ -172,6 +162,10 @@
 .navbar {
   position: relative;
   display: flex;
+  width: 100%;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
   padding: 10px 224px;
   align-items: center;
   gap: 32px;
@@ -677,3 +671,42 @@
 .cartIconWrapper.bump .cartCount {
   animation: cartBump 0.4s ease-in-out;
 }
+
+@media (max-width: 1350px) {
+  .buscaHeader {
+    padding: 0 100px;
+    gap: 72px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .buscaHeader {
+    padding: 0 80px;
+    gap: 56px;
+  }
+
+  .navbar {
+    font-size: 18px;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 900px) {
+  .buscaHeader {
+    padding: 0 64px;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 750px) {
+  .buscaHeader {
+    padding: 0 48px;
+    gap: 32px;
+    border-bottom: 5px solid var(--cor-primaria);
+  }
+
+  .navbar {
+    display: none;
+  }
+}
+
