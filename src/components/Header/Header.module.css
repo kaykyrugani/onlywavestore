@@ -80,19 +80,19 @@
 
 .cartCount {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -8px;
+  right: -8px;
   background-color: #0066cc;
   color: white;
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 600;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 9px;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 4px;
+  padding: 0 6px;
 }
 
 
@@ -119,10 +119,11 @@
   justify-content: center;
   display: flex;
   align-items: center;
-  gap: 240px; /* Espaçamento entre logo, barra de busca e ícones */
+  gap: 240px;
   width: 100%;
-  padding: 0 104px;
+  padding: 0 140px;
   z-index: 16;
+  position: relative;
 }
 
 .iconsBusca {
@@ -139,7 +140,7 @@
 }
 
 .userIcon {
-  font-size: 16px;
+  font-size: 26px;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -149,13 +150,45 @@
 }
 
 .cartIconWrapper {
-  font-size: 16px;
+  position: relative;
   cursor: pointer;
+  padding: 5px;
+  padding-bottom: 15px;
+}
+
+.cartIcon {
+  transform: translateY(5px);
+  font-size: 28px;
+  transition: transform 0.3s ease;
+  color: var(--cor-primaria);
+}
+
+.cartIconWrapper:hover .cartIcon {
+  transform: scale(1.1);
+  color: var(--cor-primaria);
+}
+
+.cartCount {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--cor-primaria);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
 }
 
-.cartIconWrapper:hover {
-  transform: scale(1.5);
+.cartIconWrapper:hover .cartCount {
+  transform: scale(1.1);
 }
 
 /* Estilos para o Navbar */
@@ -166,9 +199,9 @@
   font-size: 24px;
   align-items: center;
   justify-content: center;
-  padding: 10px 224px;
+  padding: 10px 100px;
   align-items: center;
-  gap: 32px;
+  gap: 118px;
   align-self: stretch;
   background: var(--fundo-texto-light);
   z-index: 15;
@@ -349,8 +382,8 @@
 
 .cartCount {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: -8px;
+  right: -8px;
   background-color: var(--cor-primaria);
   color: white;
   border-radius: 50%;
@@ -511,46 +544,6 @@
   opacity: 0.9;
 }
 
-/* Ícone do carrinho com animação */
-.cartIconWrapper {
-  position: relative;
-  cursor: pointer;
-  padding: 5px;
-  padding-bottom: 15px;
-}
-
-.cartIcon {
-  transform: translateY(5px);
-  font-size: 20px;
-  transition: transform 0.3s ease;
-}
-
-.cartIconWrapper:hover .cartIcon {
-  transform: scale(1.1);
-  color: var(--cor-primaria);
-}
-
-.cartCount {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: var(--cor-primaria);
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-}
-
-.cartIconWrapper:hover .cartCount {
-  transform: scale(1.1);
-}
-
 /* Adicionar após os estilos existentes do mini cart */
 
 /* Estilos para o mini cart vazio */
@@ -682,7 +675,7 @@
 @media (max-width: 1100px) {
   .buscaHeader {
     padding: 0 80px;
-    gap: 56px;
+    gap: 48px;
   }
 
   .navbar {
@@ -700,13 +693,65 @@
 
 @media (max-width: 750px) {
   .buscaHeader {
-    padding: 0 48px;
-    gap: 32px;
+    padding: 0 16px;
+    gap: 12px;
     border-bottom: 5px solid var(--cor-primaria);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+  }
+
+  .mobMenu {
+    position: relative;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: var(--cor-primaria);
+    cursor: pointer;
+    padding: 5px;
+    background: none;
+    border: none;
+    transition: transform 0.3s ease;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+
+  .mobMenu:hover {
+    transform: scale(1.1);
+  }
+
+  .logo {
+    position: relative;
+    display: flex !important;
+    margin: 0 12px;
+  }
+
+  .searchContainer {
+    flex: 1;
+    margin: 0 12px;
+    order: 3;
+    max-width: calc(100% - 200px);
+  }
+
+  .iconsBusca {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    order: 4;
+    gap: 8px;
   }
 
   .navbar {
     display: none;
   }
+}
+
+/* Estilo base do mobMenu (fora da media query) */
+.mobMenu {
+  display: none;
 }
 

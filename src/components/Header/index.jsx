@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faShoppingCart, faTimes, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faShoppingCart, faTimes, faShoppingBag, faBars } from '@fortawesome/free-solid-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tenis, camisetas, acessorios } from '../../pages/home/produtoscards';
 import SearchBar from '../SearchBar/index';
 import Cart from '../Cart/index';
+import MobMenu from '../MobMenu/MobMenu';
 import { useCart } from '../../contexts/CartContext';
 import { useCarrinho } from '../../contexts/CarrinhoContext';
 import styles from './Header.module.css';
@@ -116,6 +117,7 @@ function Header() {
     const miniCarrinhoTimeoutRef = useRef(null);
     // Estado para animação do ícone do carrinho
     const [cartBump, setCartBump] = useState(false);
+    const [isMobMenuOpen, setIsMobMenuOpen] = useState(false);
 
     // Função para lidar com o hover no item do menu
     const handleMenuHover = (menuId) => {
@@ -259,111 +261,34 @@ function Header() {
     return (
         <div className={styles.header}>
             <div className={styles.desconto}>
-                <p>RECEBA 5% DE DESCONTO VIA PIX</p>
+                <p>Frete grátis para compras acima de R$ 200,00</p>
             </div>
             <div className={styles.buscaHeader}>
-                <div className={styles.logo}>
-                    <Link to="/">
-                        <img src="/logo.png" alt="OnlyWave Store" />
-                    </Link>
+                <div className={styles.mobMenu} onClick={() => setIsMobMenuOpen(true)}>
+                    <FontAwesomeIcon icon={faBars} />
                 </div>
+                <Link to="/">
+                    <img src="/logo.png" alt="Logo OnlyWave" />
+                </Link>
                 <SearchBar />
                 <div className={styles.iconsBusca}>
-                    <Link to="/conta" className={styles.userIconWrapper}>
+                    <div className={styles.userIconWrapper}>
                         <FontAwesomeIcon icon={faUser} className={styles.userIcon} />
-                    </Link>
+                    </div>
                     <div 
                         className={`${styles.cartIconWrapper} ${cartBump ? styles.bump : ''}`}
-                        onClick={openCart}
                         onMouseEnter={handleCartMouseEnter}
                         onMouseLeave={handleCartMouseLeave}
                     >
-                        <FontAwesomeIcon 
-                            icon={faShoppingCart} 
-                            className={styles.cartIcon}
-                        />
-                        <span className={styles.cartCount}>{totalItens}</span>
-                        
-                        {/* Miniatura do carrinho */}
-                        {mostrarMiniCarrinho && (
-                            <div 
-                                className={styles.miniCart}
-                                onMouseEnter={handleMiniCartMouseEnter}
-                                onMouseLeave={handleMiniCartMouseLeave}
-                            >
-                                <div className={styles.miniCartHeader}>
-                                    <h4>Seu Carrinho {carrinho.length > 0 ? `(${carrinho.length})` : ''}</h4>
-                                    <button 
-                                        className={styles.miniCartClose}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            setMostrarMiniCarrinho(false);
-                                        }}
-                                    >
-                                        <FontAwesomeIcon icon={faTimes} />
-                                    </button>
-                                </div>
-                                
-                                {carrinho.length > 0 ? (
-                                    <>
-                                        <div className={styles.miniCartItems}>
-                                            <AnimatePresence>
-                                                {carrinho.slice(0, 3).map((item) => (
-                                                    <MiniCartItem 
-                                                        key={`${item.id}-${item.tamanho}`}
-                                                        item={item}
-                                                        onRemove={handleRemoveFromMiniCart}
-                                                    />
-                                                ))}
-                                            </AnimatePresence>
-                                            
-                                            {carrinho.length > 3 && (
-                                                <div className={styles.miniCartMore}>
-                                                    + {carrinho.length - 3} itens adicionais
-                                                </div>
-                                            )}
-                                        </div>
-                                        
-                                        <div className={styles.miniCartFooter}>
-                                            <div className={styles.miniCartTotal}>
-                                                <span>Total:</span>
-                                                <span>R$ {valorTotal.toFixed(2)}</span>
-                                            </div>
-                                            <button 
-                                                className={styles.miniCartCheckout}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    navigate('/teste');
-                                                    setMostrarMiniCarrinho(false);
-                                                }}
-                                            >
-                                                Finalizar Compra
-                                            </button>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <div className={styles.miniCartEmpty}>
-                                        <div className={styles.miniCartEmptyIcon}>
-                                            <FontAwesomeIcon icon={faShoppingBag} />
-                                        </div>
-                                        <p>Seu carrinho está vazio</p>
-                                        <button 
-                                            className={styles.miniCartEmptyButton}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                navigate('/produtos');
-                                                setMostrarMiniCarrinho(false);
-                                            }}
-                                        >
-                                            Conhecer produtos
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+                        <FontAwesomeIcon icon={faShoppingCart} className={styles.cartIcon} />
+                        {totalItens > 0 && (
+                            <span className={styles.cartCount}>{totalItens}</span>
                         )}
                     </div>
                 </div>
+                <MobMenu isOpen={isMobMenuOpen} onClose={() => setIsMobMenuOpen(false)} />
             </div>
+
             <nav className={styles.navbar} ref={menuRef}>
                 {menuItems.map((item) => (
                     <div 
@@ -423,7 +348,6 @@ function Header() {
                 ))}
             </nav>
 
-            {/* Componente do Carrinho de Compras */}
             <Cart 
                 isOpen={isCartOpen}
                 onClose={closeCart}

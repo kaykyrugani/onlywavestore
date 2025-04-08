@@ -1,0 +1,114 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobMenu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh;
+  background-color: var(--branco);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1001;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.mobMenu.active {
+  right: 0;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--cinza);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.closeButton:hover {
+  color: var(--cor-primaria);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mobNav {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobMenuItem {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobMenuLink {
+  display: block;
+  padding: 12px 0;
+  color: var(--preto);
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.mobMenuLink:hover {
+  color: var(--cor-primaria);
+}
+
+/* Acessibilidade */
+.mobMenu:focus-within {
+  outline: 2px solid var(--cor-primaria);
+}
+
+.closeButton:focus {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.mobMenuLink:focus {
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Animações para os itens do menu */
+.mobMenuItem {
+  opacity: 0;
+  transform: translateX(20px);
+  animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Aplicar delay na animação para cada item */
+.mobMenuItem:nth-child(1) { animation-delay: 0.1s; }
+.mobMenuItem:nth-child(2) { animation-delay: 0.2s; }
+.mobMenuItem:nth-child(3) { animation-delay: 0.3s; }
+.mobMenuItem:nth-child(4) { animation-delay: 0.4s; }
+.mobMenuItem:nth-child(5) { animation-delay: 0.5s; } 

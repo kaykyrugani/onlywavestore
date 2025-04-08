@@ -103,46 +103,93 @@ const ProductCarousel = ({ products, title, categorySlug }) => {
         <div
           className={styles.carousel}
           style={{ transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)` }}
+          role="region"
+          aria-label="Carrossel de produtos"
         >
           {products.map((product) => {
-            // Assume preço com desconto de 10% para produtos em promoção
             const discountedPrice = product.promocao ? product.preco * 0.9 : null;
+            const discount = product.promocao ? calculateDiscount(product.preco, discountedPrice) : null;
 
             return (
-              <div key={product.id} className={styles.productCard}>
+              <div 
+                key={product.id} 
+                className={styles.productCard}
+                role="article"
+                aria-label={`Produto: ${product.nome}`}
+              >
                 <div className={styles.productImage}>
-                  <img src={product.imagem || "https://via.placeholder.com/200x200"} alt={product.nome} />
+                  <img 
+                    src={product.imagem || "https://via.placeholder.com/200x200"} 
+                    alt={product.nome}
+                    loading="lazy"
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/200x200";
+                      e.target.alt = "Imagem indisponível";
+                    }}
+                  />
                   {product.promocao && (
-                    <div className={styles.discountTag}>
-                      -{calculateDiscount(product.preco, discountedPrice)}%
+                    <div 
+                      className={styles.discountTag}
+                      role="text"
+                      aria-label={`${discount}% de desconto`}
+                    >
+                      -{discount}%
                     </div>
                   )}
                 </div>
 
-                <div className={styles.productRating}>
+                <div className={styles.productRating} role="text" aria-label={`Avaliação: ${product.avaliacoes} de 5 estrelas`}>
                   {renderStars(product.avaliacoes)}
                 </div>
 
                 <div className={styles.productInfo}>
-                  <div className={styles.productTitle}>{product.nome}</div>
+                  <div 
+                    className={styles.productTitle}
+                    title={product.nome}
+                  >
+                    {product.nome}
+                  </div>
 
                   <div className={styles.productPriceContainer}>
                     {product.promocao ? (
                       <>
-                        <span className={styles.originalPrice}>{formatPrice(product.preco)}</span>
-                        <span className={styles.discountedPrice}>{formatPrice(discountedPrice)}</span>
+                        <span 
+                          className={styles.originalPrice}
+                          data-price={`Preço original: ${formatPrice(product.preco)}`}
+                          aria-label={`Preço original: ${formatPrice(product.preco)}`}
+                        >
+                          {formatPrice(product.preco)}
+                        </span>
+                        <span 
+                          className={styles.discountedPrice}
+                          aria-label={`Preço com desconto: ${formatPrice(discountedPrice)}`}
+                        >
+                          {formatPrice(discountedPrice)}
+                        </span>
                       </>
                     ) : (
-                      <div className={styles.productPrice}>{formatPrice(product.preco)}</div>
+                      <div 
+                        className={styles.productPrice}
+                        aria-label={`Preço: ${formatPrice(product.preco)}`}
+                      >
+                        {formatPrice(product.preco)}
+                      </div>
                     )}
                   </div>
 
                   <div
                     className={styles.productInstallment}
                     dangerouslySetInnerHTML={{ __html: product.divisao }}
+                    aria-label={`Opções de parcelamento: ${product.divisao.replace(/<[^>]*>/g, '')}`}
                   ></div>
 
-                  <button className={styles.productButton}>Comprar</button>
+                  <button 
+                    className={styles.productButton}
+                    onClick={() => {/* Adicionar lógica de compra */}}
+                    aria-label={`Comprar ${product.nome}`}
+                  >
+                    Comprar
+                  </button>
                 </div>
               </div>
             );
