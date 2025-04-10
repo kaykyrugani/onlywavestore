@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useSwipeable } from 'react-swipeable';
 import { menuItems } from '../Header';
 import styles from './MobMenu.module.css';
@@ -101,6 +101,17 @@ const MobMenu = ({ isOpen, onClose }) => {
         </button>
         
         <nav className={styles.mobNav}>
+          <div className={styles.accountLinks}>
+            <Link to="/conta" className={styles.accountLink} onClick={handleClose}>
+              <FontAwesomeIcon icon={faUser} className={styles.accountIcon} />
+              Minha conta
+            </Link>
+            <Link to="/carrinho" className={styles.accountLink} onClick={handleClose}>
+              <FontAwesomeIcon icon={faShoppingCart} className={styles.accountIcon} />
+              Carrinho
+            </Link>
+          </div>
+          
           {menuItems.map((item) => (
             <div key={item.id} className={styles.mobMenuItem}>
               <Link 

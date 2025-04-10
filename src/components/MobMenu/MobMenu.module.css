@@ -57,20 +57,22 @@
   margin-top: 60px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .mobMenuItem {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateX(20px);
+  animation: slideIn 0.3s ease forwards;
 }
 
 .mobMenuLink {
   display: block;
-  padding: 12px 0;
+  padding: 15px 0;
   color: var(--preto);
   text-decoration: none;
-  font-size: 18px;
+  font-size: 16px;
   transition: color 0.3s ease;
+  border-bottom: 1px solid #E5E5E5;
 }
 
 .mobMenuLink:hover {
@@ -93,12 +95,6 @@
 }
 
 /* Animações para os itens do menu */
-.mobMenuItem {
-  opacity: 0;
-  transform: translateX(20px);
-  animation: slideIn 0.3s ease forwards;
-}
-
 @keyframes slideIn {
   to {
     opacity: 1;
@@ -111,4 +107,83 @@
 .mobMenuItem:nth-child(2) { animation-delay: 0.2s; }
 .mobMenuItem:nth-child(3) { animation-delay: 0.3s; }
 .mobMenuItem:nth-child(4) { animation-delay: 0.4s; }
-.mobMenuItem:nth-child(5) { animation-delay: 0.5s; } 
+.mobMenuItem:nth-child(5) { animation-delay: 0.5s; }
+
+.accountLinks {
+  display: none;
+  flex-direction: column;
+}
+
+.accountLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  color: var(--preto);
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.accountIcon {
+  font-size: 18px;
+  color: var(--preto);
+  width: 20px;
+}
+
+.accountLink:hover {
+  color: var(--cor-primaria);
+}
+
+/* Media query para mostrar os links apenas em 550px */
+@media (max-width: 550px) {
+  .accountLinks {
+    display: flex;
+  }
+  
+  /* Aplicar animação também aos links de conta */
+  .accountLinks {
+    opacity: 0;
+    transform: translateX(20px);
+    animation: slideIn 0.3s ease forwards;
+    animation-delay: 0.1s;
+  }
+  
+  /* Ajustar delays para os outros itens */
+  .mobMenuItem:nth-child(1) { animation-delay: 0.2s; }
+  .mobMenuItem:nth-child(2) { animation-delay: 0.3s; }
+  .mobMenuItem:nth-child(3) { animation-delay: 0.4s; }
+  .mobMenuItem:nth-child(4) { animation-delay: 0.5s; }
+  .mobMenuItem:nth-child(5) { animation-delay: 0.6s; }
+}
+
+@media (max-width: 350px) {
+  .accountLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .accountLink {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    color: var(--preto);
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+
+  .accountLink:hover {
+    color: var(--cor-primaria);
+  }
+
+  .accountIcon {
+    font-size: 20px;
+  }
+} 

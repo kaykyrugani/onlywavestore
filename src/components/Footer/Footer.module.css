@@ -220,21 +220,19 @@
     }
 
     .atendimento {
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      
-      
-
     }
 
-    .whats h3{
-      display: none;
-    }
-    
+    .whats h3,
     .email a {
       display: none;
     }
-    
+
+    .socialicons {
+      flex-direction: column;
+      gap: 16px;
+    }
   }
 
   @media (max-width: 500px) {

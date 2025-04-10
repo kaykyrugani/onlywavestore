@@ -261,15 +261,19 @@ function Header() {
     return (
         <div className={styles.header}>
             <div className={styles.desconto}>
-                <p>Frete grátis para compras acima de R$ 200,00</p>
+                <Link to="/">
+                    <p>Frete grátis para compras acima de R$ 200,00</p>
+                </Link>
             </div>
             <div className={styles.buscaHeader}>
                 <div className={styles.mobMenu} onClick={() => setIsMobMenuOpen(true)}>
                     <FontAwesomeIcon icon={faBars} />
                 </div>
-                <Link to="/">
-                    <img src="/logo.png" alt="Logo OnlyWave" />
-                </Link>
+                <div className={styles.logo}>
+                    <Link to="/">
+                        <img src="/logo.png" alt="Logo OnlyWave" />
+                    </Link>
+                </div>
                 <SearchBar />
                 <div className={styles.iconsBusca}>
                     <Link to="/conta" className={styles.userIconWrapper}>

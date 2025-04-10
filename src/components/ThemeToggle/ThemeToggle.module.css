@@ -84,6 +84,10 @@
     height: 100%;
   }
 
+  .inactiveIcon {
+    display: none;
+  }
+
   .iconContainer.active {
     display: flex;
     opacity: 1;

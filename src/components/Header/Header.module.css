@@ -25,10 +25,13 @@
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0066cc;
-  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  max-height: 40px;
+  width: auto;
 }
 
 .nav {
@@ -101,10 +104,17 @@
   padding: 10px;
   height: 35px;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   align-self: stretch;
   background-color: var(--fundo-texto-light);
+  width: 100%;
+}
+
+.desconto a {
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
 }
 
 .desconto p {
@@ -113,6 +123,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin: 0;
 }
 
 .buscaHeader {
@@ -724,12 +735,6 @@
     transform: scale(1.1);
   }
 
-  .logo {
-    position: relative;
-    display: flex !important;
-    margin: 0 12px;
-  }
-
   .searchContainer {
     flex: 1;
     margin: 0 12px;
@@ -737,27 +742,75 @@
     max-width: calc(100% - 200px);
   }
 
-  .iconsBusca {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    order: 4;
-    gap: 8px;
-  }
-
   .navbar {
     display: none;
+  }
+
+  .miniCart {
+    display: none;
+  }
+
+  .themeToggle .inactiveIcon {
+    display: none !important;
+  }
+
+  /* Esconder os links de conta no menu mobile por padrão */
+  .accountLinks,
+  .cartLinks {
+    display: none !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .logo,
+  .logo img {
+    display: none !important;
+  }
+
+  .searchInput {
+    font-size: calc(var(--font-size) - 4px);
+    padding: 8px 12px;
+  }
+
+  .iconsBusca {
+    display: none !important;
+  }
+
+  .cartIconWrapper,
+  .userIcon {
+    display: none !important;
+  }
+
+  /* Mostrar os links apenas no menu mobile em 550px */
+  .mobMenu .accountLinks,
+  .mobMenu .cartLinks {
+    display: flex !important;
+  }
+
+  .desconto {
+    text-align: center;
+  }
+
+  .desconto a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+  }
+
+  .desconto p {
+    display: none;
+  }
+
+  .desconto a::after {
+    content: 'OnlyWave';
+    color: var(--branco);
+    font-weight: bold;
+    font-size: 16px;
   }
 }
 
 /* Estilo base do mobMenu (fora da media query) */
 .mobMenu {
   display: none;
-}
-
-
-@media (max-width: 550px) {
-  .logo{
-    display: none;
-  }
 }
