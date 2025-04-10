@@ -13,13 +13,14 @@
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   overflow: hidden;
 }
 
 .themeToggle:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background-color: var(--primaria-contraste);
 }
 
 .toggleContainer {
@@ -30,6 +31,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+  transition: all 0.3s ease-in-out;
 }
 
 .iconContainer {
@@ -39,7 +41,7 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   opacity: 0.7;
 }
 
@@ -51,9 +53,47 @@
 .icon {
   font-size: 16px;
   color: var(--branco);
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .active .icon {
   transform: scale(1.2);
+}
+
+@media (max-width: 750px) {
+  .themeToggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+  }
+
+  .themeToggle:hover {
+    transform: translateY(-2px) scale(1.1);
+    background-color: var(--primaria-contraste);
+  }
+
+  .toggleContainer {
+    padding: 0;
+    justify-content: center;
+  }
+
+  .iconContainer {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .iconContainer.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .active .icon {
+    transform: scale(1.2);
+  }
+
+  .themeToggle:hover .active .icon {
+    transform: scale(1.3);
+  }
 }

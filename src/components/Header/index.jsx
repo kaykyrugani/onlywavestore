@@ -272,17 +272,81 @@ function Header() {
                 </Link>
                 <SearchBar />
                 <div className={styles.iconsBusca}>
-                    <div className={styles.userIconWrapper}>
+                    <Link to="/conta" className={styles.userIconWrapper}>
                         <FontAwesomeIcon icon={faUser} className={styles.userIcon} />
-                    </div>
+                    </Link>
                     <div 
                         className={`${styles.cartIconWrapper} ${cartBump ? styles.bump : ''}`}
+                        onClick={() => openCart()}
                         onMouseEnter={handleCartMouseEnter}
                         onMouseLeave={handleCartMouseLeave}
                     >
                         <FontAwesomeIcon icon={faShoppingCart} className={styles.cartIcon} />
                         {totalItens > 0 && (
                             <span className={styles.cartCount}>{totalItens}</span>
+                        )}
+                        
+                        {mostrarMiniCarrinho && (
+                            <div 
+                                className={styles.miniCart}
+                                onMouseEnter={handleMiniCartMouseEnter}
+                                onMouseLeave={handleMiniCartMouseLeave}
+                            >
+                                <div className={styles.miniCartHeader}>
+                                    <h4>Seu Carrinho</h4>
+                                    <button 
+                                        className={styles.miniCartClose}
+                                        onClick={() => setMostrarMiniCarrinho(false)}
+                                    >
+                                        <FontAwesomeIcon icon={faTimes} />
+                                    </button>
+                                </div>
+                                
+                                {carrinho.length > 0 ? (
+                                    <>
+                                        <div className={styles.miniCartItems}>
+                                            {carrinho.map((item) => (
+                                                <MiniCartItem 
+                                                    key={`${item.id}-${item.tamanho}`}
+                                                    item={item}
+                                                    onRemove={handleRemoveFromMiniCart}
+                                                />
+                                            ))}
+                                        </div>
+                                        <div className={styles.miniCartFooter}>
+                                            <div className={styles.miniCartTotal}>
+                                                <span>Total:</span>
+                                                <span>R$ {valorTotal.toFixed(2)}</span>
+                                            </div>
+                                            <button 
+                                                className={styles.miniCartCheckout}
+                                                onClick={() => {
+                                                    setMostrarMiniCarrinho(false);
+                                                    openCart();
+                                                }}
+                                            >
+                                                Ver Carrinho
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className={styles.miniCartEmpty}>
+                                        <div className={styles.miniCartEmptyIcon}>
+                                            <FontAwesomeIcon icon={faShoppingBag} />
+                                        </div>
+                                        <p>Seu carrinho está vazio</p>
+                                        <button 
+                                            className={styles.miniCartEmptyButton}
+                                            onClick={() => {
+                                                setMostrarMiniCarrinho(false);
+                                                navigate('/produtos');
+                                            }}
+                                        >
+                                            Continuar Comprando
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
                         )}
                     </div>
                 </div>

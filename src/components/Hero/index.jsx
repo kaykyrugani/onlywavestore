@@ -13,23 +13,23 @@ function Hero() {
             <div className={styles.infos}>
                 <p>
                     <FontAwesomeIcon icon={faTruck} className={styles.infoicon} />
-                    Frete grátis, expresso para <br />
-                    <span className={styles.infotext}>todo Brasil</span>
+                    Frete grátis, expresso para<br />
+                    <span>todo Brasil</span>
                 </p>
                 <p>
                     <FontAwesomeIcon icon={faPiggyBank} className={styles.infoicon} />
-                    5% OFF via <br />
-                    <span className={styles.infotext}>pix</span>
+                    5% OFF via<br />
+                    <span>pix</span>
                 </p>
                 <p>
                     <FontAwesomeIcon icon={faCreditCard} className={styles.infoicon} />
-                    Parcele em até 12x no <br />
-                    <span className={styles.infotext}>cartão de crédito</span>
+                    Parcele em até 12x no<br />
+                    <span>cartão de crédito</span>
                 </p>
                 <p>
                     <FontAwesomeIcon icon={faRotateLeft} className={styles.infoicon} />
-                    Troque ou devolva em até <br />
-                    <span className={styles.infotext}>7 dias após a entrega</span>
+                    Troque ou devolva em até<br />
+                    <span>7 dias após a entrega</span>
                 </p>
             </div>
         </div>
