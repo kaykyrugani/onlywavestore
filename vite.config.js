@@ -27,18 +27,20 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          ui: [
-            './src/components/ui/Button/Button.jsx',
-            './src/components/ui/Input/Input.jsx',
-            './src/components/ui/Image/Image.jsx',
-            './src/components/ui/Modal/Modal.jsx',
-            './src/components/ui/ProductCard/ProductCard.jsx',
-            './src/components/ui/ProductGrid/ProductGrid.jsx',
-          ],
-        },
-      },
-    },
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-swipeable') || 
+                id.includes('react') || 
+                id.includes('react-dom') || 
+                id.includes('react-router-dom')) {
+              return 'vendor';
+            }
+          }
+          if (id.includes('src/components/ui/')) {
+            return 'ui';
+          }
+        }
+      }
+    }
   }
 })
