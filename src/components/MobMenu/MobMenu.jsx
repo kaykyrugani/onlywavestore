@@ -1,14 +1,34 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faTimes, 
+  faUser, 
+  faShoppingCart, 
+  faShoePrints, 
+  faTshirt, 
+  faUserFriends,
+  faGlasses,
+  faTags
+} from '@fortawesome/free-solid-svg-icons';
 import { useSwipeable } from 'react-swipeable';
 import { menuItems } from '../Header';
+import { useCart } from '../../contexts/CartContext';
 import styles from './MobMenu.module.css';
+
+// Mapeamento de ícones para cada item do menu
+const menuIcons = {
+  sneakers: faShoePrints,
+  roupas: faTshirt,
+  conjuntos: faUserFriends,
+  acessorios: faGlasses,
+  marcas: faTags
+};
 
 const MobMenu = ({ isOpen, onClose }) => {
   const menuRef = useRef(null);
   const closeButtonRef = useRef(null);
+  const { openCart } = useCart();
 
   // Configuração do swipe
   const swipeHandlers = useSwipeable({
@@ -31,6 +51,14 @@ const MobMenu = ({ isOpen, onClose }) => {
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       closeButtonRef.current?.focus();
+      
+      // Adiciona classe de animação aos itens quando o menu abre
+      const items = menuRef.current?.querySelectorAll(`.${styles.menuItem}`);
+      items?.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add(styles.animate);
+        }, index * 100);
+      });
     }
 
     return () => {
@@ -77,6 +105,14 @@ const MobMenu = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const handleCartClick = (e) => {
+    e.preventDefault();
+    onClose();
+    setTimeout(() => {
+      openCart();
+    }, 300); // Espera a animação de fechamento do menu
+  };
+
   return (
     <>
       <div 
@@ -102,24 +138,28 @@ const MobMenu = ({ isOpen, onClose }) => {
         
         <nav className={styles.mobNav}>
           <div className={styles.accountLinks}>
-            <Link to="/conta" className={styles.accountLink} onClick={handleClose}>
-              <FontAwesomeIcon icon={faUser} className={styles.accountIcon} />
-              Minha conta
-            </Link>
-            <Link to="/carrinho" className={styles.accountLink} onClick={handleClose}>
+            <a href="#" className={`${styles.accountLink} ${styles.menuItem}`} onClick={handleCartClick}>
               <FontAwesomeIcon icon={faShoppingCart} className={styles.accountIcon} />
-              Carrinho
+              <span>Carrinho</span>
+            </a>
+            <Link to="/conta" className={`${styles.accountLink} ${styles.menuItem}`} onClick={handleClose}>
+              <FontAwesomeIcon icon={faUser} className={styles.accountIcon} />
+              <span>Minha conta</span>
             </Link>
           </div>
           
-          {menuItems.map((item) => (
-            <div key={item.id} className={styles.mobMenuItem}>
+          {menuItems.map((item, index) => (
+            <div key={item.id} className={`${styles.mobMenuItem} ${styles.menuItem}`}>
               <Link 
                 to={`/produtos/${item.id}`} 
                 className={styles.mobMenuLink}
                 onClick={handleClose}
               >
-                {item.label}
+                <FontAwesomeIcon 
+                  icon={menuIcons[item.id]} 
+                  className={styles.menuIcon} 
+                />
+                <span>{item.label}</span>
               </Link>
             </div>
           ))}

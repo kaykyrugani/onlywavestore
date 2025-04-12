@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useTheme } from '../../contexts/ThemeContext';
-import styles from './TestePage.module.css';
+import styles from './CheckoutPage.module.css';
 
 // Componentes de etapas do checkout
 import EnderecoForm from '../../components/Checkout/EnderecoForm';
@@ -94,7 +94,7 @@ const CheckoutPage = () => {
         </div>
       
         <div className={styles.mainContent}>
-          <div className={styles.checkoutContent}>
+          <div className={styles.checkoutContent} data-etapa={etapaAtual}>
             <div className={styles.etapasContainer}>
               {/* Etapa 1: Formulário de Endereço */}
               {etapaAtual === 'endereco' && (
@@ -126,16 +126,18 @@ const CheckoutPage = () => {
           </div>
           
           {/* Lado direito - Resumo e Carrinho */}
-          <div className={styles.summaryContainer}>
-            <div className={styles.carrinhoContainer}>
-              <CheckoutCart 
-                items={cartItems}
-                onUpdateQuantity={updateCartItem}
-                onRemoveItem={handleRemoveItem}
-                onClearCart={clearCart}
-              />
+          {etapaAtual !== 'pagamento' && (
+            <div className={styles.summaryContainer}>
+              <div className={styles.carrinhoContainer}>
+                <CheckoutCart 
+                  items={cartItems}
+                  onUpdateQuantity={updateCartItem}
+                  onRemoveItem={handleRemoveItem}
+                  onClearCart={clearCart}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       

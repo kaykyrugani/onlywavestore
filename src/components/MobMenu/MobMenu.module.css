@@ -19,19 +19,20 @@
 .mobMenu {
   position: fixed;
   top: 0;
-  right: -300px;
+  left: -300px;
   width: 300px;
   height: 100vh;
-  background-color: var(--branco);
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
-  transition: right 0.3s ease-in-out;
+  background-color: var(--card-bg);
+  color: var(--texto-primario);
+  box-shadow: 2px 0 8px var(--sombra);
+  transition: left 0.3s ease-in-out, background-color 0.3s ease;
   z-index: 1001;
   padding: 20px;
   overflow-y: auto;
 }
 
 .mobMenu.active {
-  right: 0;
+  left: 0;
 }
 
 .closeButton {
@@ -41,149 +42,133 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: var(--cinza);
+  color: var(--texto-secundario);
   cursor: pointer;
   transition: color 0.3s ease;
   padding: 8px;
-  border-radius: 50%;
+  outline: none;
 }
 
 .closeButton:hover {
   color: var(--cor-primaria);
-  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.closeButton:focus {
+  outline: none;
 }
 
 .mobNav {
   margin-top: 60px;
   display: flex;
   flex-direction: column;
+  gap: 3px;
 }
 
-.mobMenuItem {
+.menuItem {
   opacity: 0;
-  transform: translateX(20px);
-  animation: slideIn 0.3s ease forwards;
 }
 
-.mobMenuLink {
-  display: block;
-  padding: 15px 0;
-  color: var(--preto);
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease;
-  border-bottom: 1px solid #E5E5E5;
+.mobMenu.active .menuItem {
+  animation: slideIn 0.5s ease forwards;
 }
 
-.mobMenuLink:hover {
-  color: var(--cor-primaria);
-}
+/* Ajustando os delays da animação */
+.mobMenu.active .menuItem:nth-child(1) { animation-delay: 0.3s; }
+.mobMenu.active .menuItem:nth-child(2) { animation-delay: 0.5s; }
+.mobMenu.active .menuItem:nth-child(3) { animation-delay: 0.7s; }
+.mobMenu.active .menuItem:nth-child(4) { animation-delay: 0.9s; }
+.mobMenu.active .menuItem:nth-child(5) { animation-delay: 1.1s; }
+.mobMenu.active .menuItem:nth-child(6) { animation-delay: 1.3s; }
+.mobMenu.active .menuItem:nth-child(7) { animation-delay: 1.5s; }
 
-/* Acessibilidade */
-.mobMenu:focus-within {
-  outline: 2px solid var(--cor-primaria);
-}
-
-.closeButton:focus {
-  outline: 2px solid var(--cor-primaria);
-  outline-offset: 2px;
-}
-
-.mobMenuLink:focus {
-  outline: none;
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-/* Animações para os itens do menu */
 @keyframes slideIn {
-  to {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-/* Aplicar delay na animação para cada item */
-.mobMenuItem:nth-child(1) { animation-delay: 0.1s; }
-.mobMenuItem:nth-child(2) { animation-delay: 0.2s; }
-.mobMenuItem:nth-child(3) { animation-delay: 0.3s; }
-.mobMenuItem:nth-child(4) { animation-delay: 0.4s; }
-.mobMenuItem:nth-child(5) { animation-delay: 0.5s; }
-
 .accountLinks {
   display: none;
   flex-direction: column;
+  gap: 3px;
+  margin-bottom: 3px;
 }
 
 .accountLink {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 15px 0;
-  color: var(--preto);
+  padding: 15px;
+  color: var(--texto-primario);
   text-decoration: none;
   font-size: 16px;
-  transition: color 0.3s ease;
-  border-bottom: 1px solid #E5E5E5;
-}
-
-.accountIcon {
-  font-size: 18px;
-  color: var(--preto);
-  width: 20px;
+  transition: all 0.3s ease;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 2px -2px var(--sombra);
 }
 
 .accountLink:hover {
+  background-color: var(--hover-bg);
   color: var(--cor-primaria);
 }
 
-/* Media query para mostrar os links apenas em 550px */
+.accountIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--cor-primaria);
+}
+
+.mobMenuItem {
+  margin: 0;
+}
+
+.mobMenuLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  color: var(--texto-primario);
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: var(--card-bg);
+  box-shadow: 0 4px 2px -2px var(--sombra);
+}
+
+.mobMenuLink:hover {
+  background-color: var(--hover-bg);
+  color: var(--cor-primaria);
+}
+
+.menuIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--cor-primaria);
+}
+
 @media (max-width: 550px) {
   .accountLinks {
     display: flex;
   }
-  
-  /* Aplicar animação também aos links de conta */
-  .accountLinks {
-    opacity: 0;
-    transform: translateX(20px);
-    animation: slideIn 0.3s ease forwards;
-    animation-delay: 0.1s;
-  }
-  
-  /* Ajustar delays para os outros itens */
-  .mobMenuItem:nth-child(1) { animation-delay: 0.2s; }
-  .mobMenuItem:nth-child(2) { animation-delay: 0.3s; }
-  .mobMenuItem:nth-child(3) { animation-delay: 0.4s; }
-  .mobMenuItem:nth-child(4) { animation-delay: 0.5s; }
-  .mobMenuItem:nth-child(5) { animation-delay: 0.6s; }
 }
 
 @media (max-width: 350px) {
+  .mobMenu {
+    width: 100%;
+    left: -100%;
+  }
+  
   .accountLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 16px 0;
-    margin-bottom: 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 3px;
   }
-
-  .accountLink {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 0;
-    color: var(--preto);
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
+  
+  .accountLink, .mobMenuLink {
+    padding: 12px;
+    font-size: 15px;
   }
-
-  .accountLink:hover {
-    color: var(--cor-primaria);
-  }
-
-  .accountIcon {
-    font-size: 20px;
-  }
-} 
+}

@@ -26,7 +26,7 @@
   align-items: center;
   margin-bottom: 30px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--borda);
 }
 
 .products-header h1 {
@@ -42,7 +42,7 @@
 }
 
 .sort-container h4 {
-  color: var(--cinza);
+  color: var(--texto-secundario);
   font-size: 16px;
   font-weight: 500;
   margin: 0;
@@ -59,12 +59,12 @@
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background-color: white;
-  border: 1px solid #e0e0e0;
+  background-color: var(--card-bg);
+  color: var(--texto-primario);
+  border: 1px solid var(--borda);
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  color: var(--preto);
   transition: all 0.3s ease;
 }
 
@@ -85,10 +85,10 @@
   top: 100%;
   right: 0;
   width: 200px;
-  background-color: white;
-  border: 1px solid #e0e0e0;
+  background-color: var(--card-bg);
+  border: 1px solid var(--borda);
   border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--sombra);
   margin-top: 4px;
   z-index: 11;
 }
@@ -97,14 +97,15 @@
   padding: 10px 16px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  color: var(--texto-primario);
 }
 
 .sort-option:hover {
-  background-color: #f5f5f5;
+  background-color: var(--hover-bg);
 }
 
 .sort-option.active {
-  background-color: #f0f7f4;
+  background-color: var(--contraste);
   color: var(--cor-primaria);
   font-weight: 500;
 }
@@ -146,8 +147,9 @@
 }
 
 .pagination-arrow {
-  background-color: white;
-  border: 1px solid #e0e0e0;
+  background-color: var(--card-bg);
+  color: var(--texto-primario);
+  border: 1px solid var(--borda);
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -185,10 +187,11 @@
   cursor: pointer;
   border-radius: 50%;
   transition: all 0.3s ease;
+  color: var(--texto-primario);
 }
 
 .pagination-number:hover {
-  background-color: #f0f0f0;
+  background-color: var(--hover-bg);
 }
 
 .pagination-number.active {
@@ -239,7 +242,7 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
+  background-color: var(--card-bg);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 16px;
@@ -249,6 +252,7 @@
   z-index: 100;
   overflow: auto; /* Permite rolagem se o conteúdo for muito grande */
   max-height: 80vh; /* Limita a altura para não ultrapassar a tela */
+  color: var(--texto-primario);
 }
 
 /* Ajuste para o cabeçalho de produtos para posicionamento relativo */
@@ -298,7 +302,7 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background-color: white;
+  background-color: var(--card-bg);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   padding: 12px; /* Espaçamento interno de 12px em todos os lados */
@@ -309,6 +313,7 @@
   z-index: 100;
   overflow: auto;
   max-height: 80vh;
+  color: var(--texto-primario);
 }
 
 /* Título do painel de filtros */
@@ -324,6 +329,7 @@
   font-size: 16px;
   margin-bottom: 10px;
   font-weight: 500;
+  color: var(--texto-secundario);
 }
 
 /* Opções de ordenação dentro do painel de filtros */
@@ -341,11 +347,14 @@
   overflow: hidden;
   font-size: 14px; /* Tamanho da fonte dos itens */
   white-space: nowrap; /* Evita quebra de linha */
+  color: var(--texto-primario);
+  background-color: var(--card-bg);
+  border: 1px solid var(--borda);
 }
 
 /* Animação de hover similar ao dropdownItems */
 .sortOption:hover {
-  background-color: #f5f5f5;
+  background-color: var(--hover-bg);
   transition: transform 0.7s;
 }
 
@@ -403,7 +412,7 @@
 }
 
 .sortOption.active {
-  background-color: #f0f7f4;
+  background-color: var(--contraste);
   color: var(--cor-primaria);
   font-weight: 500;
 }
@@ -441,14 +450,14 @@
 }
 
 .clearFilters {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  color: var(--cinza);
+  background-color: var(--card-bg);
+  color: var(--texto-primario);
+  border: 1px solid var(--borda);
   transition: all 0.3s ease;
 }
 
 .clearFilters:hover {
-  border-color: var(--cinza);
+  background-color: var(--hover-bg);
 }
 
 .applyFilters {

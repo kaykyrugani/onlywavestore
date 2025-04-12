@@ -12,12 +12,13 @@
 }
 
 .modal {
-  background-color: #fff;
+  background-color: var(--fundo);
   padding: 2rem;
   border-radius: 10px;
   z-index: 1001;
   max-width: 500px;
   width: 90%;
+  box-shadow: 0 4px 20px var(--sombra);
 }
 
 .header {
@@ -25,30 +26,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--borda);
 }
 
 .title {
   margin: 0;
   font-size: 20px;
-  color: var(--cor-primaria);
+  color: var(--texto-primario);
 }
 
 .closeButton {
   background: none;
   border: none;
   font-size: 20px;
-  color: var(--cinza);
+  color: var(--texto-secundario);
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
 .closeButton:hover {
-  color: var(--cor-primaria);
+  color: var(--texto-primario);
 }
 
 .content {
   padding: 20px;
+  color: var(--texto-primario);
 }
 
 /* Animações para ReactModal */
@@ -93,12 +95,12 @@
 }
 
 .modalContent {
-  background-color: white;
+  background-color: var(--fundo);
   border-radius: 12px;
   padding: 24px;
   width: 90%;
   max-width: 480px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px var(--sombra);
   animation: slideUp 0.4s ease;
 }
 
@@ -106,7 +108,7 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 16px;
-  color: var(--preto);
+  color: var(--texto-primario);
   text-align: center;
 }
 
@@ -114,7 +116,7 @@
   margin-bottom: 24px;
   font-size: 1rem;
   line-height: 1.5;
-  color: #555;
+  color: var(--texto-secundario);
   text-align: center;
 }
 
@@ -140,7 +142,7 @@
 }
 
 .primary:hover {
-  background-color: rgba(var(--cor-primaria-rgb), 0.9);
+  background-color: var(--primaria-contraste);
 }
 
 .secondary {

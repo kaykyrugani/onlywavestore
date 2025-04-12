@@ -4,7 +4,7 @@
     --cor-primaria: #4EBABA;
     --cor-primaria-rgb: 78, 186, 186; /* Valor RGB da cor primária para transparências */
     --primaria-contraste: #17F1F1;
-    --primaria-esura: #0F2626;
+    --primaria-escura: #0F2626;
     --cinza: #838585;
     --azul-analogo: #4E84BA;
     --verde-analogo: #4EBA84;
@@ -24,6 +24,13 @@
     --navbar-light: #e0e0e0;
     --container-light: #e5e5e5;
     --container-inner-light: #f5f5f5;
+    --input-bg: #ffffff;
+    --card-bg: #ffffff;
+    --hover-bg: rgba(78, 186, 186, 0.1);
+    --modal-overlay: rgba(0, 0, 0, 0.6);
+    --tooltip-bg: #333333;
+    --scroll-thumb: #c1c1c1;
+    --scroll-track: #f1f1f1;
     
     /* light mode valores */
     --fundo-light: #FFFFFF;
@@ -37,6 +44,12 @@
     --fundo-texto-dark: #42A5A9;
     --contraste-dark: #1E4B4D;
     --cor-clara-dark: #7BCACC;
+    --input-bg-dark: #1a1a1a;
+    --card-bg-dark: #1a1a1a;
+    --hover-bg-dark: rgba(78, 186, 186, 0.2);
+    --tooltip-bg-dark: #f5f5f5;
+    --scroll-thumb-dark: #404040;
+    --scroll-track-dark: #202020;
   }
   
   /* Tema escuro */
@@ -50,6 +63,12 @@
     --texto-secundario: #B0B0B0;
     --borda: #2A3A3B;
     --sombra: rgba(0, 0, 0, 0.5);
+    --input-bg: var(--input-bg-dark);
+    --card-bg: var(--card-bg-dark);
+    --hover-bg: var(--hover-bg-dark);
+    --tooltip-bg: var(--tooltip-bg-dark);
+    --scroll-thumb: var(--scroll-thumb-dark);
+    --scroll-track: var(--scroll-track-dark);
   }
   
   /* Estilos globais */
@@ -204,4 +223,112 @@
   .h-100 {
     height: 100%;
   }
+  
+  /* Estilização da scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--scroll-thumb);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--cor-primaria);
+  }
+  
+  /* Inputs e campos de formulário */
+  input, textarea, select {
+    background-color: var(--input-bg);
+    color: var(--texto-primario);
+    border: 1px solid var(--borda);
+  }
+  
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--cor-primaria);
+    outline: none;
+  }
+  
+  /* Cards e containers */
+  .card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--borda);
+    box-shadow: 0 2px 4px var(--sombra);
+  }
+  
+  /* Tooltips */
+  [data-tooltip] {
+    position: relative;
+  }
+  
+  [data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background-color: var(--tooltip-bg);
+    color: var(--texto-primario);
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  [data-tooltip]:hover::after {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Modais */
+  .modal-overlay {
+    background-color: var(--modal-overlay);
+    backdrop-filter: blur(4px);
+  }
+  
+  .modal-content {
+    background-color: var(--fundo);
+    border: 1px solid var(--borda);
+    box-shadow: 0 4px 20px var(--sombra);
+  }
+  
+  /* Tabelas */
+  table {
+    background-color: var(--card-bg);
+    color: var(--texto-primario);
+    border-color: var(--borda);
+  }
+  
+  th {
+    background-color: var(--contraste);
+    color: var(--texto-primario);
+  }
+  
+  tr:hover {
+    background-color: var(--hover-bg);
+  }
+  
+  /* Botões */
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Links */
+  a:hover {
+    color: var(--primaria-contraste);
+  }
+  
+  /* Utilitários */
+  .text-right { text-align: right; }
+  .text-left { text-align: left; }
+  .hidden { display: none; }
   

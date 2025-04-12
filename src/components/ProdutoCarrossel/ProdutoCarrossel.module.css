@@ -19,7 +19,7 @@
   padding-right: 8px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--cor-primaria) #e0e0e0;
+  scrollbar-color: var(--cor-primaria) var(--contraste);
 }
 
 /* Estilização da scrollbar para navegadores WebKit */
@@ -28,7 +28,7 @@
 }
 
 .thumbnailsContainer::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: var(--contraste);
   border-radius: 3px;
 }
 
@@ -41,7 +41,7 @@
 .thumbnailButton {
   padding: 0;
   border: 2px solid transparent;
-  background: none;
+  background: var(--card-bg);
   cursor: pointer;
   border-radius: 4px;
   overflow: hidden;
@@ -85,7 +85,7 @@
   height: 500px;
   border-radius: 8px;
   overflow: hidden;
-  background-color: var(--fundo-secundario);
+  background-color: var(--card-bg);
 }
 
 /* Placeholder */
@@ -99,7 +99,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--fundo-secundario);
+  background-color: var(--card-bg);
   gap: 1rem;
   z-index: 1;
 }
@@ -113,8 +113,8 @@
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid var(--fundo-terciario);
-  border-top-color: var(--primaria);
+  border: 3px solid var(--contraste);
+  border-top-color: var(--cor-primaria);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -133,8 +133,8 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: none;
+  background-color: var(--card-bg);
+  border: 1px solid var(--borda);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -143,7 +143,7 @@
   color: var(--texto-primario);
   transition: all 0.3s ease;
   z-index: 2;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--sombra);
   opacity: 0;
 }
 
@@ -152,7 +152,7 @@
 }
 
 .navigationButton:hover:not(:disabled) {
-  background-color: white;
+  background-color: var(--hover-bg);
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -180,15 +180,15 @@
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
-  background-color: var(--fundo-secundario);
+  background-color: var(--card-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--sombra);
 }
 
 .carrosselItem {
   width: 100%;
   aspect-ratio: 1;
-  background-color: var(--fundo-terciario);
+  background-color: var(--contraste);
   border-radius: 4px;
   transition: transform 0.3s ease;
 }
@@ -198,10 +198,20 @@
   cursor: pointer;
 }
 
-/* Responsividade */
-@media (max-width: 1440px) {
-  .carrosselSimbolico {
-    display: none;
+@media (max-width: 890px) {
+  .mainImageContainer {
+    max-width: 400px;
+    max-height: 400px;
+  }
+  
+  .placeholder {
+    max-width: 400px;
+    max-height: 400px;
+  }
+  
+  .produtoCarrossel {
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
   }
 }
 
@@ -243,16 +253,6 @@
     width: 32px;
     height: 32px;
     font-size: 1rem;
-  }
-
-  .spinner {
-    width: 32px;
-    height: 32px;
-    border-width: 2px;
-  }
-
-  .placeholder p {
-    font-size: 0.75rem;
   }
 }
 

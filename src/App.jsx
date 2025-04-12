@@ -24,9 +24,8 @@ const Login = lazy(() => import('./pages/login'));
 const Register = lazy(() => import('./pages/cadastro'));
 const AccountPage = lazy(() => import('./pages/conta'));
 const NotFound = lazy(() => import('./pages/not-found/NotFoundPage'));
-const TestePage = lazy(() => import('./pages/teste/TestePage'));
 const InformacoesPage = lazy(() => import('./pages/informacoes'));
-const CheckoutPage = lazy(() => import('./pages/checkout'));
+const CheckoutPage = lazy(() => import('./pages/checkout/CheckoutPage'));
 const AdminDashboard = lazy(() => import('./pages/admin/Dashboard'));
 const AdminProducts = lazy(() => import('./pages/admin/Products'));
 const AdminUsers = lazy(() => import('./pages/admin/Users'));
@@ -71,13 +70,17 @@ function App() {
                         <Route path="produtos/:categoria" element={<Products />} />
                         <Route path="produto/:id" element={<ProductDetails />} />
                         <Route path="carrinho" element={<Cart />} />
-                        <Route path="checkout" element={<CheckoutPage />} />
                         <Route path="login" element={<Login />} />
                         <Route path="cadastro" element={<Register />} />
                         <Route path="404" element={<NotFound />} />
                       </Route>
 
                       {/* Rotas sem Layout padrão */}
+                      <Route path="/checkout" element={
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <CheckoutPage />
+                        </Suspense>
+                      } />
                       <Route path="/conta" element={
                         <Suspense fallback={<LoadingSpinner />}>
                           <AccountPage />
@@ -106,11 +109,6 @@ function App() {
                       <Route path="/conta/pagamentos" element={
                         <Suspense fallback={<LoadingSpinner />}>
                           <AccountPage initialTab="payments" />
-                        </Suspense>
-                      } />
-                      <Route path="/teste" element={
-                        <Suspense fallback={<LoadingSpinner />}>
-                          <TestePage />
                         </Suspense>
                       } />
 

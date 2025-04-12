@@ -87,14 +87,41 @@
   font-weight: 600;
 }
 
+/* Animação para a linha de progresso */
+@keyframes fillProgressLine {
+  from {
+    background: var(--borda);
+  }
+  to {
+    background: var(--cor-primaria);
+  }
+}
+
 .progressLine {
   flex: 1;
   height: 2px;
   background-color: var(--borda);
   margin: 0 10px;
   position: relative;
-  top: -18px;
   max-width: 100px;
+  transition: background-color 0.3s ease;
+}
+
+/* Primeira linha de progresso (entre 1 e 2) - ativa quando endereço está completo */
+.progressStep.completed + .progressLine {
+  background-color: var(--cor-primaria);
+  animation: fillProgressLine 0.3s ease forwards;
+}
+
+/* Segunda linha de progresso (entre 2 e 3) - ativa apenas na etapa de pagamento */
+.progressStep:nth-child(5).active .progressLine {
+  background-color: var(--cor-primaria);
+  animation: fillProgressLine 0.3s ease forwards;
+}
+
+/* Reseta a segunda linha quando não está na etapa de pagamento */
+.progressStep:nth-child(3) + .progressLine {
+  background-color: var(--borda);
 }
 
 .mainContent {
@@ -257,7 +284,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Responsividade */
+/* Ajustes de responsividade */
 @media (max-width: 1024px) {
   .mainContent {
     flex-direction: column;
@@ -269,111 +296,16 @@
   
   .summaryContainer {
     width: 100%;
-    max-width: 100%;
+    max-width: 700px;
     position: relative;
     top: 0;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
   .checkoutContainer {
     padding: 20px 16px;
-  }
-  
-  .checkoutProgress {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-  }
-  
-  .progressLine {
-    width: 2px;
-    height: 30px;
-    margin: 0;
-    left: 18px;
-    position: relative;
-  }
-  
-  .progressStep {
-    flex-direction: row;
-    width: 100%;
-  }
-  
-  .stepNumber {
-    margin-bottom: 0;
-    margin-right: 16px;
-  }
-  
-  .etapasContainer {
-    padding: 16px;
-  }
-}
-
-/* Componente de teste */
-.addTestProducts {
-  background-color: #e8f4fd;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.addTestProducts h2 {
-  font-size: 18px;
-  margin-bottom: 16px;
-  color: #333;
-}
-
-.addTestProducts button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 24px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
-}
-
-.addTestProducts button:hover {
-  background-color: #357abD;
-}
-
-.addTestProducts button:active {
-  transform: scale(0.98);
-}
-
-/* Estilização para tablets */
-@media (max-width: 1024px) {
-  .mainContent {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .checkoutContent {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 24px;
-  }
-  
-  .carrinhoContainer {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 0;
-  }
-}
-
-/* Estilização para dispositivos móveis */
-@media (max-width: 768px) {
-  .checkoutContainer {
-    padding: 16px;
-  }
-  
-  .titulo {
-    font-size: 24px;
-    margin-bottom: 24px;
   }
   
   .etapasContainer {

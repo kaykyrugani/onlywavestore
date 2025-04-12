@@ -6,16 +6,17 @@
     box-sizing: border-box;
     padding: 15px;
     text-align: center;
-    background: #fff;
+    background: var(--card-bg);
+    color: var(--texto-primario);
     border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 1px solid var(--borda);
     margin-bottom: 20px;
   }
   
   .productCard:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(78, 186, 186, 0.15);
+    box-shadow: 0 5px 15px var(--sombra);
   }
   
   .productImage {
@@ -46,7 +47,7 @@
     background-color: var(--cor-primaria);
     color: white;
     padding: 4px 8px;
-    font-size: 12px;
+    font-size: 18px;
     font-weight: bold;
     border-radius: 25%;
     z-index: 2;
@@ -73,8 +74,9 @@
   
   .productTitle {
     margin-bottom: 5px;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: 500;
+    color: var(--texto-primario);
   }
   
   .productPriceContainer {
@@ -86,26 +88,26 @@
   }
   
   .originalPrice {
-    color: var(--cinza);
+    color: var(--texto-secundario);
     font-size: 14px;
     text-decoration: line-through;
   }
   
   .discountedPrice {
     color: var(--cor-primaria);
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 700;
   }
   
   .productPrice {
     color: var(--cor-primaria);
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 700;
   }
   
   .productInstallment {
-    color: var(--cinza);
-    font-size: 14px;
+    color: var(--texto-secundario);
+    font-size: 22px;
     margin-bottom: 15px;
   }
   

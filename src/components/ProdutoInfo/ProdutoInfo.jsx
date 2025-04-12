@@ -3,6 +3,7 @@ import styles from './ProdutoInfo.module.css';
 import ProdutoTamanho from '../ProdutoTamanho/ProdutoTamanho';
 import ProdutoQuantidade from '../ProdutoQuantidade/ProdutoQuantidade';
 import ProdutoAdicionarSacola from '../ProdutoAdicionarSacola/ProdutoAdicionarSacola';
+import StarRating from '../StarRating/StarRating';
 import Toast from '../Toast/Toast';
 import useProdutoSelecao from '../../hooks/useProdutoSelecao';
 import { useCarrinho } from '../../contexts/CarrinhoContext';
@@ -85,82 +86,85 @@ const ProdutoInfo = ({ produto }) => {
     .slice(1);
 
   return (
+    <div className={styles.produtogrid}>
     <div className={styles.produtoInfo}>
-      <div className={styles.produtoDetails}>
-        <h1 className={styles.produtoTitle}>{produto.nome}</h1>
-        
-        <div className={styles.produtoPrice}>
-          <span className={styles.currentPrice}>
-            {precoComDesconto.toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL'
-            })}
-          </span>
-          {produto.promocao && (
-            <>
-              <span className={styles.originalPrice}>
-                {produto.preco.toLocaleString('pt-BR', {
-                  style: 'currency',
-                  currency: 'BRL'
-                })}
-              </span>
-              <span className={styles.discount}>
-                {Math.round(((produto.preco - precoComDesconto) / produto.preco) * 100)}%
-              </span>
-            </>
-          )}
-        </div>
-
-        <div className={styles.parcelamento}>
-          <span className={styles.parcelamentoText}>
-            {numParcelas}x de <span className={styles.parcelamentoValor}>R$ {valorParcela}</span> sem juros
-          </span>
-          <button 
-            className={styles.parcelamentoLink}
-            onClick={() => setShowParcelamento(true)}
-          >
-            Ver parcelamento
-          </button>
-        </div>
-
-        <ProdutoTamanho 
-          tamanhos={tamanhosDisponiveis}
-          tamanhoSelecionado={tamanhoSelecionado}
-          onSelecionarTamanho={selecionarTamanho}
-        />
-        
-        <ProdutoQuantidade 
-          quantidade={quantidade}
-          quantidadeMinima={1}
-          quantidadeMaxima={10}
-          onIncrementar={incrementarQuantidade}
-          onDecrementar={decrementarQuantidade}
-          onAtualizar={atualizarQuantidade}
-        />
-        
-        <ProdutoAdicionarSacola 
-          podeAdicionar={podeAdicionarSacola()}
-          erro={erro}
-          onAdicionarSacola={handleAdicionarSacola}
-        />
+      <h1 className={styles.produtoTitle}>{produto.nome}</h1>
+      </div>
+      
+      <div className={styles.produtoPrice}>
+        <span className={styles.currentPrice}>
+          {precoComDesconto.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          })}
+        </span>
+        {produto.promocao && (
+          <>
+            <span className={styles.originalPrice}>
+              {produto.preco.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+              })}
+            </span>
+            <span className={styles.discount}>
+              {Math.round(((produto.preco - precoComDesconto) / produto.preco) * 100)}%
+            </span>
+          </>
+        )}
       </div>
 
-      <section className={styles.produtoSections}>
-        <div className={styles.sectionDescricao}>
-          <h2>Descrição do Produto</h2>
-          <p>{produto.nome} - Produto de alta qualidade da OnlyWave Store.</p>
-        </div>
+      <div className={styles.parcelamento}>
+        <span className={styles.parcelamentoText}>
+          {numParcelas}x de <span className={styles.parcelamentoValor}>R$ {valorParcela}</span> sem juros
+        </span>
+        <button 
+          className={styles.parcelamentoLink}
+          onClick={() => setShowParcelamento(true)}
+        >
+          Ver parcelamento
+        </button>
+      </div>
 
-        <div className={styles.sectionDescricao}>
-          <h2>Qualidade do Produto</h2>
-          <p>Produto com garantia de qualidade e durabilidade.</p>
+      <ProdutoTamanho 
+        tamanhos={tamanhosDisponiveis}
+        tamanhoSelecionado={tamanhoSelecionado}
+        onSelecionarTamanho={selecionarTamanho}
+      />
+      
+      <div className={styles.quantityAndCartContainer}>
+        <div className={styles.quantityControls}>
+          <button 
+            className={styles.quantityBtn}
+            onClick={decrementarQuantidade}
+            disabled={quantidade <= 1}
+          >
+            -
+          </button>
+          <input
+            type="number"
+            className={styles.quantityInput}
+            value={quantidade}
+            onChange={(e) => atualizarQuantidade(parseInt(e.target.value))}
+            min="1"
+            max="10"
+          />
+          <button 
+            className={styles.quantityBtn}
+            onClick={incrementarQuantidade}
+            disabled={quantidade >= 10}
+          >
+            +
+          </button>
         </div>
-
-        <div className={styles.sectionDescricao}>
-          <h2>Troca e Devolução</h2>
-          <p>Devolução gratuita em até 30 dias após a compra, desde que o produto esteja em perfeitas condições e com a etiqueta.</p>
-        </div>
-      </section>
+        
+        <button 
+          className={styles.addToCart}
+          onClick={handleAdicionarSacola}
+          disabled={!podeAdicionarSacola()}
+        >
+          Adicionar à sacola
+        </button>
+      </div>
 
       {toast && (
         <Toast

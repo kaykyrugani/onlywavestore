@@ -1,0 +1,210 @@
+@import '../../global.css';
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background: var(--fundo);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 20px var(--sombra);
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--texto-secundario);
+  transition: color 0.3s ease;
+}
+
+.closeButton:hover {
+  color: var(--texto-primario);
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  color: var(--texto-primario);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.avaliacaoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.starsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.star:hover {
+  transform: scale(1.1);
+}
+
+.starFilled {
+  color: var(--cor-primaria);
+}
+
+.starEmpty {
+  color: var(--texto-secundario);
+}
+
+.ratingValue {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--cor-primaria);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 1rem;
+  color: var(--texto-primario);
+  font-weight: 500;
+}
+
+.formGroup textarea {
+  min-height: 120px;
+  padding: 0.75rem;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  background-color: var(--fundo);
+  color: var(--texto-primario);
+}
+
+.formGroup textarea:focus {
+  border-color: var(--cor-primaria);
+  outline: none;
+}
+
+.uploadTitle {
+  font-size: 1rem;
+  color: var(--texto-primario);
+  margin: 0;
+  font-weight: 500;
+}
+
+.uploadLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border: 2px dashed var(--cor-primaria);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--fundo);
+}
+
+.uploadLabel:hover {
+  background-color: rgba(var(--cor-primaria-rgb), 0.05);
+}
+
+.uploadIcon {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0.5rem;
+}
+
+.cloudIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--cor-primaria);
+  font-size: 2.5rem;
+}
+
+.arrowIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  color: var(--fundo);
+  font-size: 1.2rem;
+}
+
+.fileInput {
+  display: none;
+}
+
+.imagePreview {
+  margin-top: 1rem;
+  max-width: 200px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--borda);
+}
+
+.imagePreview img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.submitButton {
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: var(--primaria-hover);
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .star {
+    font-size: 1.5rem;
+  }
+} 

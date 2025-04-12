@@ -416,9 +416,9 @@
   top: 100%;
   right: 0;
   width: 320px;
-  background-color: white;
+  background-color: var(--card-bg);
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px var(--sombra);
   z-index: 100;
   overflow: hidden;
   animation: slideDown 0.3s ease-in-out;
@@ -442,26 +442,26 @@
   justify-content: space-between;
   align-items: center;
   padding: 12px 15px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--borda);
 }
 
 .miniCartHeader h4 {
   margin: 0;
   font-size: 16px;
-  color: #333;
+  color: var(--texto-primario);
 }
 
 .miniCartClose {
   background: none;
   border: none;
-  color: #999;
+  color: var(--texto-secundario);
   cursor: pointer;
   font-size: 14px;
   transition: color 0.2s;
 }
 
 .miniCartClose:hover {
-  color: #333;
+  color: var(--texto-primario);
 }
 
 .miniCartItems {
@@ -473,7 +473,7 @@
 .miniCartItem {
   display: flex;
   padding: 12px 0;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid var(--borda);
 }
 
 .miniCartItemImage {
@@ -497,38 +497,38 @@
   margin: 0 0 4px;
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: var(--texto-primario);
 }
 
 .miniCartItemSize {
   margin: 0 0 4px;
   font-size: 12px;
-  color: #666;
+  color: var(--texto-secundario);
 }
 
 .miniCartItemPrice {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: #333;
+  color: var(--texto-primario);
 }
 
 .miniCartItemPrice span:first-child {
-  color: #666;
+  color: var(--texto-secundario);
 }
 
 .miniCartMore {
   text-align: center;
   padding: 10px 0;
   font-size: 12px;
-  color: #666;
+  color: var(--texto-secundario);
   font-style: italic;
 }
 
 .miniCartFooter {
   padding: 15px;
-  border-top: 1px solid #eee;
-  background-color: #f9f9f9;
+  border-top: 1px solid var(--borda);
+  background-color: var(--contraste);
 }
 
 .miniCartTotal {
@@ -536,7 +536,7 @@
   justify-content: space-between;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #333;
+  color: var(--texto-primario);
 }
 
 .miniCartCheckout {
@@ -565,17 +565,18 @@
   justify-content: center;
   padding: 30px 20px;
   text-align: center;
+  background-color: var(--card-bg);
 }
 
 .miniCartEmptyIcon {
   font-size: 48px;
-  color: #ddd;
+  color: var(--texto-secundario);
   margin-bottom: 15px;
 }
 
 .miniCartEmpty p {
   margin: 0 0 20px;
-  color: #888;
+  color: var(--texto-secundario);
   font-size: 14px;
 }
 
@@ -603,11 +604,11 @@
   right: 8px;
   background: none;
   border: none;
-  color: #888;
+  color: var(--texto-secundario);
   font-size: 12px;
   cursor: pointer;
   padding: 2px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: all 0.2s ease;
   opacity: 0;
   border-radius: 50%;
   width: 20px;
@@ -623,11 +624,11 @@
 
 .miniCartItem:hover .miniCartItemRemove {
   opacity: 1;
-  color: #ff5252;
+  color: var(--cor-erro);
 }
 
 .miniCartItemRemove:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--hover-bg);
   transform: scale(1.1);
 }
 
@@ -638,7 +639,7 @@
   }
   50% {
     transform: scale(1.05);
-    background-color: rgba(76, 175, 80, 0.1);
+    background-color: var(--sucesso-transparente);
   }
   100% {
     transform: scale(1);

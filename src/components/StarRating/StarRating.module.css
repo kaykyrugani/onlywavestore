@@ -1,0 +1,15 @@
+.starRating {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.starFilled {
+  color: var(--cor-primaria);
+  font-size: 1.25rem;
+}
+
+.starEmpty {
+  color: var(--cor-texto-secundario);
+  font-size: 1.25rem;
+} 

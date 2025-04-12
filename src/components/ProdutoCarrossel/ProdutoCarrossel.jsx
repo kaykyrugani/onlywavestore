@@ -57,7 +57,6 @@ const ProdutoCarrossel = ({ images = [] }) => {
     setIsZoomed(zoomed);
   };
 
-  // Se não houver imagens carregadas, mostra um placeholder
   if (loadedImages.length === 0) {
     return (
       <div className={styles.produtoCarrossel}>
@@ -66,11 +65,6 @@ const ProdutoCarrossel = ({ images = [] }) => {
             <div className={styles.spinner}></div>
             <p>Carregando imagens...</p>
           </div>
-        </div>
-        <div className={styles.carrosselSimbolico}>
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className={styles.carrosselItem} />
-          ))}
         </div>
       </div>
     );
@@ -128,12 +122,6 @@ const ProdutoCarrossel = ({ images = [] }) => {
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
         )}
-      </div>
-
-      <div className={styles.carrosselSimbolico}>
-        {[1, 2, 3, 4].map((item) => (
-          <div key={item} className={styles.carrosselItem} />
-        ))}
       </div>
     </div>
   );
