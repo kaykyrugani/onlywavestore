@@ -1,0 +1,12 @@
+.status-badge {
+  font-weight: 500;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.status-badge .MuiChip-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+} 

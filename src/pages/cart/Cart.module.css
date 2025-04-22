@@ -1,0 +1,12 @@
+.container {
+  padding: 2rem 0;
+}
+
+.button {
+  margin-top: 1rem;
+}
+
+.emptyCart {
+  text-align: center;
+  padding: 2rem;
+} 

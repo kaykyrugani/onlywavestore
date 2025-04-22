@@ -1,0 +1,35 @@
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+.darkMode {
+  background-color: var(--background-dark);
+  color: var(--text-primary-dark);
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  padding-top: 64px;
+}
+
+.main {
+  flex: 1;
+  padding: 24px;
+  margin-left: 240px;
+  min-height: calc(100vh - 64px);
+  background-color: var(--background-paper);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 960px) {
+  .main {
+    margin-left: 0;
+    padding: 16px;
+  }
+} 

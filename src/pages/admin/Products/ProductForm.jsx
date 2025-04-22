@@ -1,7 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FaSave, FaTimes } from 'react-icons/fa';
+import { FaSave, FaTimes, FaTrash, FaUpload, FaArrowUp, FaArrowDown, FaPlay } from 'react-icons/fa';
+import { uploadService } from '../../../services/upload.service';
+import { productService } from '../../../services/product.service';
+import toast from 'react-hot-toast';
 import './ProductForm.css';
+import { TextField, Button, Grid, Typography, Box, IconButton } from '@mui/material';
+import { Delete as DeleteIcon } from '@mui/icons-material';
+import { UploadService } from '../../../services/upload.service';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import ImagePreviewModal from '../../../components/ImagePreviewModal';
+import VideoPreviewModal from '../../../components/VideoPreviewModal';
+
+const SortableMediaItem = ({ mediaItem, index, onRemove, onPreview }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: mediaItem.url });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1
+  };
+
+  return (
+    <div 
+      ref={setNodeRef}
+      style={style}
+      className="admin-product-form__media-item"
+      {...attributes}
+      {...listeners}
+    >
+      {mediaItem.type === 'image' ? (
+        <img 
+          src={mediaItem.url} 
+          alt={`Produto ${index + 1}`} 
+          onClick={() => onPreview(mediaItem)}
+        />
+      ) : (
+        <div 
+          className="admin-product-form__video-thumbnail"
+          onClick={() => onPreview(mediaItem)}
+        >
+          <img 
+            src={mediaItem.thumbnailUrl || mediaItem.url} 
+            alt={`Vídeo ${index + 1}`} 
+          />
+          <div className="admin-product-form__video-play">
+            <FaPlay />
+          </div>
+        </div>
+      )}
+      <div className="admin-product-form__media-actions">
+        <button
+          type="button"
+          className="admin-product-form__remove-button"
+          onClick={() => onRemove(mediaItem.url)}
+        >
+          <FaTrash />
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -16,36 +84,41 @@ const ProductForm = () => {
     category: '',
     stock: '',
     status: 'active',
-    images: [],
+    media: [],
     features: [],
     specifications: {}
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [previewMedia, setPreviewMedia] = useState(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     if (isEditing) {
-      // Aqui você faria uma chamada à API para buscar os dados do produto
-      // Por enquanto, vamos simular com dados mockados
-      setFormData({
-        name: 'Produto Exemplo',
-        description: 'Descrição do produto exemplo',
-        price: '99.90',
-        originalPrice: '129.90',
-        category: 'categoria1',
-        stock: '50',
-        status: 'active',
-        images: [],
-        features: ['Feature 1', 'Feature 2'],
-        specifications: {
-          'Marca': 'Marca Exemplo',
-          'Modelo': 'Modelo Exemplo',
-          'Cor': 'Preto'
-        }
-      });
+      loadProduct();
     }
   }, [id, isEditing]);
+
+  const loadProduct = async () => {
+    try {
+      setLoading(true);
+      const product = await productService.getById(id);
+      setFormData(product);
+    } catch (err) {
+      setError('Erro ao carregar produto');
+      toast.error('Não foi possível carregar os dados do produto');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,6 +126,79 @@ const ProductForm = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleMediaUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      const url = await uploadService.uploadMedia(file);
+      
+      const mediaItem = {
+        type: file.type.startsWith('video/') ? 'video' : 'image',
+        url,
+        thumbnailUrl: file.type.startsWith('video/') ? await generateVideoThumbnail(file) : undefined
+      };
+
+      setFormData(prev => ({
+        ...prev,
+        media: [...prev.media, mediaItem]
+      }));
+    } catch (err) {
+      setError('Erro ao fazer upload da mídia');
+      console.error(err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const generateVideoThumbnail = async (file) => {
+    // Aqui você pode implementar a geração de thumbnail do vídeo
+    // Por exemplo, usando a primeira frame do vídeo
+    return URL.createObjectURL(file);
+  };
+
+  const handleRemoveMedia = async (mediaUrl) => {
+    try {
+      setLoading(true);
+      await productService.removeMedia(id, mediaUrl);
+      setFormData(prev => ({
+        ...prev,
+        media: prev.media.filter(item => item.url !== mediaUrl)
+      }));
+    } catch (err) {
+      setError('Erro ao remover mídia');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDragEnd = async (event) => {
+    const { active, over } = event;
+    
+    if (active.id !== over.id) {
+      const oldIndex = formData.media.findIndex(item => item.url === active.id);
+      const newIndex = formData.media.findIndex(item => item.url === over.id);
+      
+      const newMedia = arrayMove(formData.media, oldIndex, newIndex);
+      
+      try {
+        setLoading(true);
+        await productService.reorderMedia(id, newMedia.map(item => item.url));
+        setFormData(prev => ({
+          ...prev,
+          media: newMedia
+        }));
+      } catch (err) {
+        setError('Erro ao reordenar mídia');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
   };
 
   const handleFeatureChange = (index, value) => {
@@ -114,20 +260,20 @@ const ProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-
     try {
-      // Aqui você faria uma chamada à API para salvar o produto
-      console.log('Dados do produto:', formData);
-      
-      // Simulando um delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Redirecionando de volta para a lista de produtos
+      setLoading(true);
+      if (isEditing) {
+        await productService.update(id, formData);
+        toast.success('Produto atualizado com sucesso');
+      } else {
+        await productService.create(formData);
+        toast.success('Produto criado com sucesso');
+      }
       navigate('/admin/produtos');
     } catch (err) {
-      setError('Erro ao salvar o produto. Tente novamente.');
+      setError('Erro ao salvar produto');
+      console.error(err);
+      toast.error('Erro ao salvar produto. Tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -255,6 +401,48 @@ const ProductForm = () => {
         </div>
 
         <div className="admin-product-form__section">
+          <h2>Mídia do Produto</h2>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={formData.media.map(item => item.url)}
+              strategy={verticalListSortingStrategy}
+            >
+              <div className="admin-product-form__media-gallery">
+                {formData.media.map((mediaItem, index) => (
+                  <SortableMediaItem
+                    key={mediaItem.url}
+                    mediaItem={mediaItem}
+                    index={index}
+                    onRemove={handleRemoveMedia}
+                    onPreview={setPreviewMedia}
+                  />
+                ))}
+                
+                {formData.media.length < 4 && (
+                  <div className="admin-product-form__upload-area">
+                    <input
+                      type="file"
+                      id="media"
+                      accept="image/*,video/*"
+                      onChange={handleMediaUpload}
+                      disabled={uploading}
+                    />
+                    <label htmlFor="media">
+                      <FaUpload />
+                      {uploading ? 'Enviando...' : 'Adicionar Mídia'}
+                    </label>
+                  </div>
+                )}
+              </div>
+            </SortableContext>
+          </DndContext>
+        </div>
+
+        <div className="admin-product-form__section">
           <h2>Características</h2>
           
           <div className="admin-product-form__features">
@@ -322,13 +510,30 @@ const ProductForm = () => {
           <button 
             type="submit" 
             className="admin-product-form__save-button"
-            disabled={loading}
+            disabled={loading || uploading}
           >
             <FaSave />
             {loading ? 'Salvando...' : 'Salvar Produto'}
           </button>
         </div>
       </form>
+
+      {previewMedia?.type === 'image' && (
+        <ImagePreviewModal
+          open={!!previewMedia}
+          onClose={() => setPreviewMedia(null)}
+          imageUrl={previewMedia.url}
+        />
+      )}
+
+      {previewMedia?.type === 'video' && (
+        <VideoPreviewModal
+          open={!!previewMedia}
+          onClose={() => setPreviewMedia(null)}
+          videoUrl={previewMedia.url}
+          thumbnailUrl={previewMedia.thumbnailUrl}
+        />
+      )}
     </div>
   );
 };

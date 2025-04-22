@@ -1,0 +1,29 @@
+.orders-page {
+  padding: 24px;
+}
+
+.orders-page__header {
+  margin-bottom: 32px;
+}
+
+.orders-page__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.orders-page__error {
+  margin-bottom: 24px;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .orders-page {
+    padding: 16px;
+  }
+
+  .orders-page__header {
+    margin-bottom: 24px;
+  }
+} 

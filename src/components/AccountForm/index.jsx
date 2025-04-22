@@ -1,15 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { FaEnvelope, FaLock, FaUser, FaFacebookF, FaGoogle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import styles from './AccountForm.module.css';
 
+// Schema de validação para login
+const loginSchema = z.object({
+  email: z.string()
+    .min(1, 'E-mail é obrigatório')
+    .email('Endereço de e-mail inválido'),
+  password: z.string()
+    .min(6, 'Senha deve ter pelo menos 6 caracteres')
+});
+
+// Schema de validação para registro
+const registerSchema = z.object({
+  name: z.string()
+    .min(3, 'Nome deve ter pelo menos 3 caracteres'),
+  email: z.string()
+    .min(1, 'E-mail é obrigatório')
+    .email('Endereço de e-mail inválido'),
+  password: z.string()
+    .min(6, 'Senha deve ter pelo menos 6 caracteres'),
+  confirmPassword: z.string()
+    .min(1, 'Confirmação de senha é obrigatória')
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "As senhas não coincidem",
+  path: ["confirmPassword"]
+});
+
 const AccountForm = ({ initialMode = 'login' }) => {
   const [isLogin, setIsLogin] = useState(initialMode === 'login');
-  const { login, register: registerUser, error: authError } = useAuth();
+  const { login, register: registerUser, error: authError, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   
   useEffect(() => {
     // Atualizar o modo com base na propriedade initialMode
@@ -23,6 +51,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
     reset,
     watch
   } = useForm({
+    resolver: zodResolver(isLogin ? loginSchema : registerSchema),
     mode: 'onBlur'
   });
   
@@ -34,12 +63,15 @@ const AccountForm = ({ initialMode = 'login' }) => {
         // Login
         await login(data.email, data.password);
         toast.success('Login realizado com sucesso!');
-        navigate('/conta'); // Redirecionar para a página de conta após login
+        
+        // Redirecionar para a página anterior ou para a conta
+        const from = location.state?.from?.pathname || '/conta';
+        navigate(from);
       } else {
         // Registro
         await registerUser(data.name, data.email, data.password);
         toast.success('Conta criada com sucesso!');
-        navigate('/conta'); // Redirecionar para a página de conta após registro
+        navigate('/conta');
       }
     } catch (error) {
       // O erro já está sendo tratado no AuthContext
@@ -102,13 +134,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
                   className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
                   placeholder="Digite seu nome completo"
                   aria-invalid={errors.name ? "true" : "false"}
-                  {...register("name", { 
-                    required: !isLogin && "Nome é obrigatório",
-                    minLength: { 
-                      value: 3, 
-                      message: "Nome deve ter pelo menos 3 caracteres" 
-                    }
-                  })}
+                  {...register("name")}
                 />
               </div>
               {errors.name && (
@@ -127,13 +153,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
                 className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
                 placeholder="Digite seu e-mail"
                 aria-invalid={errors.email ? "true" : "false"}
-                {...register("email", { 
-                  required: "E-mail é obrigatório",
-                  pattern: { 
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Endereço de e-mail inválido" 
-                  }
-                })}
+                {...register("email")}
               />
             </div>
             {errors.email && (
@@ -151,13 +171,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
                 className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
                 placeholder={isLogin ? "Digite sua senha" : "Crie uma senha"}
                 aria-invalid={errors.password ? "true" : "false"}
-                {...register("password", { 
-                  required: "Senha é obrigatória",
-                  minLength: { 
-                    value: 6, 
-                    message: "Senha deve ter pelo menos 6 caracteres" 
-                  }
-                })}
+                {...register("password")}
               />
             </div>
             {errors.password && (
@@ -176,11 +190,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
                   className={`${styles.input} ${errors.confirmPassword ? styles.inputError : ''}`}
                   placeholder="Confirme sua senha"
                   aria-invalid={errors.confirmPassword ? "true" : "false"}
-                  {...register("confirmPassword", { 
-                    required: !isLogin && "Confirmação de senha é obrigatória",
-                    validate: value => 
-                      value === password || "As senhas não coincidem"
-                  })}
+                  {...register("confirmPassword")}
                 />
               </div>
               {errors.confirmPassword && (
@@ -198,9 +208,9 @@ const AccountForm = ({ initialMode = 'login' }) => {
           <button 
             type="submit" 
             className={styles.submitButton}
-            disabled={isSubmitting}
+            disabled={isSubmitting || authLoading}
           >
-            {isSubmitting 
+            {isSubmitting || authLoading
               ? 'Processando...' 
               : isLogin ? 'Entrar' : 'Criar conta'}
           </button>
@@ -215,7 +225,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
             type="button"
             className={`${styles.socialButton} ${styles.facebookButton}`} 
             aria-label="Entrar com Facebook"
-            disabled={isSubmitting}
+            disabled={isSubmitting || authLoading}
             onClick={() => handleSocialLogin('Facebook')}
           >
             <FaFacebookF aria-hidden="true" />
@@ -225,7 +235,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
             type="button"
             className={`${styles.socialButton} ${styles.googleButton}`} 
             aria-label="Entrar com Google"
-            disabled={isSubmitting}
+            disabled={isSubmitting || authLoading}
             onClick={() => handleSocialLogin('Google')}
           >
             <FaGoogle aria-hidden="true" />
@@ -242,7 +252,7 @@ const AccountForm = ({ initialMode = 'login' }) => {
               type="button" 
               onClick={toggleForm} 
               className={styles.switchButton}
-              disabled={isSubmitting}
+              disabled={isSubmitting || authLoading}
             >
               {isLogin ? 'Cadastre-se' : 'Faça login'}
             </button>

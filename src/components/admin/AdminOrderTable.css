@@ -1,0 +1,58 @@
+.admin-order-table {
+  width: 100%;
+}
+
+.admin-order-table__filters {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.admin-order-table__filter {
+  min-width: 200px;
+  flex: 1;
+}
+
+.admin-order-table__container {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-order-table__container .MuiTableHead-root {
+  background-color: #f5f5f5;
+}
+
+.admin-order-table__container .MuiTableCell-head {
+  font-weight: 600;
+  color: #333;
+}
+
+.admin-order-table__container .MuiTableRow-root:hover {
+  background-color: #f9f9f9;
+}
+
+.admin-order-table__action-button {
+  color: #1976d2;
+  transition: all 0.2s ease;
+}
+
+.admin-order-table__action-button:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+  transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .admin-order-table__filters {
+    flex-direction: column;
+  }
+
+  .admin-order-table__filter {
+    width: 100%;
+  }
+
+  .admin-order-table__container {
+    overflow-x: auto;
+  }
+} 

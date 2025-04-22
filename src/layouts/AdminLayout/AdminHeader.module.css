@@ -1,0 +1,35 @@
+.header {
+  z-index: 1201;
+  background-color: var(--primary-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menuButton {
+  margin-right: 16px;
+}
+
+.title {
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.125rem;
+  }
+  
+  .menuButton {
+    margin-right: 8px;
+  }
+} 

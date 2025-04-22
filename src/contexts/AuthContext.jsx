@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import authService from '../services/auth.service';
 
 const AuthContext = createContext();
 
@@ -14,29 +15,31 @@ export const AuthProvider = ({ children }) => {
     const checkLoggedIn = async () => {
       try {
         // Verificar se há um token no localStorage
-        const token = localStorage.getItem('authToken');
+        const token = authService.getToken();
         
         if (token) {
-          // Aqui você faria uma chamada à API para validar o token
-          // e obter os dados do usuário
+          // Obter dados do usuário do localStorage
+          const userData = authService.getUser();
           
-          // Simulando uma chamada de API
-          await new Promise(resolve => setTimeout(resolve, 500));
-          
-          // Exemplo de dados do usuário
-          const userData = {
-            id: '123',
-            name: 'Usuário Exemplo',
-            email: 'usuario@exemplo.com',
-          };
-          
-          setCurrentUser(userData);
+          if (userData) {
+            setCurrentUser(userData);
+          } else {
+            // Se não houver dados do usuário, tentar renovar o token
+            try {
+              const response = await authService.refreshToken();
+              setCurrentUser(response.user);
+            } catch (refreshError) {
+              // Se falhar ao renovar o token, fazer logout
+              authService.logout();
+              setCurrentUser(null);
+            }
+          }
         }
       } catch (err) {
         console.error('Erro ao verificar autenticação:', err);
         setError('Falha ao verificar autenticação');
         // Limpar token inválido
-        localStorage.removeItem('authToken');
+        authService.logout();
       } finally {
         setLoading(false);
       }
@@ -51,23 +54,8 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     
     try {
-      // Aqui você faria uma chamada à API para autenticar o usuário
-      
-      // Simulando uma chamada de API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Exemplo de resposta da API
-      const response = {
-        user: {
-          id: '123',
-          name: 'Usuário Exemplo',
-          email: email,
-        },
-        token: 'token-exemplo-123456',
-      };
-      
-      // Salvar token no localStorage
-      localStorage.setItem('authToken', response.token);
+      // Chamar o serviço de autenticação
+      const response = await authService.login({ email, password });
       
       // Atualizar estado do usuário
       setCurrentUser(response.user);
@@ -75,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       return response.user;
     } catch (err) {
       console.error('Erro ao fazer login:', err);
-      setError('Credenciais inválidas. Verifique seu e-mail e senha.');
+      setError(err.message || 'Credenciais inválidas. Verifique seu e-mail e senha.');
       throw err;
     } finally {
       setLoading(false);
@@ -88,23 +76,13 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     
     try {
-      // Aqui você faria uma chamada à API para registrar o usuário
-      
-      // Simulando uma chamada de API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Exemplo de resposta da API
-      const response = {
-        user: {
-          id: '456',
-          name: name,
-          email: email,
-        },
-        token: 'token-exemplo-654321',
-      };
-      
-      // Salvar token no localStorage
-      localStorage.setItem('authToken', response.token);
+      // Chamar o serviço de autenticação
+      const response = await authService.register({ 
+        name, 
+        email, 
+        password,
+        confirmPassword: password // Assumindo que o backend aceita isso
+      });
       
       // Atualizar estado do usuário
       setCurrentUser(response.user);
@@ -112,7 +90,7 @@ export const AuthProvider = ({ children }) => {
       return response.user;
     } catch (err) {
       console.error('Erro ao registrar:', err);
-      setError('Falha ao criar conta. Este e-mail pode já estar em uso.');
+      setError(err.message || 'Falha ao criar conta. Este e-mail pode já estar em uso.');
       throw err;
     } finally {
       setLoading(false);
@@ -121,8 +99,14 @@ export const AuthProvider = ({ children }) => {
 
   // Função de logout
   const logout = () => {
-    localStorage.removeItem('authToken');
+    authService.logout();
     setCurrentUser(null);
+    setError(null);
+  };
+
+  // Função para verificar se o usuário é admin
+  const isAdmin = () => {
+    return currentUser?.role === 'admin';
   };
 
   const value = {
@@ -132,6 +116,7 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
+    isAdmin
   };
 
   return (
