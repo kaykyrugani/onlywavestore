@@ -1,0 +1,22 @@
+{
+  "shipping": [
+    {
+      "id": "1",
+      "name": "Sedex",
+      "price": 50,
+      "deliveryTime": "2-3 dias úteis"
+    },
+    {
+      "id": "2",
+      "name": "PAC",
+      "price": 30,
+      "deliveryTime": "5-7 dias úteis"
+    },
+    {
+      "id": "3",
+      "name": "Retirada em Loja",
+      "price": 0,
+      "deliveryTime": "1 dia útil"
+    }
+  ]
+} 

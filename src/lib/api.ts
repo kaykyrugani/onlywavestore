@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import authService from '../services/auth.service';
+import authService from '../services/auth.service'; // Importação default
 
 // Criar instância do Axios com configuração base
 const api = axios.create({
@@ -54,4 +54,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api; 
+export default api;

@@ -57,11 +57,11 @@ import {
 } from 'recharts';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { orderService } from '../../../services/order.service';
+import orderService from '../../../services/order.service'; // Alterado para default import
 import StatCard from '../../../components/admin/StatCard';
 import { LineChart } from '../../../components/admin/Charts';
 import { dashboardService } from '../../../services/dashboard.service';
-import { categoryService } from '../../../services/category.service';
+import categoryService from '../../../services/category.service';
 import './DashboardPage.css';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];

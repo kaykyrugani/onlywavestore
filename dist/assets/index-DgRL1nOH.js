@@ -1,0 +1,2 @@
+import{j as o}from"./vendor-CypZrQ72.js";import{A as a}from"./index-DLn-vWtv.js";import{S as n}from"./SEO-Cra15uE4.js";import"./index-O0UzWayt.js";const r="_loginContainer_9e9z3_1",t={loginContainer:r},c=()=>o.jsxs("div",{className:t.loginContainer,children:[o.jsx(n,{title:"Entrar na OnlyWave Store",description:"Faça login para acessar sua conta, acompanhar pedidos e aproveitar ofertas exclusivas na OnlyWave Store."}),o.jsx(a,{})]});export{c as default};
+//# sourceMappingURL=index-DgRL1nOH.js.map

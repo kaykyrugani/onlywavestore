@@ -1,0 +1,108 @@
+{
+  "settings": [
+    {
+      "id": "1",
+      "key": "siteName",
+      "value": "OnlyWave",
+      "type": "string"
+    },
+    {
+      "id": "2",
+      "key": "siteDescription",
+      "value": "Loja de produtos para surf",
+      "type": "string"
+    },
+    {
+      "id": "3",
+      "key": "siteLogo",
+      "value": "https://via.placeholder.com/150",
+      "type": "string"
+    },
+    {
+      "id": "4",
+      "key": "siteFavicon",
+      "value": "https://via.placeholder.com/32",
+      "type": "string"
+    },
+    {
+      "id": "5",
+      "key": "siteTheme",
+      "value": "light",
+      "type": "string"
+    },
+    {
+      "id": "6",
+      "key": "siteLanguage",
+      "value": "pt-BR",
+      "type": "string"
+    },
+    {
+      "id": "7",
+      "key": "siteCurrency",
+      "value": "BRL",
+      "type": "string"
+    },
+    {
+      "id": "8",
+      "key": "siteTimezone",
+      "value": "America/Sao_Paulo",
+      "type": "string"
+    },
+    {
+      "id": "9",
+      "key": "siteEmail",
+      "value": "contato@onlywave.com.br",
+      "type": "string"
+    },
+    {
+      "id": "10",
+      "key": "sitePhone",
+      "value": "(11) 99999-9999",
+      "type": "string"
+    },
+    {
+      "id": "11",
+      "key": "siteAddress",
+      "value": "Rua Teste, 123 - São Paulo - SP",
+      "type": "string"
+    },
+    {
+      "id": "12",
+      "key": "siteSocial",
+      "value": {
+        "facebook": "https://facebook.com/onlywave",
+        "instagram": "https://instagram.com/onlywave",
+        "twitter": "https://twitter.com/onlywave",
+        "youtube": "https://youtube.com/onlywave"
+      },
+      "type": "object"
+    },
+    {
+      "id": "13",
+      "key": "sitePayment",
+      "value": {
+        "creditCard": true,
+        "debitCard": true,
+        "bankSlip": true,
+        "pix": true
+      },
+      "type": "object"
+    },
+    {
+      "id": "14",
+      "key": "siteShipping",
+      "value": {
+        "sedex": true,
+        "pac": true,
+        "pickup": true
+      },
+      "type": "object"
+    },
+    {
+      "id": "15",
+      "key": "siteMaintenance",
+      "value": false,
+      "type": "boolean"
+    }
+  ]
+} 

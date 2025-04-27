@@ -1,0 +1,31 @@
+{
+  "payments": [
+    {
+      "id": "1",
+      "userId": "1",
+      "cardNumber": "4111111111111111",
+      "cardName": "Teste Teste",
+      "cardExpiry": "12/25",
+      "cardCvv": "123",
+      "isDefault": true
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "cardNumber": "5555555555554444",
+      "cardName": "Teste Teste",
+      "cardExpiry": "12/26",
+      "cardCvv": "456",
+      "isDefault": false
+    },
+    {
+      "id": "3",
+      "userId": "2",
+      "cardNumber": "378282246310005",
+      "cardName": "Admin Admin",
+      "cardExpiry": "12/27",
+      "cardCvv": "789",
+      "isDefault": true
+    }
+  ]
+} 

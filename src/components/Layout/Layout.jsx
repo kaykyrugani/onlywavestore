@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from '../../components/Header/index';
+import Footer from '../../components/Footer/index';
 import styles from './Layout.module.css';
 import { useTheme } from '../../contexts/ThemeContext';
 

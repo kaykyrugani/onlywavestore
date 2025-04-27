@@ -1,0 +1,48 @@
+{
+  "cart": [
+    {
+      "id": "1",
+      "userId": "1",
+      "products": [
+        {
+          "id": "1",
+          "name": "Prancha de Surf",
+          "price": 1000,
+          "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "Roupa de Neoprene",
+          "price": 500,
+          "quantity": 1
+        }
+      ],
+      "total": 1500
+    },
+    {
+      "id": "2",
+      "userId": "2",
+      "products": [
+        {
+          "id": "3",
+          "name": "Óculos de Sol",
+          "price": 200,
+          "quantity": 1
+        },
+        {
+          "id": "4",
+          "name": "Capa de Prancha",
+          "price": 100,
+          "quantity": 1
+        },
+        {
+          "id": "5",
+          "name": "Parafina",
+          "price": 50,
+          "quantity": 2
+        }
+      ],
+      "total": 400
+    }
+  ]
+} 

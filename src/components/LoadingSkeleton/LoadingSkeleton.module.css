@@ -1,0 +1,79 @@
+.produtoSkeleton {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .skeletonGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skeletonImage {
+  aspect-ratio: 1;
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+.skeletonInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skeletonTitle {
+  height: 2rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.skeletonPrice {
+  height: 2.5rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+  width: 40%;
+}
+
+.skeletonDescription {
+  height: 1rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.skeletonDescription:nth-child(3) {
+  width: 90%;
+}
+
+.skeletonDescription:nth-child(4) {
+  width: 70%;
+}
+
+.skeletonButton {
+  height: 3rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 1rem;
+}
+
+.skeletonSections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.skeletonSection {
+  height: 8rem;
+  background: #f0f0f0;
+  border-radius: 8px;
+} 

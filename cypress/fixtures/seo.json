@@ -1,0 +1,94 @@
+{
+  "seo": [
+    {
+      "id": "1",
+      "page": "home",
+      "title": "OnlyWave - Loja de produtos para surf",
+      "description": "Compre produtos para surf com os melhores preços e condições de pagamento. Frete grátis para todo o Brasil!",
+      "keywords": "surf, prancha, roupa de neoprene, acessórios, equipamentos",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br"
+    },
+    {
+      "id": "2",
+      "page": "products",
+      "title": "Produtos - OnlyWave",
+      "description": "Confira nossa seleção de produtos para surf. As melhores marcas e os melhores preços!",
+      "keywords": "produtos, surf, prancha, roupa de neoprene, acessórios, equipamentos",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/produtos"
+    },
+    {
+      "id": "3",
+      "page": "product",
+      "title": "Prancha de Surf - OnlyWave",
+      "description": "Prancha de surf profissional. Compre agora com os melhores preços e condições de pagamento!",
+      "keywords": "prancha, surf, prancha de surf, profissional",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/produtos/prancha-de-surf"
+    },
+    {
+      "id": "4",
+      "page": "cart",
+      "title": "Carrinho - OnlyWave",
+      "description": "Confira os produtos no seu carrinho. Finalize sua compra com segurança!",
+      "keywords": "carrinho, compra, produtos, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/carrinho"
+    },
+    {
+      "id": "5",
+      "page": "checkout",
+      "title": "Checkout - OnlyWave",
+      "description": "Finalize sua compra com segurança. Frete grátis para todo o Brasil!",
+      "keywords": "checkout, compra, produtos, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/checkout"
+    },
+    {
+      "id": "6",
+      "page": "login",
+      "title": "Login - OnlyWave",
+      "description": "Faça login na sua conta. Acompanhe seus pedidos e favoritos!",
+      "keywords": "login, conta, pedidos, favoritos, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/login"
+    },
+    {
+      "id": "7",
+      "page": "register",
+      "title": "Cadastro - OnlyWave",
+      "description": "Cadastre-se na nossa loja. Receba ofertas exclusivas e acompanhe seus pedidos!",
+      "keywords": "cadastro, conta, ofertas, pedidos, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/cadastro"
+    },
+    {
+      "id": "8",
+      "page": "profile",
+      "title": "Perfil - OnlyWave",
+      "description": "Gerencie seu perfil. Atualize seus dados e acompanhe seus pedidos!",
+      "keywords": "perfil, conta, dados, pedidos, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/perfil"
+    },
+    {
+      "id": "9",
+      "page": "orders",
+      "title": "Pedidos - OnlyWave",
+      "description": "Acompanhe seus pedidos. Confira o status e histórico de compras!",
+      "keywords": "pedidos, compras, histórico, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/pedidos"
+    },
+    {
+      "id": "10",
+      "page": "favorites",
+      "title": "Favoritos - OnlyWave",
+      "description": "Confira seus produtos favoritos. Receba alertas de promoções!",
+      "keywords": "favoritos, produtos, promoções, surf",
+      "image": "https://via.placeholder.com/1200x630",
+      "canonical": "https://onlywave.com.br/favoritos"
+    }
+  ]
+} 

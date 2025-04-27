@@ -51,7 +51,7 @@ const ProductGrid = ({ products, currentPage, totalPages, onPageChange }) => {
             <div key={product.id} className={styles.productCard}>
               <div className={styles.productImage}>
                 <img
-                  src={product.imagem || 'https://via.placeholder.com/200x200'}
+                  src={product.imagem || '/assets/placeholder.png'}
                   alt={product.nome}
                 />
                 {product.promocao && (

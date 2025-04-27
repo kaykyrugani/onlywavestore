@@ -96,6 +96,9 @@ export const CartProvider = ({ children }) => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
+  // Função para somar o valor total do carrinho
+  const getTotal = () => cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+
   return (
     <CartContext.Provider
       value={{
@@ -107,7 +110,8 @@ export const CartProvider = ({ children }) => {
         updateCartItem,
         removeFromCart,
         clearCart,
-        getTotalItems
+        getTotalItems,
+        getTotal
       }}
     >
       {children}

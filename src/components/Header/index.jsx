@@ -9,6 +9,7 @@ import Cart from '../Cart/index';
 import MobMenu from '../MobMenu/MobMenu';
 import { useCart } from '../../contexts/CartContext';
 import { useCarrinho } from '../../contexts/CarrinhoContext';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import styles from './Header.module.css';
 
 // Exportar menuItems para ser usado em outros componentes
@@ -47,19 +48,30 @@ export const menuItems = [
 ];
 
 // Componente de item do mini carrinho
-const MiniCartItem = ({ item, onRemove }) => {
+const MiniCartItem = ({ item, onRemove, onIncrement, onDecrement }) => {
     const [isNew, setIsNew] = useState(false);
     
-    // Efeito para animar quando um novo item é adicionado
     useEffect(() => {
         setIsNew(true);
         const timer = setTimeout(() => setIsNew(false), 500);
         return () => clearTimeout(timer);
     }, [item.quantidade]);
     
+    // Garantir que nome, preco e tamanho estejam definidos
+    const nome = item.nome || 'Produto';
+    const tamanho = item.tamanho || '-';
+    let preco = 0;
+    if (typeof item.preco === 'number' && !isNaN(item.preco)) {
+        preco = item.preco;
+    } else if (typeof item.preco === 'string') {
+        const parsed = parseFloat(item.preco.replace(/[^0-9.,]/g, '').replace(',', '.'));
+        preco = isNaN(parsed) ? 0 : parsed;
+    }
+    const quantidade = Number(item.quantidade) || 1;
+
     return (
         <motion.div 
-            key={`${item.id}-${item.tamanho}`}
+            key={`${item.id}-${tamanho}`}
             className={`${styles.miniCartItem} ${isNew ? styles.added : ''}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -68,25 +80,26 @@ const MiniCartItem = ({ item, onRemove }) => {
         >
             <div className={styles.miniCartItemImage}>
                 <img 
-                    src={Array.isArray(item.imagens) ? item.imagens[0] : item.imagens} 
-                    alt={item.nome} 
+                    src={Array.isArray(item.imagens) ? item.imagens[0] : item.imagens || '/sem-imagem.png'} 
+                    alt={nome} 
                 />
             </div>
             <div className={styles.miniCartItemDetails}>
-                <h5>{item.nome}</h5>
-                <p className={styles.miniCartItemSize}>Tam: {item.tamanho}</p>
+                <h5>{nome}</h5>
+                <p className={styles.miniCartItemSize}>Tam: {tamanho}</p>
                 <div className={styles.miniCartItemPrice}>
-                    <span>{item.quantidade}x</span>
-                    <span>R$ {item.preco.toFixed(2)}</span>
+                    <span>{quantidade}x</span>
+                    <span>R$ {preco.toFixed(2)}</span>
+                </div>
+                <div className={styles.miniCartItemActions}>
+                    <button type="button" onClick={() => onDecrement(item)} aria-label={`Diminuir quantidade de ${nome}`}>-</button>
+                    <span>{quantidade}</span>
+                    <button type="button" onClick={() => onIncrement(item)} aria-label={`Aumentar quantidade de ${nome}`}>+</button>
+                    <button type="button" onClick={(e) => onRemove(e, item.id, tamanho)} aria-label={`Remover ${nome} do carrinho`} className={styles.miniCartItemRemove}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </button>
                 </div>
             </div>
-            <button 
-                className={styles.miniCartItemRemove}
-                onClick={(e) => onRemove(e, item.id, item.tamanho)}
-                aria-label={`Remover ${item.nome} do carrinho`}
-            >
-                <FontAwesomeIcon icon={faTimes} />
-            </button>
         </motion.div>
     );
 };
@@ -259,7 +272,7 @@ function Header() {
     }, []);
 
     return (
-        <div className={styles.header}>
+        <header className={styles.header}>
             <div className={styles.desconto}>
                 <Link to="/">
                     <p>Frete grátis para compras acima de R$ 200,00</p>
@@ -276,83 +289,75 @@ function Header() {
                 </div>
                 <SearchBar />
                 <div className={styles.iconsBusca}>
-                    <Link to="/conta" className={styles.userIconWrapper}>
+                    <Link to="/conta" className={styles.userIconWrapper} aria-label="Minha Conta">
                         <FontAwesomeIcon icon={faUser} className={styles.userIcon} />
                     </Link>
-                    <div 
+                    <div
                         className={`${styles.cartIconWrapper} ${cartBump ? styles.bump : ''}`}
-                        onClick={() => openCart()}
+                        onClick={e => { e.preventDefault(); openCart(); }}
+                        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCart(); } }}
+                        tabIndex={0}
+                        role="button"
+                        aria-label="Abrir carrinho"
                         onMouseEnter={handleCartMouseEnter}
                         onMouseLeave={handleCartMouseLeave}
+                        style={{ cursor: 'pointer' }}
                     >
                         <FontAwesomeIcon icon={faShoppingCart} className={styles.cartIcon} />
-                        {totalItens > 0 && (
-                            <span className={styles.cartCount}>{totalItens}</span>
-                        )}
-                        
+                        <span className={styles.cartCount}>{getTotalItems()}</span>
                         {mostrarMiniCarrinho && (
-                            <div 
+                            <div
                                 className={styles.miniCart}
                                 onMouseEnter={handleMiniCartMouseEnter}
                                 onMouseLeave={handleMiniCartMouseLeave}
                             >
                                 <div className={styles.miniCartHeader}>
-                                    <h4>Seu Carrinho</h4>
-                                    <button 
-                                        className={styles.miniCartClose}
-                                        onClick={() => setMostrarMiniCarrinho(false)}
-                                    >
-                                        <FontAwesomeIcon icon={faTimes} />
-                                    </button>
+                                    <h4>Mini Carrinho</h4>
                                 </div>
-                                
-                                {carrinho.length > 0 ? (
-                                    <>
-                                        <div className={styles.miniCartItems}>
-                                            {carrinho.map((item) => (
-                                                <MiniCartItem 
-                                                    key={`${item.id}-${item.tamanho}`}
-                                                    item={item}
-                                                    onRemove={handleRemoveFromMiniCart}
-                                                />
-                                            ))}
+                                <div className={styles.miniCartItems}>
+                                    {cartItems.length === 0 ? (
+                                        <p>Carrinho vazio</p>
+                                    ) : (
+                                        cartItems.map(item => (
+                                            <MiniCartItem 
+                                                key={`${item.id}-${item.tamanho}`} 
+                                                item={item} 
+                                                onRemove={handleRemoveFromMiniCart}
+                                                onIncrement={() => updateCartItem(item.id, item.quantidade + 1)}
+                                                onDecrement={() => updateCartItem(item.id, Math.max(1, item.quantidade - 1))}
+                                            />
+                                        ))
+                                    )}
+                                </div>
+                                {cartItems.length > 0 && (
+                                    <div className={styles.miniCartFooter}>
+                                        <div className={styles.miniCartTotal}>
+                                            <span>Total:</span>
+                                            <span>R$ {cartItems.reduce((acc, item) => {
+                                                let preco = 0;
+                                                if (typeof item.preco === 'number' && !isNaN(item.preco)) {
+                                                    preco = item.preco;
+                                                } else if (typeof item.preco === 'string') {
+                                                    const parsed = parseFloat(item.preco.replace(/[^0-9.,]/g, '').replace(',', '.'));
+                                                    preco = isNaN(parsed) ? 0 : parsed;
+                                                }
+                                                const quantidade = Number(item.quantidade) || 1;
+                                                return acc + preco * quantidade;
+                                            }, 0).toFixed(2)}</span>
                                         </div>
-                                        <div className={styles.miniCartFooter}>
-                                            <div className={styles.miniCartTotal}>
-                                                <span>Total:</span>
-                                                <span>R$ {valorTotal.toFixed(2)}</span>
-                                            </div>
-                                            <button 
-                                                className={styles.miniCartCheckout}
-                                                onClick={() => {
-                                                    setMostrarMiniCarrinho(false);
-                                                    openCart();
-                                                }}
-                                            >
-                                                Ver Carrinho
-                                            </button>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <div className={styles.miniCartEmpty}>
-                                        <div className={styles.miniCartEmptyIcon}>
-                                            <FontAwesomeIcon icon={faShoppingBag} />
-                                        </div>
-                                        <p>Seu carrinho está vazio</p>
                                         <button 
-                                            className={styles.miniCartEmptyButton}
-                                            onClick={() => {
-                                                setMostrarMiniCarrinho(false);
-                                                navigate('/produtos');
-                                            }}
+                                            type="button"
+                                            className={styles.miniCartCheckout}
+                                            onClick={() => { setMostrarMiniCarrinho(false); navigate('/checkout'); }}
                                         >
-                                            Continuar Comprando
+                                            Finalizar Compra
                                         </button>
                                     </div>
                                 )}
                             </div>
                         )}
                     </div>
+                    <ThemeToggle />
                 </div>
                 <MobMenu isOpen={isMobMenuOpen} onClose={() => setIsMobMenuOpen(false)} />
             </div>
@@ -428,7 +433,7 @@ function Header() {
                     navigate('/checkout');
                 }}
             />
-        </div>
+        </header>
     );
 }
 

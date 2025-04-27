@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useCart } from '../../contexts/CartContext';
-import { couponService } from '../../services/coupon.service';
-import { orderService } from '../../services/order.service';
+import couponService from '../../services/coupon.service';
+import orderService from '../../services/order.service';
 import { toast } from 'react-toastify';
 import {
   Container,
@@ -15,6 +15,7 @@ import {
   Divider,
   CircularProgress,
 } from '@mui/material';
+import type { User } from '../../types/user';
 
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ export const CheckoutPage: React.FC = () => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce((total, item: any) => total + item.price * item.quantity, 0);
   };
 
   const handleProcessOrder = async () => {
@@ -70,13 +71,15 @@ export const CheckoutPage: React.FC = () => {
     setLoading(true);
     try {
       const orderData = {
-        items: cartItems.map(item => ({
+        items: cartItems.map((item: any) => ({
           productId: item.id,
           quantity: item.quantity,
           price: item.price
         })),
         paymentMethod: 'PIX' as const,
         shippingAddress: {
+          // Corrigir acesso a user.address para refletir a estrutura correta
+          // Se necessário, buscar endereço do usuário via addressService
           street: user.address?.street || '',
           number: user.address?.number || '',
           complement: user.address?.complement || '',
@@ -114,7 +117,7 @@ export const CheckoutPage: React.FC = () => {
           <Typography variant="h6" gutterBottom>
             Resumo do Pedido
           </Typography>
-          {cartItems.map((item) => (
+          {cartItems.map((item: any) => (
             <Box key={item.id} sx={{ display: 'flex', mb: 1 }}>
               <Box sx={{ flex: '0 0 66.666667%' }}>
                 <Typography>{item.name}</Typography>

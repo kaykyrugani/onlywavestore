@@ -22,7 +22,7 @@ import {
   Collapse
 } from '@mui/material';
 import { formatCurrency } from '../../../utils/formatters';
-import { orderService } from '../../../services/order.service';
+import orderService from '../../../services/order.service';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import toast from 'react-hot-toast';

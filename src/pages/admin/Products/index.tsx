@@ -32,7 +32,7 @@ import {
   Refresh as RefreshIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { productService, Product } from '../../../services/product.service';
+import productService, { Product } from '../../../services/product.service';
 import { formatCurrency } from '../../../utils/formatters';
 import toast from 'react-hot-toast';
 

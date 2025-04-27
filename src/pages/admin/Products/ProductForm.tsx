@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { Save as SaveIcon, ArrowBack as ArrowBackIcon } from '@mui/icons-material';
-import { productService, Product, CreateProductData } from '../../../services/product.service';
+import productService, { Product, CreateProductData } from '../../../services/product.service';
 import toast from 'react-hot-toast';
 
 const CATEGORIES = [

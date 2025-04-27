@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import authService, { LoginData, RegisterData, AuthResponse } from '../services/auth.service';
+import authService from '../services/auth.service';
 
 interface User {
   id: string;
@@ -13,8 +13,8 @@ interface AuthContextData {
   user: User | null;
   loading: boolean;
   isAuthenticated: boolean;
-  login: (data: LoginData) => Promise<void>;
-  register: (data: RegisterData) => Promise<void>;
+  login: (data: authService.LoginData) => Promise<void>;
+  register: (data: authService.RegisterData) => Promise<void>;
   logout: () => Promise<void>;
   forgotPassword: (email: string) => Promise<void>;
   resetPassword: (token: string, password: string) => Promise<void>;
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loadUser();
   }, []);
 
-  const login = async (data: LoginData) => {
+  const login = async (data: authService.LoginData) => {
     try {
       setLoading(true);
       const response = await authService.login(data);
@@ -75,7 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const register = async (data: RegisterData) => {
+  const register = async (data: authService.RegisterData) => {
     try {
       setLoading(true);
       const response = await authService.register(data);

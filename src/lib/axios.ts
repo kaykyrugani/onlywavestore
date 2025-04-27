@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { authService } from '../services/auth.service';
+import authService from '../services/auth.service';
 
 declare global {
   interface ImportMeta {

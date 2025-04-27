@@ -1,177 +1,252 @@
-# OnlyWave - Plataforma de E-commerce
+# OnlyWave
 
-![OnlyWave Logo](public/logo.png)
-
-## 📋 Índice
-
-- [Visão Geral](#visão-geral)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias](#tecnologias)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Instalação](#instalação)
-- [Configuração](#configuração)
-- [Uso](#uso)
-- [Dashboard Administrativo](#dashboard-administrativo)
-- [API](#api)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
-
-## Visão Geral
-
-OnlyWave é uma plataforma de e-commerce moderna e escalável, desenvolvida com React, TypeScript e Material UI. O projeto oferece uma experiência de compra fluida para os usuários e um painel administrativo completo para gerenciamento de produtos, pedidos e métricas de negócio.
-
-## Funcionalidades
-
-### 🛍️ Loja Virtual
-- Catálogo de produtos com filtros e busca
-- Carrinho de compras persistente
-- Checkout com múltiplas formas de pagamento
-- Área do cliente com histórico de pedidos
-- Sistema de avaliações e comentários
-
-### 👨‍💼 Painel Administrativo
-- Dashboard com KPIs e métricas de negócio
-- Gerenciamento de produtos e categorias
-- Controle de pedidos e status
-- Relatórios exportáveis (CSV, PDF)
-- Gestão de usuários e permissões
+Frontend do projeto OnlyWave, uma plataforma de e-commerce para venda de produtos de surf.
 
 ## Tecnologias
 
-- **Frontend**: React, TypeScript, Material UI, Recharts
-- **Estilização**: CSS Modules, Styled Components
-- **Gerenciamento de Estado**: Context API, React Query
-- **Formulários**: React Hook Form, Yup
-- **Requisições HTTP**: Axios
-- **Notificações**: React Hot Toast
-- **Exportação**: jsPDF, html2canvas
-- **Testes**: Jest, React Testing Library
+- React
+- React Router
+- React Hook Form
+- Framer Motion
+- Styled Components
+- Axios
+- React Query
+- React Toastify
+- React Icons
+- React Helmet
+- React Loading Skeleton
+- React Lazy Load Image Component
+- React Slick
+- React Modal
+- React Select
+- React Date Picker
+- React Currency Input
+- React Input Mask
+- React Number Format
+- React Credit Cards
+- React Stripe Elements
+- React Google Analytics
+- React Sentry
+- React Testing Library
+- Jest
+- Cypress
+- ESLint
+- Prettier
+- Husky
+- Lint Staged
+- Commitizen
+- Conventional Commits
+- Docker
+- Docker Compose
+- Nginx
+
+## Requisitos
+
+- Node.js 18.x
+- npm 8.x
+- Docker 20.x
+- Docker Compose 2.x
+
+## Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/onlywave/frontend.git
+
+# Entre no diretório do projeto
+cd frontend
+
+# Instale as dependências
+npm install
+
+# Crie o arquivo .env
+cp .env.example .env
+
+# Configure as variáveis de ambiente
+vim .env
+
+# Inicie o projeto em desenvolvimento
+npm run dev
+
+# Inicie o projeto em produção
+npm run build
+npm run start
+
+# Inicie o projeto com Docker
+docker-compose up -d
+```
+
+## Scripts
+
+- `npm run dev` - Inicia o projeto em desenvolvimento
+- `npm run build` - Gera o build do projeto
+- `npm run start` - Inicia o projeto em produção
+- `npm run test` - Executa os testes
+- `npm run test:watch` - Executa os testes em modo watch
+- `npm run test:coverage` - Executa os testes e gera o relatório de cobertura
+- `npm run lint` - Executa o linter
+- `npm run lint:fix` - Executa o linter e corrige os erros
+- `npm run format` - Executa o prettier
+- `npm run format:check` - Verifica se o código está formatado
+- `npm run prepare` - Instala o husky
+- `npm run commit` - Executa o commitizen
 
 ## Estrutura do Projeto
 
 ```
-onlywave/
-├── public/                 # Arquivos estáticos
-├── src/
-│   ├── components/         # Componentes reutilizáveis
-│   ├── contexts/           # Contextos React
-│   ├── hooks/              # Hooks personalizados
-│   ├── lib/                # Bibliotecas e configurações
-│   ├── pages/              # Páginas da aplicação
-│   │   ├── admin/          # Páginas do painel administrativo
-│   │   ├── auth/           # Páginas de autenticação
-│   │   ├── checkout/       # Páginas de checkout
-│   │   └── shop/           # Páginas da loja
-│   ├── services/           # Serviços de API
-│   ├── styles/             # Estilos globais
-│   ├── types/              # Definições de tipos TypeScript
-│   ├── utils/              # Funções utilitárias
-│   ├── App.tsx             # Componente principal
-│   └── main.tsx            # Ponto de entrada
-├── .eslintrc.js            # Configuração ESLint
-├── .prettierrc             # Configuração Prettier
-├── package.json            # Dependências e scripts
-├── tsconfig.json           # Configuração TypeScript
-└── vite.config.ts          # Configuração Vite
+src/
+  ├── assets/          # Arquivos estáticos
+  ├── components/      # Componentes reutilizáveis
+  ├── config/          # Configurações
+  ├── contexts/        # Contextos
+  ├── hooks/           # Hooks personalizados
+  ├── pages/           # Páginas
+  ├── services/        # Serviços
+  ├── styles/          # Estilos globais
+  ├── utils/           # Utilitários
+  ├── App.jsx          # Componente principal
+  └── index.jsx        # Ponto de entrada
 ```
 
-## Instalação
+## Principais Funcionalidades
 
-1. Clone o repositório:
-```bash
-git clone https://github.com/seu-usuario/onlywave.git
-cd onlywave
-```
+- Carrinho de compras com modal interativo e feedback acessível
+- Cadastro, login e autenticação de usuários
+- Página de favoritos com persistência e navegação
+- Checkout completo com validação e página de sucesso
+- SEO dinâmico em todas as páginas principais e secundárias
+- Acessibilidade (aria-labels, roles, contraste, navegação por teclado)
+- Responsividade total (mobile-first, CSS Grid, Flexbox, clamp)
+- Testes automatizados (unitários e E2E com Cypress)
+- Otimizações de performance (lazy loading, compressão Brotli)
 
-2. Instale as dependências:
-```bash
-npm install
-# ou
-yarn install
-```
+## Scripts
 
-3. Inicie o servidor de desenvolvimento:
 ```bash
+# Desenvolvimento
 npm run dev
-# ou
-yarn dev
-```
 
-## Configuração
-
-1. Crie um arquivo `.env` na raiz do projeto:
-```
-VITE_API_URL=https://api.onlywave.com
-VITE_STRIPE_PUBLIC_KEY=sua_chave_publica_do_stripe
-```
-
-2. Configure as variáveis de ambiente para produção em `.env.production`.
-
-## Uso
-
-### Desenvolvimento
-```bash
-npm run dev
-```
-
-### Build para Produção
-```bash
+# Build de produção
 npm run build
-```
 
-### Testes
-```bash
+# Preview do build
+npm run preview
+
+# Testes unitários
 npm run test
-```
 
-### Lint
-```bash
+# Testes E2E (Cypress)
+npx cypress open
+
+# Lint e formatação
 npm run lint
+npm run format
 ```
 
-## Dashboard Administrativo
+## Testes E2E
 
-O dashboard administrativo oferece uma visão completa do negócio com:
+- Os principais fluxos (compra, cadastro, favoritos) estão cobertos em `cypress/e2e/`
+- Exemplos: `checkout-flow.cy.js`, `favoritos-flow.cy.js`, `cadastro-flow.cy.js`
 
-### 📊 KPIs Principais
-- Vendas totais
-- Total de pedidos
-- Ticket médio
-- Pedidos pendentes
+## Acessibilidade
 
-### 📈 Gráficos
-- Vendas por mês
-- Distribuição de pedidos por status
-- Produtos mais vendidos
+- Uso extensivo de `aria-label`, roles semânticos, foco visível e contraste
+- Checklist Lighthouse > 90 para A11y
+- Navegação por teclado garantida
 
-### 🔍 Filtros
-- Por período (hoje, últimos 7 dias, este mês, mês anterior)
-- Por categoria
-- Por método de pagamento
-- Por status de pedido
+## SEO
 
-### 📥 Exportação
-- CSV: Dados brutos para análise em planilhas
-- PDF: Relatório formatado com gráficos e métricas
+- Todas as páginas usam `<SEO>` com Helmet
+- Meta tags, canonical, og:image e Schema.org (OrderSuccess)
 
-## API
+## Performance
 
-A API do OnlyWave segue o padrão RESTful e está documentada em `/docs/api.md`.
+- Lazy loading de rotas principais
+- Code splitting configurado
+- Compressão Brotli via vite-plugin-compression
 
-### Endpoints Principais
-- `/products`: Gerenciamento de produtos
-- `/orders`: Gerenciamento de pedidos
-- `/users`: Gerenciamento de usuários
-- `/dashboard`: Métricas e estatísticas
+## Documentação complementar
+
+- `docs/contextos.md`: detalhes de AuthContext, CartContext, CarrinhoContext
+- `components/README.md`: guia rápido dos principais componentes
+- `fluxo-app.png`: fluxograma do fluxo Home → Produto → Checkout
+
+## Variáveis de ambiente
+
+- `.env.example` disponível com todas as variáveis necessárias
+- Configure URLs de API, chaves de serviços e ambiente de produção
 
 ## Contribuição
 
 1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Faça commit das suas alterações (`git commit -m 'Adiciona nova feature'`)
-4. Faça push para a branch (`git push origin feature/nova-feature`)
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Faça commit das suas alterações (`git commit -m 'Add some AmazingFeature'`)
+4. Faça push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
 ## Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Contato
+
+- Email: contato@onlywave.com.br
+- Site: https://onlywave.com.br
+- GitHub: https://github.com/onlywave
+
+---
+
+# 📦 Checklist Final de Entrega — OnlyWave Frontend
+
+## Situação Atual
+- Todas as telas prontas e 100% responsivas
+- UI consistente, polida e mobile-first
+- Estrutura modular com Context API, hooks e rotas protegidas
+
+## Etapas Restantes
+
+### 🔄 Funcionalidades & Integrações
+- [ ] Integração real com gateway de pagamento
+- [ ] Validação e fallback de CEP/frete no checkout
+- [ ] Persistência e atualização do carrinho no localStorage/context
+- [ ] Testar login/cadastro, redirecionamentos e mensagens de erro
+- [ ] Recuperação de senha (fluxo completo)
+- [ ] Atualização de perfil e histórico de pedidos na conta
+
+### 🧪 Testes & QA
+- [ ] Unitários (Jest + RTL): CartModal, ProdutoInfo, CheckoutForm
+- [ ] Cypress E2E: login → produto → carrinho → checkout → pedido
+- [ ] Testes manuais: cross-browser, mobile real, edge cases
+
+### 📄 Documentação
+- [ ] README.md com instruções, build, deploy e variáveis .env
+- [ ] contexts.md explicando AuthContext, CartContext
+- [ ] Diagrama de rotas principais
+- [ ] Comentários em trechos críticos do código
+
+### 🚀 Build Final & Deploy
+- [ ] `.env.production` com variáveis reais
+- [ ] `npm run build` e validação local
+- [ ] SEO com Lighthouse
+- [ ] Deploy (Vercel/Netlify/VPS)
+- [ ] App sem warnings/erros no console
+
+## SPRINT SUGERIDA (4 dias)
+| Dia | Foco                          | Tarefas-chave                                                 |
+|-----|-------------------------------|---------------------------------------------------------------|
+| 1   | Integrações e feedbacks UX    | Carrinho, checkout, login, loading, erros                     |
+| 2   | Testes E2E + unitários        | Cypress (checkout, login), Jest (componentes principais)      |
+| 3   | Documentação + QA manual      | README, contexts, rotas, cross-browser testing                |
+| 4   | Build final + deploy + revisão| Lighthouse, `.env.production`, deploy em ambiente real        |
+
+---
+
+## Como contribuir/testar
+- Siga o checklist acima para garantir a entrega profissional
+- Priorize testes em flows críticos (checkout, login, carrinho)
+- Documente qualquer ajuste importante
+- Dúvidas? Consulte os arquivos de contexto e o README atualizado
+
+---
+
+# 🚀 Bora lançar a OnlyWave!

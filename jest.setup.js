@@ -1,5 +1,6 @@
 // src/components/SEO/SEO.jsx
 import { useEffect } from 'react';
+import '@testing-library/jest-dom';
 
 const SEO = ({ title, description, keywords, canonicalUrl, ogImage, ogType = 'website' }) => {
   useEffect(() => {
@@ -60,3 +61,70 @@ const SEO = ({ title, description, keywords, canonicalUrl, ogImage, ogType = 'we
 };
 
 export default SEO;
+
+// Mock do localStorage
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+});
+
+// Mock do matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
+// Mock do IntersectionObserver
+class IntersectionObserver {
+  constructor() {}
+  observe() {
+    return null;
+  }
+  unobserve() {
+    return null;
+  }
+  disconnect() {
+    return null;
+  }
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserver,
+});
+
+// Mock do ResizeObserver
+class ResizeObserver {
+  constructor() {}
+  observe() {
+    return null;
+  }
+  unobserve() {
+    return null;
+  }
+  disconnect() {
+    return null;
+  }
+}
+
+Object.defineProperty(window, 'ResizeObserver', {
+  writable: true,
+  configurable: true,
+  value: ResizeObserver,
+});

@@ -261,4 +261,104 @@
   .navigationButton {
     opacity: 1;
   }
+}
+
+.carrosselContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.imagemPrincipalContainer {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.imagemPrincipal {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  cursor: zoom-in;
+}
+
+.miniaturasContainer {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: #007bff #f8f9fa;
+}
+
+.miniaturasContainer::-webkit-scrollbar {
+  height: 6px;
+}
+
+.miniaturasContainer::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 3px;
+}
+
+.miniaturasContainer::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 3px;
+}
+
+.miniatura {
+  flex: 0 0 80px;
+  height: 80px;
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.miniaturaAtiva {
+  border: 2px solid #007bff;
+}
+
+.zoomOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.zoomText {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .miniatura {
+    flex: 0 0 60px;
+    height: 60px;
+  }
+
+  .zoomOverlay {
+    display: none;
+  }
 } 

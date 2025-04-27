@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { toast } from 'react-hot-toast';
 import AdminOrderTable from '../../../components/admin/AdminOrderTable';
-import { orderService } from '../../../services/order.service';
+import orderService from '../../../services/order.service';
 import './OrdersPage.css';
 
 const OrdersPage = () => {

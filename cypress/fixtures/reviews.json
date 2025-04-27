@@ -1,0 +1,44 @@
+{
+  "reviews": [
+    {
+      "id": "1",
+      "userId": "1",
+      "productId": "1",
+      "rating": 5,
+      "comment": "Produto excelente!",
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "productId": "2",
+      "rating": 4,
+      "comment": "Produto muito bom!",
+      "createdAt": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "userId": "2",
+      "productId": "3",
+      "rating": 3,
+      "comment": "Produto bom!",
+      "createdAt": "2024-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "userId": "2",
+      "productId": "4",
+      "rating": 2,
+      "comment": "Produto regular!",
+      "createdAt": "2024-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "userId": "1",
+      "productId": "5",
+      "rating": 1,
+      "comment": "Produto ruim!",
+      "createdAt": "2024-01-05T00:00:00.000Z"
+    }
+  ]
+} 

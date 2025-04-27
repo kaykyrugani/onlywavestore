@@ -1,83 +1,178 @@
-import api from '../lib/api';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
-export type OrderStatus = 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+const API_URL = import.meta.env.VITE_API_URL;
 
-export interface OrderItem {
-  productId: string;
-  quantity: number;
-  price: number;
-}
-
-export interface Order {
+interface Order {
   id: string;
   userId: string;
-  items: OrderItem[];
+  status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
   total: number;
-  status: OrderStatus;
+  subtotal: number;
+  shipping: number;
+  discount: number;
+  paymentMethod: 'credit_card' | 'debit_card' | 'pix' | 'bank_slip';
+  shippingMethod: 'standard' | 'express';
+  shippingAddress: {
+    street: string;
+    number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
+  items: {
+    productId: string;
+    quantity: number;
+    price: number;
+    name: string;
+    image: string;
+  }[];
   createdAt: string;
   updatedAt: string;
 }
 
-export interface CreateOrderData {
-  items: OrderItem[];
-  paymentMethod: string;
-}
-
-export interface OrderResponse {
-  data: Order[];
-  pagination: {
-    total: number;
-    page: number;
-    limit: number;
-    pages: number;
+interface CreateOrderData {
+  items: {
+    productId: string;
+    quantity: number;
+  }[];
+  shippingAddress: {
+    street: string;
+    number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    state: string;
+    zipCode: string;
   };
+  paymentMethod: 'credit_card' | 'debit_card' | 'pix' | 'bank_slip';
+  shippingMethod: 'standard' | 'express';
+  couponCode?: string;
 }
 
-class OrderService {
-  async getOrders(): Promise<Order[]> {
-    const response = await api.get('/orders');
-    return response.data;
-  }
+interface UpdateOrderData {
+  status?: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  trackingCode?: string;
+}
 
-  async getOrderById(id: string): Promise<Order> {
-    const response = await api.get(`/orders/${id}`);
-    return response.data;
-  }
+interface ApiResponse<T> {
+  data: T;
+  message: string;
+}
+
+interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+const orderService = {
+  async getOrders(page = 1, limit = 10): Promise<PaginatedResponse<Order>> {
+    try {
+      const response = await axios.get<ApiResponse<PaginatedResponse<Order>>>(
+        `${API_URL}/orders`,
+        { params: { page, limit } }
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar pedidos:', error);
+      throw new Error('Não foi possível carregar os pedidos');
+    }
+  },
+
+  async getOrder(id: string): Promise<Order> {
+    try {
+      const response = await axios.get<ApiResponse<Order>>(
+        `${API_URL}/orders/${id}`
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar pedido:', error);
+      throw new Error('Não foi possível carregar o pedido');
+    }
+  },
 
   async createOrder(data: CreateOrderData): Promise<Order> {
-    const response = await api.post('/orders', data);
-    return response.data;
-  }
+    try {
+      const response = await axios.post<ApiResponse<Order>>(
+        `${API_URL}/orders`,
+        data
+      );
+      toast.success('Pedido criado com sucesso');
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao criar pedido:', error);
+      throw new Error('Não foi possível criar o pedido');
+    }
+  },
 
-  async getOrderStatus(orderId: string): Promise<{ status: OrderStatus; updatedAt: string }> {
-    const response = await api.get(`/orders/${orderId}/status`);
-    return response.data;
-  }
+  async updateOrder(id: string, data: UpdateOrderData): Promise<Order> {
+    try {
+      const response = await axios.put<ApiResponse<Order>>(
+        `${API_URL}/orders/${id}`,
+        data
+      );
+      toast.success('Pedido atualizado com sucesso');
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao atualizar pedido:', error);
+      throw new Error('Não foi possível atualizar o pedido');
+    }
+  },
 
-  async updateOrderStatus(orderId: string, status: OrderStatus): Promise<Order> {
-    const response = await api.patch(`/orders/${orderId}/status`, { status });
-    return response.data;
-  }
+  async cancelOrder(id: string): Promise<Order> {
+    try {
+      const response = await axios.put<ApiResponse<Order>>(
+        `${API_URL}/orders/${id}/cancel`
+      );
+      toast.success('Pedido cancelado com sucesso');
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao cancelar pedido:', error);
+      throw new Error('Não foi possível cancelar o pedido');
+    }
+  },
 
-  async cancelOrder(orderId: string): Promise<Order> {
-    const response = await api.post(`/orders/${orderId}/cancel`);
-    return response.data;
-  }
+  async getUserOrders(userId: string, page = 1, limit = 10): Promise<PaginatedResponse<Order>> {
+    try {
+      const response = await axios.get<ApiResponse<PaginatedResponse<Order>>>(
+        `${API_URL}/users/${userId}/orders`,
+        { params: { page, limit } }
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar pedidos do usuário:', error);
+      throw new Error('Não foi possível carregar os pedidos do usuário');
+    }
+  },
 
-  async getPaymentDetails(orderId: string): Promise<any> {
-    const response = await api.get(`/orders/${orderId}/payment`);
-    return response.data;
-  }
+  async getOrderStatus(id: string): Promise<{ status: string; trackingCode?: string }> {
+    try {
+      const response = await axios.get<ApiResponse<{ status: string; trackingCode?: string }>>(
+        `${API_URL}/orders/${id}/status`
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar status do pedido:', error);
+      throw new Error('Não foi possível carregar o status do pedido');
+    }
+  },
 
-  async generatePixPayment(orderId: string): Promise<{ qrCode: string; expirationDate: string }> {
-    const response = await api.post(`/orders/${orderId}/payment/pix`);
-    return response.data;
+  async generatePixPayment(orderId: string): Promise<{ qrCode: string }> {
+    try {
+      const response = await axios.post<ApiResponse<{ qrCode: string }>>(
+        `${API_URL}/orders/${orderId}/pix`
+      );
+      return response.data.data;
+    } catch (error) {
+      toast.error('Erro ao gerar pagamento Pix');
+      throw error;
+    }
   }
+};
 
-  async generateBoletoPayment(orderId: string): Promise<{ boletoUrl: string; expirationDate: string }> {
-    const response = await api.post(`/orders/${orderId}/payment/boleto`);
-    return response.data;
-  }
-}
-
-export default new OrderService(); 
+export default orderService; 

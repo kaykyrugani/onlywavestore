@@ -16,6 +16,7 @@
 
 .checkout-steps {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
   position: relative;
@@ -26,30 +27,27 @@
   text-align: center;
   padding: 1rem;
   color: var(--texto-secundario);
-  position: relative;
   font-weight: 500;
+  position: relative;
+  background: none;
+  z-index: 2;
 }
 
-.step::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -50%;
-  width: 100%;
+.progress-line {
+  flex: 0 0 60px;
   height: 2px;
   background-color: var(--borda);
+  margin: 0 0.5rem;
   z-index: 1;
-}
-
-.step:last-child::after {
-  display: none;
+  border-radius: 2px;
+  transition: background-color 0.3s;
 }
 
 .step.active {
   color: var(--cor-primaria);
 }
 
-.step.active::after {
+.checkout-steps .step.active + .progress-line {
   background-color: var(--cor-primaria);
 }
 
@@ -133,7 +131,6 @@ input:focus {
   cursor: not-allowed;
 }
 
-/* Métodos de entrega */
 .shipping-methods,
 .payment-methods {
   display: grid;
@@ -190,7 +187,6 @@ input:focus {
   font-weight: 600;
 }
 
-/* Resumo do pedido */
 .order-summary {
   background-color: var(--fundo);
   border-radius: 8px;
@@ -305,7 +301,6 @@ input:focus {
   background-color: var(--primaria-escura);
 }
 
-/* Responsividade */
 @media (max-width: 1024px) {
   .checkout-page {
     grid-template-columns: 1fr;
@@ -360,7 +355,6 @@ input:focus {
   }
 }
 
-/* Estados de loading e validação */
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -389,7 +383,6 @@ input:focus {
   }
 }
 
-/* Validação de campos */
 input:invalid {
   border-color: #dc3545;
 }
@@ -398,7 +391,6 @@ input:valid {
   border-color: #28a745;
 }
 
-/* Feedback visual para CEP */
 .cep-loading {
   position: relative;
 }
@@ -417,7 +409,6 @@ input:valid {
   animation: spin 1s linear infinite;
 }
 
-/* Toast personalizado */
 .toast {
   background-color: var(--fundo);
   color: var(--texto-primario);
@@ -439,10 +430,9 @@ input:valid {
   border-color: var(--cor-primaria);
 }
 
-/* Responsividade para estados de loading */
 @media (max-width: 768px) {
   .loading-spinner {
     width: 40px;
     height: 40px;
   }
-} 
+}

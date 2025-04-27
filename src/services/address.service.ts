@@ -1,8 +1,11 @@
-import api from '../lib/api';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export interface Address {
-  id: number;
-  userId: number;
+  id: string;
+  userId: string;
   street: string;
   number: string;
   complement?: string;
@@ -11,15 +14,8 @@ export interface Address {
   state: string;
   zipCode: string;
   isDefault: boolean;
-}
-
-export interface ViaCepResponse {
-  cep: string;
-  logradouro: string;
-  complemento: string;
-  bairro: string;
-  localidade: string;
-  uf: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface CreateAddressData {
@@ -33,49 +29,97 @@ export interface CreateAddressData {
   isDefault?: boolean;
 }
 
-export interface UpdateAddressData extends Partial<CreateAddressData> {}
-
-class AddressService {
-  async list(): Promise<Address[]> {
-    const response = await api.get<Address[]>('/addresses');
-    return response.data;
-  }
-
-  async getById(id: number): Promise<Address> {
-    const response = await api.get<Address>(`/addresses/${id}`);
-    return response.data;
-  }
-
-  async create(data: CreateAddressData): Promise<Address> {
-    const response = await api.post<Address>('/addresses', data);
-    return response.data;
-  }
-
-  async update(id: number, data: UpdateAddressData): Promise<Address> {
-    const response = await api.put<Address>(`/addresses/${id}`, data);
-    return response.data;
-  }
-
-  async delete(id: number): Promise<void> {
-    await api.delete(`/addresses/${id}`);
-  }
-
-  async setDefault(id: number): Promise<Address> {
-    const response = await api.put<Address>(`/addresses/${id}/default`);
-    return response.data;
-  }
-
-  async searchZipCode(zipCode: string): Promise<ViaCepResponse> {
-    const cleanZipCode = zipCode.replace(/\D/g, '');
-    const response = await fetch(`https://viacep.com.br/ws/${cleanZipCode}/json/`);
-    const data = await response.json();
-    
-    if (data.erro) {
-      throw new Error('CEP não encontrado');
-    }
-    
-    return data;
-  }
+interface UpdateAddressData {
+  street?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  isDefault?: boolean;
 }
 
-export const addressService = new AddressService(); 
+interface ApiResponse<T> {
+  data: T;
+  message: string;
+}
+
+const addressService = {
+  async getAddresses(): Promise<Address[]> {
+    try {
+      const response = await axios.get<ApiResponse<Address[]>>(
+        `${API_URL}/addresses`
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar endereços:', error);
+      throw new Error('Não foi possível carregar os endereços');
+    }
+  },
+
+  async getAddress(id: string): Promise<Address> {
+    try {
+      const response = await axios.get<ApiResponse<Address>>(
+        `${API_URL}/addresses/${id}`
+      );
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao buscar endereço:', error);
+      throw new Error('Não foi possível carregar o endereço');
+    }
+  },
+
+  async createAddress(data: CreateAddressData): Promise<Address> {
+    try {
+      const response = await axios.post<ApiResponse<Address>>(
+        `${API_URL}/addresses`,
+        data
+      );
+      toast.success('Endereço criado com sucesso');
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao criar endereço:', error);
+      throw new Error('Não foi possível criar o endereço');
+    }
+  },
+
+  async updateAddress(id: string, data: UpdateAddressData): Promise<Address> {
+    try {
+      const response = await axios.put<ApiResponse<Address>>(
+        `${API_URL}/addresses/${id}`,
+        data
+      );
+      toast.success('Endereço atualizado com sucesso');
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao atualizar endereço:', error);
+      throw new Error('Não foi possível atualizar o endereço');
+    }
+  },
+
+  async deleteAddress(id: string): Promise<void> {
+    try {
+      await axios.delete<ApiResponse<void>>(`${API_URL}/addresses/${id}`);
+      toast.success('Endereço excluído com sucesso');
+    } catch (error) {
+      console.error('Erro ao excluir endereço:', error);
+      throw new Error('Não foi possível excluir o endereço');
+    }
+  },
+
+  async setDefaultAddress(id: string): Promise<Address> {
+    try {
+      const response = await axios.put<ApiResponse<Address>>(
+        `${API_URL}/addresses/${id}/default`
+      );
+      toast.success('Endereço padrão atualizado com sucesso');
+      return response.data.data;
+    } catch (error) {
+      console.error('Erro ao definir endereço padrão:', error);
+      throw new Error('Não foi possível definir o endereço padrão');
+    }
+  }
+};
+
+export default addressService; 

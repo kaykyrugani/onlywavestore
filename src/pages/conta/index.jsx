@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import AccountHeader from '../../components/AccountHeader';
 import AccountForm from '../../components/AccountForm';
 import UserDashboard from '../../components/UserDashboard';
+import SEO from "../../components/SEO/SEO";
 import styles from './Account.module.css';
 
 const AccountPage = ({ initialTab = 'profile' }) => {
@@ -22,6 +23,7 @@ const AccountPage = ({ initialTab = 'profile' }) => {
 
   return (
     <div className={styles.accountPage}>
+      <SEO title={currentUser ? "Minha Conta" : "Entrar ou Cadastrar"} description="Acesse seu perfil, histórico de pedidos ou faça login/cadastro na OnlyWave Store." />
       <AccountHeader />
       <main className={styles.main}>
         {currentUser ? (
@@ -31,7 +33,7 @@ const AccountPage = ({ initialTab = 'profile' }) => {
         )}
       </main>
       <footer className={styles.footer}>
-        <p>© {new Date().getFullYear()} Only Wave Store. Todos os direitos reservados.</p>
+        <p> {new Date().getFullYear()} Only Wave Store. Todos os direitos reservados.</p>
       </footer>
     </div>
   );

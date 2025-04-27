@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production.environment]
+  VITE_API_URL = "https://api.onlywave.com.br"
+  VITE_STRIPE_PUBLIC_KEY = "pk_live_..."
+
+[context.deploy-preview.environment]
+  VITE_API_URL = "https://api-staging.onlywave.com.br"
+  VITE_STRIPE_PUBLIC_KEY = "pk_test_..."
+
+[context.branch-deploy.environment]
+  VITE_API_URL = "https://api-staging.onlywave.com.br"
+  VITE_STRIPE_PUBLIC_KEY = "pk_test_..." 

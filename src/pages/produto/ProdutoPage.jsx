@@ -1,109 +1,153 @@
 import React, { useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
+import useSWR from 'swr';
+import axios from 'axios';
+import { useCart } from '../../contexts/CartContext';
 import ProdutoCarrossel from '../../components/ProdutoCarrossel/ProdutoCarrossel';
 import ProdutoInfo from '../../components/ProdutoInfo/ProdutoInfo';
 import AvaliacaoModal from '../../components/AvaliacaoModal/AvaliacaoModal';
-import { useProdutos } from '../../contexts/ProdutosContext';
+import LoadingSkeleton from '../../components/LoadingSkeleton/LoadingSkeleton';
+import SEO from '../../components/SEO/SEO';
 import styles from './style.module.css';
+
+const fetcher = url => axios.get(url).then(res => res.data);
 
 const ProdutoPage = () => {
   const { id } = useParams();
-  const { buscarProdutoPorId, loading, error } = useProdutos();
-  const produto = buscarProdutoPorId(id);
+  const { addToCart } = useCart();
   const [showAvaliacaoModal, setShowAvaliacaoModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(0);
 
-  // Redireciona para página não encontrada se o produto não existir
-  if (!loading && !produto) {
+  const { data: produto, error, isLoading } = useSWR(
+    `/api/produtos/${id}`,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      dedupingInterval: 60000
+    }
+  );
+
+  if (isLoading) {
+    return <LoadingSkeleton type="produto" />;
+  }
+
+  if (error) {
+    toast.error('Erro ao carregar produto');
     return <Navigate to="/404" replace />;
   }
 
-  // Mostra loading enquanto carrega
-  if (loading) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.spinner}></div>
-        <p>Carregando produto...</p>
-      </div>
-    );
+  if (!produto) {
+    return <Navigate to="/404" replace />;
   }
 
-  // Mostra erro se houver
-  if (error) {
-    return (
-      <div className={styles.error}>
-        <p>{error}</p>
-        <button onClick={() => window.location.reload()}>Tentar novamente</button>
-      </div>
-    );
-  }
+  const imagens = produto.imagens || ['/assets/placeholder.png'];
 
-  // Prepara as imagens para o carrossel
-  // Se o produto não tiver imagem, usa uma imagem padrão
-  const imagens = produto.imagem 
-    ? Array.isArray(produto.imagem) 
-      ? produto.imagem 
-      : [produto.imagem]
-    : ['https://via.placeholder.com/400x400?text=Imagem+não+disponível'];
+  const handleAddToCart = () => {
+    addToCart(produto);
+    toast.success('Produto adicionado ao carrinho!');
+  };
 
-  // Garante que sempre haverá pelo menos uma imagem
-  if (imagens.length === 0) {
-    imagens.push('https://via.placeholder.com/400x400?text=Imagem+não+disponível');
-  }
-
-  const handleAvaliacaoSubmit = (avaliacao) => {
-    // Aqui você implementaria a lógica para salvar a avaliação
-    console.log('Avaliação submetida:', avaliacao);
-    setShowAvaliacaoModal(false);
+  const handleAvaliacaoSubmit = async (avaliacao) => {
+    try {
+      await axios.post(`/api/produtos/${id}/avaliacoes`, avaliacao);
+      toast.success('Avaliação enviada com sucesso!');
+      setShowAvaliacaoModal(false);
+    } catch (error) {
+      toast.error('Erro ao enviar avaliação');
+    }
   };
 
   return (
-    <div className={styles.produtoPage}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className={styles.produtoPage}
+    >
+      <SEO 
+        title={produto.nome ? produto.nome : 'Produto'}
+        description={produto.descricao ? produto.descricao : 'Veja detalhes do produto na OnlyWave Store.'}
+        ogImage={imagens[0]}
+        canonicalUrl={`https://onlywave.com.br/produto/${id}`}
+      />
       <main className={styles.produtoContainer}>
-        <div className={styles.produtoGrid}>
+        <motion.div 
+          className={styles.produtoGrid}
+          initial={{ y: 20 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <div className={styles.produtoCarrossel}>
-            <ProdutoCarrossel images={imagens} />
+            <ProdutoCarrossel 
+              images={imagens}
+              selectedImage={selectedImage}
+              onSelectImage={setSelectedImage}
+            />
           </div>
-          <div className={styles.produtoImagemPrincipal}>
-            <img src={imagens[0]} alt={produto.nome} />
-          </div>
-          <div className={styles.produtoInfo}>
-            <ProdutoInfo produto={produto} />
-          </div>
-        </div>
 
-        <div className={styles.produtoSections}>
+          <div className={styles.produtoInfo}>
+            <ProdutoInfo 
+              produto={produto}
+              onAddToCart={handleAddToCart}
+            />
+          </div>
+        </motion.div>
+
+        <motion.div 
+          className={styles.produtoSections}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+        >
           <section className={styles.section}>
             <h2>Descrição do Produto</h2>
-            <p>
-              Este produto excepcional combina estilo contemporâneo com conforto incomparável. 
-              Fabricado com materiais de alta qualidade, cada peça é cuidadosamente produzida 
-              para garantir durabilidade e satisfação. O design versátil se adapta perfeitamente 
-              a diferentes ocasiões, enquanto os detalhes refinados demonstram o compromisso 
-              com a excelência. Ideal para quem busca qualidade premium e estilo atemporal.
-            </p>
+            <p>{produto.descricao}</p>
           </section>
 
           <section className={styles.section}>
-            <h2>Qualidade</h2>
-            <p>Nossos produtos são fabricados com os melhores materiais, garantindo durabilidade e conforto.</p>
+            <h2>Especificações</h2>
+            <ul className={styles.especificacoes}>
+              {produto.especificacoes?.map((spec, index) => (
+                <li key={index}>
+                  <strong>{spec.nome}:</strong> {spec.valor}
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className={styles.section}>
-            <h2>Troca e Devolução</h2>
-            <p>Você tem até 30 dias para realizar a troca ou devolução do produto, desde que ele esteja em perfeito estado e com a etiqueta.</p>
+            <h2>Garantia</h2>
+            <p>{produto.garantia || 'Garantia de 30 dias contra defeitos de fabricação.'}</p>
           </section>
 
           <section className={styles.avaliacaoSection}>
-            <h2>Avaliar Produto</h2>
-            <p>Compartilhe sua experiência com outros clientes.</p>
+            <h2>Avaliações</h2>
+            <div className={styles.avaliacoesList}>
+              {produto.avaliacoes?.map((avaliacao, index) => (
+                <div key={index} className={styles.avaliacaoItem}>
+                  <div className={styles.avaliacaoHeader}>
+                    <span className={styles.avaliacaoNome}>{avaliacao.usuario}</span>
+                    <span className={styles.avaliacaoData}>
+                      {new Date(avaliacao.data).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <div className={styles.avaliacaoNota}>
+                    {'★'.repeat(avaliacao.nota)}{'☆'.repeat(5 - avaliacao.nota)}
+                  </div>
+                  <p className={styles.avaliacaoTexto}>{avaliacao.comentario}</p>
+                </div>
+              ))}
+            </div>
             <button 
-              className={styles.reviewButton}
+              className={styles.writeReviewBtn}
               onClick={() => setShowAvaliacaoModal(true)}
             >
               Escrever Avaliação
             </button>
           </section>
-        </div>
+        </motion.div>
       </main>
 
       <AvaliacaoModal
@@ -111,7 +155,7 @@ const ProdutoPage = () => {
         onClose={() => setShowAvaliacaoModal(false)}
         onSubmit={handleAvaliacaoSubmit}
       />
-    </div>
+    </motion.div>
   );
 };
 

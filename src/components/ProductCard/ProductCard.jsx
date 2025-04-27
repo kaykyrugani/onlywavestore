@@ -61,7 +61,7 @@ const ProductCard = ({ product }) => {
       id: product.id,
       name: product.nome,
       price: product.promocao ? discountedPrice : product.preco,
-      image: product.imagem || "https://via.placeholder.com/200x200",
+      image: product.imagem || "/assets/placeholder.png",
       quantity: 1
     });
   };
@@ -70,7 +70,7 @@ const ProductCard = ({ product }) => {
     <div className={styles.productCard}>
       <div className={styles.productImage}>
         <OptimizedImage 
-          src={product.imagem || "https://via.placeholder.com/200x200"} 
+          src={product.imagem || "/assets/placeholder.png"} 
           alt={product.nome}
           width="200"
           height="200"

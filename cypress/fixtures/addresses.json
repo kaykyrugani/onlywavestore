@@ -1,0 +1,40 @@
+{
+  "addresses": [
+    {
+      "id": "1",
+      "userId": "1",
+      "zipcode": "12345-678",
+      "street": "Rua Teste",
+      "number": "123",
+      "complement": "Apto 123",
+      "neighborhood": "Bairro Teste",
+      "city": "Cidade Teste",
+      "state": "SP",
+      "isDefault": true
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "zipcode": "87654-321",
+      "street": "Rua Teste 2",
+      "number": "456",
+      "complement": "Apto 456",
+      "neighborhood": "Bairro Teste 2",
+      "city": "Cidade Teste 2",
+      "state": "RJ",
+      "isDefault": false
+    },
+    {
+      "id": "3",
+      "userId": "2",
+      "zipcode": "11111-111",
+      "street": "Rua Teste 3",
+      "number": "789",
+      "complement": "Apto 789",
+      "neighborhood": "Bairro Teste 3",
+      "city": "Cidade Teste 3",
+      "state": "MG",
+      "isDefault": true
+    }
+  ]
+} 

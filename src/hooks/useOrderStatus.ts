@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import orderService, { OrderStatus } from '../services/order.service';
+import { default as orderService, OrderStatus } from '../services/order.service';
 
 export interface OrderStatusData {
   status: OrderStatus;

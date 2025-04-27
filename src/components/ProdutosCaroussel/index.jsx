@@ -119,11 +119,11 @@ const ProductCarousel = ({ products, title, categorySlug }) => {
               >
                 <div className={styles.productImage}>
                   <img 
-                    src={product.imagem || "https://via.placeholder.com/200x200"} 
+                    src={product.imagem || "/assets/placeholder.png"} 
                     alt={product.nome}
                     loading="lazy"
                     onError={(e) => {
-                      e.target.src = "https://via.placeholder.com/200x200";
+                      e.target.src = "/assets/placeholder.png";
                       e.target.alt = "Imagem indisponível";
                     }}
                   />

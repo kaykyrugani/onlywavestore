@@ -20,7 +20,7 @@ const OptimizedImage = ({ src, alt, width, height, className, ...props }) => {
   const handleError = () => {
     setError(true);
     // Use a placeholder image when the original image fails to load
-    setImageSrc('https://via.placeholder.com/200x200?text=Image+Not+Found');
+    setImageSrc('/assets/placeholder.png');
   };
 
   return (

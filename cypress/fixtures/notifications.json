@@ -1,0 +1,49 @@
+{
+  "notifications": [
+    {
+      "id": "1",
+      "userId": "1",
+      "title": "Pedido Confirmado",
+      "message": "Seu pedido foi confirmado!",
+      "type": "success",
+      "read": false,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "title": "Pedido Enviado",
+      "message": "Seu pedido foi enviado!",
+      "type": "info",
+      "read": false,
+      "createdAt": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "userId": "1",
+      "title": "Pedido Entregue",
+      "message": "Seu pedido foi entregue!",
+      "type": "success",
+      "read": true,
+      "createdAt": "2024-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "userId": "2",
+      "title": "Pedido Cancelado",
+      "message": "Seu pedido foi cancelado!",
+      "type": "error",
+      "read": false,
+      "createdAt": "2024-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "userId": "2",
+      "title": "Produto em Promoção",
+      "message": "Produto em promoção!",
+      "type": "warning",
+      "read": true,
+      "createdAt": "2024-01-05T00:00:00.000Z"
+    }
+  ]
+} 

@@ -6,7 +6,7 @@ import {
   Paper,
   TextField,
   Button,
-  Grid,
+  Grid, // Corrigido
   IconButton,
   Dialog,
   DialogTitle,
@@ -21,14 +21,16 @@ import {
   InputAdornment
 } from '@mui/material';
 import { useAuth } from '../../../contexts/AuthContext';
-import { addressService, Address, CreateAddressData } from '../../../services/address.service';
-import { userService } from '../../../services/user.service';
+import type { Address, CreateAddressData } from '../../../services/address.service';
+import addressService from '../../../services/address.service';
+import userService from '../../../services/user.service';
 import toast from 'react-hot-toast';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import SearchIcon from '@mui/icons-material/Search';
+import type { User } from '../../../types/user';
 
 const ProfilePage: React.FC = () => {
   const { user, updateUser } = useAuth();
@@ -58,10 +60,19 @@ const ProfilePage: React.FC = () => {
     loadAddresses();
   }, []);
 
+  // Ajustar métodos para refletir assinatura correta dos serviços
+  // addressService.list -> addressService.getAddresses
+  // addressService.searchZipCode -> implementar ou remover
+  // addressService.update -> addressService.updateAddress
+  // addressService.create -> addressService.createAddress
+  // addressService.delete -> addressService.deleteAddress
+  // addressService.setDefault -> addressService.setDefaultAddress
+  // userService.update -> userService.updateProfile
+
   const loadAddresses = async () => {
     try {
       setLoading(true);
-      const data = await addressService.list();
+      const data = await addressService.getAddresses(); // Corrigido
       setAddresses(data);
     } catch (err) {
       setError('Erro ao carregar endereços');
@@ -79,14 +90,15 @@ const ProfilePage: React.FC = () => {
 
     setSearchingZipCode(true);
     try {
-      const data = await addressService.searchZipCode(formData.zipCode);
-      setFormData(prev => ({
-        ...prev,
-        street: data.logradouro,
-        neighborhood: data.bairro,
-        city: data.localidade,
-        state: data.uf
-      }));
+      // Implementar ou remover addressService.searchZipCode
+      // const data = await addressService.searchZipCode(formData.zipCode);
+      // setFormData(prev => ({
+      //   ...prev,
+      //   street: data.logradouro,
+      //   neighborhood: data.bairro,
+      //   city: data.localidade,
+      //   state: data.uf
+      // }));
     } catch (err) {
       toast.error('CEP não encontrado');
     } finally {
@@ -98,10 +110,10 @@ const ProfilePage: React.FC = () => {
     e.preventDefault();
     try {
       if (editingAddress) {
-        await addressService.update(editingAddress.id, formData);
+        await addressService.updateAddress(editingAddress.id, formData); // Corrigido
         toast.success('Endereço atualizado com sucesso');
       } else {
-        await addressService.create(formData);
+        await addressService.createAddress(formData); // Corrigido
         toast.success('Endereço adicionado com sucesso');
       }
       setOpenDialog(false);
@@ -116,7 +128,7 @@ const ProfilePage: React.FC = () => {
     if (!window.confirm('Tem certeza que deseja excluir este endereço?')) return;
 
     try {
-      await addressService.delete(id);
+      await addressService.deleteAddress(id); // Corrigido
       toast.success('Endereço removido com sucesso');
       loadAddresses();
     } catch (err) {
@@ -126,7 +138,7 @@ const ProfilePage: React.FC = () => {
 
   const handleSetDefault = async (id: number) => {
     try {
-      await addressService.setDefault(id);
+      await addressService.setDefaultAddress(id); // Corrigido
       toast.success('Endereço padrão atualizado');
       loadAddresses();
     } catch (err) {
@@ -138,8 +150,8 @@ const ProfilePage: React.FC = () => {
     e.preventDefault();
     setUpdatingProfile(true);
     try {
-      const updatedUser = await userService.update(user!.id, userData);
-      updateUser(updatedUser);
+      const updatedUser = await userService.updateProfile(user!.id, userData); // Corrigido
+      updateUser(updatedUser); // Ajustar no AuthContextData
       toast.success('Perfil atualizado com sucesso');
     } catch (err) {
       toast.error('Erro ao atualizar perfil');
@@ -193,9 +205,9 @@ const ProfilePage: React.FC = () => {
 
   return (
     <Container maxWidth="lg">
-      <Grid container spacing={4}>
+      <Grid container spacing={4} component="div"> // Ajustado
         {/* Perfil */}
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} component="div"> // Ajustado
           <Paper sx={{ p: 3 }}>
             <Typography variant="h6" gutterBottom>
               Meu Perfil
@@ -230,7 +242,7 @@ const ProfilePage: React.FC = () => {
         </Grid>
 
         {/* Endereços */}
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={8} component="div"> // Ajustado
           <Paper sx={{ p: 3 }}>
             <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
               <Typography variant="h6">
@@ -255,9 +267,9 @@ const ProfilePage: React.FC = () => {
                 Você ainda não cadastrou nenhum endereço
               </Typography>
             ) : (
-              <Grid container spacing={2}>
+              <Grid container spacing={2} component="div"> // Ajustado
                 {addresses.map((address) => (
-                  <Grid item xs={12} key={address.id}>
+                  <Grid item xs={12} key={address.id} component="div"> // Ajustado
                     <Paper variant="outlined" sx={{ p: 2 }}>
                       <Box display="flex" justifyContent="space-between" alignItems="flex-start">
                         <Box>
@@ -325,8 +337,8 @@ const ProfilePage: React.FC = () => {
         </DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+            <Grid container spacing={2} component="div"> // Ajustado
+              <Grid item xs={12} sm={6} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="CEP"
@@ -350,7 +362,7 @@ const ProfilePage: React.FC = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="Rua"
@@ -358,7 +370,7 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, street: e.target.value }))}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="Número"
@@ -366,7 +378,7 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, number: e.target.value }))}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="Complemento"
@@ -374,7 +386,7 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, complement: e.target.value }))}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="Bairro"
@@ -382,7 +394,7 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, neighborhood: e.target.value }))}
                 />
               </Grid>
-              <Grid item xs={12} sm={8}>
+              <Grid item xs={12} sm={8} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="Cidade"
@@ -390,7 +402,7 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, city: e.target.value }))}
                 />
               </Grid>
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4} component="div"> // Ajustado
                 <TextField
                   fullWidth
                   label="Estado"
@@ -398,7 +410,7 @@ const ProfilePage: React.FC = () => {
                   onChange={(e) => setFormData(prev => ({ ...prev, state: e.target.value }))}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} component="div"> // Ajustado
                 <FormControlLabel
                   control={
                     <Switch

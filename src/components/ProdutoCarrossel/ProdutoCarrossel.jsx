@@ -1,128 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ProdutoCarrossel.module.css';
-import ProdutoZoom from '../ProdutoZoom/ProdutoZoom';
 
-const ProdutoCarrossel = ({ images = [] }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+const ProdutoCarrossel = ({ images, selectedImage, onSelectImage }) => {
   const [isZoomed, setIsZoomed] = useState(false);
-  const [loadedImages, setLoadedImages] = useState([]);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Pré-carrega as imagens
-  useEffect(() => {
-    const preloadImages = async () => {
-      const loadPromises = images.map((src) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = () => resolve(src);
-          img.onerror = () => resolve(null);
-        });
-      });
+  const handleMouseMove = (e) => {
+    if (!isZoomed) return;
 
-      const loaded = await Promise.all(loadPromises);
-      setLoadedImages(loaded.filter(Boolean));
-    };
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - left) / width;
+    const y = (e.clientY - top) / height;
 
-    preloadImages();
-  }, [images]);
+    setMousePosition({ x, y });
+  };
 
-  const handleThumbnailClick = (index) => {
-    if (isAnimating || index === currentIndex) return;
-    setIsAnimating(true);
-    setCurrentIndex(index);
+  const handleMouseEnter = () => {
+    setIsZoomed(true);
+  };
+
+  const handleMouseLeave = () => {
     setIsZoomed(false);
-    setTimeout(() => setIsAnimating(false), 300);
   };
-
-  const handlePrevClick = () => {
-    if (isAnimating || isZoomed || images.length <= 1) return;
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-    setIsZoomed(false);
-    setTimeout(() => setIsAnimating(false), 300);
-  };
-
-  const handleNextClick = () => {
-    if (isAnimating || isZoomed || images.length <= 1) return;
-    setIsAnimating(true);
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    setIsZoomed(false);
-    setTimeout(() => setIsAnimating(false), 300);
-  };
-
-  const handleZoomChange = (zoomed) => {
-    setIsZoomed(zoomed);
-  };
-
-  if (loadedImages.length === 0) {
-    return (
-      <div className={styles.produtoCarrossel}>
-        <div className={styles.mainImageContainer}>
-          <div className={styles.placeholder}>
-            <div className={styles.spinner}></div>
-            <p>Carregando imagens...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
-    <div className={styles.produtoCarrossel}>
-      {loadedImages.length > 1 && (
-        <div className={styles.thumbnailsContainer}>
-          {loadedImages.map((image, index) => (
-            <button
-              key={index}
-              className={`${styles.thumbnailButton} ${index === currentIndex ? styles.active : ''}`}
-              onClick={() => handleThumbnailClick(index)}
-              aria-label={`Ver imagem ${index + 1} do produto`}
-              disabled={isZoomed}
-            >
-              <img
-                src={image}
-                alt={`Miniatura ${index + 1}`}
-                className={styles.thumbnail}
-                loading="lazy"
-              />
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className={styles.mainImageContainer}>
-        {loadedImages.length > 1 && (
-          <button 
-            className={`${styles.navigationButton} ${styles.prevButton}`}
-            onClick={handlePrevClick}
-            disabled={isZoomed}
-            aria-label="Imagem anterior"
-          >
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
-        )}
-
-        <ProdutoZoom 
-          imageUrl={loadedImages[currentIndex]}
-          alt={`Imagem ${currentIndex + 1} do produto`}
-          onZoomChange={handleZoomChange}
-          isAnimating={isAnimating}
+    <div className={styles.carrosselContainer}>
+      <div className={styles.imagemPrincipalContainer}>
+        <motion.div
+          className={styles.imagemPrincipal}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            backgroundImage: `url(${images[selectedImage]})`,
+            backgroundPosition: isZoomed
+              ? `${mousePosition.x * 100}% ${mousePosition.y * 100}%`
+              : 'center',
+            backgroundSize: isZoomed ? '200%' : 'cover'
+          }}
         />
-
-        {loadedImages.length > 1 && (
-          <button 
-            className={`${styles.navigationButton} ${styles.nextButton}`}
-            onClick={handleNextClick}
-            disabled={isZoomed}
-            aria-label="Próxima imagem"
-          >
-            <FontAwesomeIcon icon={faChevronRight} />
-          </button>
-        )}
       </div>
+
+      <div className={styles.miniaturasContainer}>
+        {images.map((image, index) => (
+          <motion.button
+            key={index}
+            className={`${styles.miniatura} ${
+              index === selectedImage ? styles.miniaturaAtiva : ''
+            }`}
+            onClick={() => onSelectImage(index)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <img src={image} alt={`Miniatura ${index + 1}`} />
+          </motion.button>
+        ))}
+      </div>
+
+      <AnimatePresence>
+        {isZoomed && (
+          <motion.div
+            className={styles.zoomOverlay}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className={styles.zoomText}>
+              Mova o mouse para zoom
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

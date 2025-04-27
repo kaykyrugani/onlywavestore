@@ -82,7 +82,7 @@ const InformacoesPage = () => {
               {sections.map(section => (
                 <li key={section.id}>
                   <Link 
-                    to={`/informacoes/${section.id}`}
+                    to="/informacoes"
                     className={`${styles.sidebarLink} ${activeSection === section.id ? styles.activeLink : ''}`}
                     onClick={() => setActiveSection(section.id)}
                   >

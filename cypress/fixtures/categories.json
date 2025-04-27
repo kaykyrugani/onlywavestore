@@ -1,0 +1,32 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Surf",
+      "slug": "surf",
+      "description": "Produtos para surf",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": "2",
+      "name": "Acessórios",
+      "slug": "acessorios",
+      "description": "Acessórios para surf",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": "3",
+      "name": "Roupas",
+      "slug": "roupas",
+      "description": "Roupas para surf",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": "4",
+      "name": "Equipamentos",
+      "slug": "equipamentos",
+      "description": "Equipamentos para surf",
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+} 

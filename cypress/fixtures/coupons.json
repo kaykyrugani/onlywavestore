@@ -1,0 +1,40 @@
+{
+  "coupons": [
+    {
+      "id": "1",
+      "code": "SURF10",
+      "discount": 10,
+      "type": "percentage",
+      "minValue": 100,
+      "maxDiscount": 100,
+      "expiresAt": "2024-12-31T23:59:59.999Z"
+    },
+    {
+      "id": "2",
+      "code": "SURF20",
+      "discount": 20,
+      "type": "percentage",
+      "minValue": 200,
+      "maxDiscount": 200,
+      "expiresAt": "2024-12-31T23:59:59.999Z"
+    },
+    {
+      "id": "3",
+      "code": "SURF50",
+      "discount": 50,
+      "type": "fixed",
+      "minValue": 500,
+      "maxDiscount": 50,
+      "expiresAt": "2024-12-31T23:59:59.999Z"
+    },
+    {
+      "id": "4",
+      "code": "SURF100",
+      "discount": 100,
+      "type": "fixed",
+      "minValue": 1000,
+      "maxDiscount": 100,
+      "expiresAt": "2024-12-31T23:59:59.999Z"
+    }
+  ]
+} 

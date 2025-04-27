@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { authService, LoginCredentials, RegisterData, AuthResponse } from '../services/auth.service';
+import authService, { LoginCredentials, RegisterData, AuthResponse } from '../services/auth.service';
 
 export function useAuth() {
   const [user, setUser] = useState<AuthResponse['user'] | null>(() => authService.getUser());

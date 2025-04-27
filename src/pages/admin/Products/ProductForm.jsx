@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaSave, FaTimes, FaTrash, FaUpload, FaArrowUp, FaArrowDown, FaPlay } from 'react-icons/fa';
 import { uploadService } from '../../../services/upload.service';
-import { productService } from '../../../services/product.service';
+import productService from '../../../services/product.service';
 import toast from 'react-hot-toast';
 import './ProductForm.css';
 import { TextField, Button, Grid, Typography, Box, IconButton } from '@mui/material';

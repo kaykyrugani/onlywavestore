@@ -130,7 +130,7 @@
   justify-content: center;
   display: flex;
   align-items: center;
-  gap: 240px;
+  gap: clamp(32px, 8vw, 240px);
   width: 100%;
   padding: 0 140px;
   z-index: 16;
@@ -140,66 +140,79 @@
 .iconsBusca {
   display: flex;
   align-items: center;
-  gap: 16px; /* Espaçamento entre os ícones */
+  gap: 16px;
   color: var(--cor-primaria);
-  z-index: 17; /* Certifique-se de que os ícones fiquem acima da barra de pesquisa */
+  z-index: 17;
+  height: 32px;
 }
 
 .userIconWrapper {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  width: 32px;
+  height: 32px;
 }
 
 .userIcon {
-  font-size: 26px;
+  font-size: 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  max-height: 32px;
   cursor: pointer;
   transition: transform 0.3s ease;
-}
-
-.userIconWrapper:hover .userIcon {
-  transform: scale(1.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cartIconWrapper {
   position: relative;
   cursor: pointer;
-  padding: 5px;
-  padding-bottom: 15px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cartIcon {
-  transform: translateY(5px);
-  font-size: 28px;
+  font-size: 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  max-height: 32px;
   transition: transform 0.3s ease;
   color: var(--cor-primaria);
-}
-
-.cartIconWrapper:hover .cartIcon {
-  transform: scale(1.1);
-  color: var(--cor-primaria);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cartCount {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -10px;
+  right: -10px;
   background-color: var(--cor-primaria);
   color: white;
   font-size: 14px;
   font-weight: bold;
-  min-width: 28px;
-  height: 28px;
-  border-radius: 14px;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 6px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-}
-
-.cartIconWrapper:hover .cartCount {
-  transform: scale(1.1);
+  z-index: 2;
 }
 
 /* Estilos para o Navbar */
@@ -415,15 +428,15 @@
   position: absolute;
   top: 100%;
   right: 0;
-  width: 320px;
+  width: 312px;
   background-color: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: 0 4px 15px var(--sombra);
+  border-radius: 6px;
+  box-shadow: 0 4px 13px var(--sombra);
   z-index: 100;
   overflow: hidden;
   animation: slideDown 0.3s ease-in-out;
-  padding-top: 10px;
-  margin-top: 5px;
+  padding-top: 8px;
+  margin-top: 3px;
 }
 
 @keyframes slideDown {
@@ -441,7 +454,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 15px;
+  padding: 10px 13px;
   border-bottom: 1px solid var(--borda);
 }
 
@@ -465,21 +478,21 @@
 }
 
 .miniCartItems {
-  max-height: 300px;
+  max-height: 292px;
   overflow-y: auto;
-  padding: 0 15px;
+  padding: 0 13px;
 }
 
 .miniCartItem {
   display: flex;
-  padding: 12px 0;
+  padding: 11px 0;
   border-bottom: 1px solid var(--borda);
 }
 
 .miniCartItemImage {
-  width: 60px;
-  height: 60px;
-  margin-right: 12px;
+  width: 58px;
+  height: 58px;
+  margin-right: 11px;
 }
 
 .miniCartItemImage img {
@@ -494,14 +507,14 @@
 }
 
 .miniCartItemDetails h5 {
-  margin: 0 0 4px;
+  margin: 0 0 3px;
   font-size: 14px;
   font-weight: 500;
   color: var(--texto-primario);
 }
 
 .miniCartItemSize {
-  margin: 0 0 4px;
+  margin: 0 0 3px;
   font-size: 12px;
   color: var(--texto-secundario);
 }
@@ -510,7 +523,8 @@
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  color: var(--texto-primario);
+  color: var(--texto-primaria);
+  gap: 7px;
 }
 
 .miniCartItemPrice span:first-child {
@@ -526,7 +540,7 @@
 }
 
 .miniCartFooter {
-  padding: 15px;
+  padding: 8px 10px;
   border-top: 1px solid var(--borda);
   background-color: var(--contraste);
 }
@@ -534,25 +548,58 @@
 .miniCartTotal {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-weight: bold;
   color: var(--texto-primario);
 }
 
 .miniCartCheckout {
-  width: 100%;
-  padding: 10px;
-  background-color: var(--cor-primaria);
-  color: white;
+  font-size: 1rem;
+  padding: 4px 0;
+  width: 88%;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: var(--primary-color);
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   font-weight: bold;
+  transition: background 0.2s;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .miniCartCheckout:hover {
   opacity: 0.9;
+}
+
+.miniCartItemActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.miniCartItemDetails h5 {
+  margin-bottom: 2px;
+  font-size: 1rem;
+}
+
+.miniCartItemPrice {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.miniCartItemSize {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.miniCartItemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 /* Adicionar após os estilos existentes do mini cart */
@@ -677,10 +724,30 @@
   animation: cartBump 0.4s ease-in-out;
 }
 
-@media (max-width: 1350px) {
+
+
+@media (max-width: 1351px) {
   .buscaHeader {
-    padding: 0 100px;
-    gap: 72px;
+    gap: clamp(8px, 4vw, 80px);
+    padding: 0 32px;
+  }
+}
+
+@media (max-width: 1250px) {
+  .userIconWrapper,
+  .cartIconWrapper {
+    width: 30px;
+    height: 30px;
+  }
+  .userIcon,
+  .cartIcon {
+    font-size: 30px !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
   }
 }
 
@@ -704,6 +771,21 @@
 }
 
 @media (max-width: 750px) {
+  .userIconWrapper,
+  .cartIconWrapper {
+    width: 26px;
+    height: 26px;
+  }
+  .userIcon,
+  .cartIcon {
+    font-size: 26px !important;
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px;
+    min-height: 26px;
+    max-width: 26px;
+    max-height: 26px;
+  }
   .buscaHeader {
     padding: 0 16px;
     gap: 12px;

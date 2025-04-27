@@ -40,7 +40,7 @@ const ProdutoZoom = ({ imageUrl, alt, onZoomChange, isAnimating }) => {
     img.onerror = () => {
       setImageLoaded(true);
       setLoadError(true);
-      setImageSrc('https://via.placeholder.com/400x400?text=Erro+ao+carregar+imagem');
+      setImageSrc('/assets/placeholder.png');
     };
     
     return () => {

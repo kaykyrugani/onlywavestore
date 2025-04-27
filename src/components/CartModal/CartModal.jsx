@@ -46,6 +46,8 @@ const CartModal = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={closeCart}
+        role="presentation"
+        aria-label="Fundo do modal do carrinho"
       >
         <motion.div
           className="cart-modal"
@@ -54,76 +56,48 @@ const CartModal = () => {
           exit={{ x: '100%' }}
           transition={{ type: 'tween' }}
           onClick={e => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Carrinho de compras"
         >
           <div className="cart-modal-header">
-            <h2>Carrinho ({getTotalItems()} itens)</h2>
-            <button onClick={closeCart} className="close-button">
+            <h2 id="cart-modal-title">Carrinho ({getTotalItems()} itens)</h2>
+            <button onClick={closeCart} className="close-button" aria-label="Fechar carrinho">
               ×
             </button>
           </div>
-
-          <div className="cart-modal-items">
+          <div className="cart-modal-content" tabIndex={0} aria-labelledby="cart-modal-title">
             {cartItems.length === 0 ? (
-              <div className="empty-cart">
-                <p>Seu carrinho está vazio</p>
-                <button onClick={closeCart}>Continuar Comprando</button>
-              </div>
+              <p aria-live="polite">Seu carrinho está vazio.</p>
             ) : (
-              <>
+              <ul aria-label="Lista de itens no carrinho">
                 {cartItems.map((item) => (
-                  <motion.div
-                    key={`${item.id}-${item.size}`}
-                    className="cart-item"
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                  >
-                    <img src={item.image} alt={item.name} />
-                    <div className="item-details">
-                      <h3>{item.name}</h3>
-                      <p>Tamanho: {item.size}</p>
-                      <p className="price">{formatCurrency(item.price)}</p>
+                  <li key={item.id} aria-label={`Produto: ${item.name}, quantidade: ${item.quantity}`} tabIndex={0}>
+                    <div className="cart-item-info">
+                      <span>{item.name}</span>
+                      <span>{formatCurrency(item.price)}</span>
                     </div>
-                    <div className="item-actions">
-                      <div className="quantity-controls">
-                        <button onClick={() => handleDecrement(item)}>-</button>
-                        <span>{item.quantity}</span>
-                        <button onClick={() => handleIncrement(item)}>+</button>
-                      </div>
-                      <button 
-                        onClick={() => handleRemove(item)}
-                        className="remove-button"
-                      >
-                        Remover
-                      </button>
+                    <div className="cart-item-actions" role="group" aria-label="Ações do produto no carrinho">
+                      <button onClick={() => handleDecrement(item)} aria-label={`Diminuir quantidade de ${item.name}`}>-</button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => handleIncrement(item)} aria-label={`Aumentar quantidade de ${item.name}`}>+</button>
+                      <button onClick={() => handleRemove(item)} aria-label={`Remover ${item.name} do carrinho`}>Remover</button>
                     </div>
-                  </motion.div>
+                  </li>
                 ))}
-              </>
+              </ul>
             )}
           </div>
-
-          {cartItems.length > 0 && (
-            <div className="cart-modal-footer">
-              <div className="cart-total">
-                <span>Total:</span>
-                <span className="total-price">
-                  {formatCurrency(getTotal())}
-                </span>
-              </div>
-              <button 
-                onClick={handleCheckout}
-                className="checkout-button"
-              >
-                Finalizar Compra
-              </button>
-            </div>
-          )}
+          <div className="cart-modal-footer">
+            <span aria-label="Valor total do carrinho">Total: {formatCurrency(getTotal())}</span>
+            <button onClick={handleCheckout} aria-label="Finalizar compra" disabled={cartItems.length === 0}>
+              Finalizar Compra
+            </button>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
   );
 };
 
-export default CartModal; 
+export default CartModal;
